@@ -6,34 +6,49 @@
 </div>
 <div class="row">
     <div class="span3">
-        <?php View::partial('backend/menus/usuarios') ?>
+        <?php //KumbiaPHP\View\View::partial('backend/menus/usuarios') ?>
     </div>
     <div class="span8 span-derecho">
-        <div id="res-form-ajax"><?php View::content() ?></div>
-        <?php echo Ajax::form('res-form-ajax', NULL, 'form-horizontal') ?>
-        <?php //echo Form::open(NULL, 'post', 'class="form-horizontal"') ?>
-        <?php echo Form::hidden('usuario.id') ?>
+       <div id="res-form-ajax">
+            <?php KumbiaPHP\View\View::content(true) ?>
+            <?php KumbiaPHP\View\View::partial('K2\Backend:form_errors', FALSE, array('form' => $form)) ?>
+        </div>
+        <?php echo $form->open(array('class' => 'form-horizontal')) ?>
         <div class="control-group">
-            <label class="control-label" for="usuario_roles_id">Roles del Usuario* : </label><br/><br/>
+            <label class="control-label" for="usuario_login"><?php echo $form['login']['label'] ?>* :</label>
             <div class="controls">
-                <?php //echo Form::dbSelect('usuario.roles_id', 'rol','') ?>
-                <ul>
-                    <?php foreach ($roles as $e): ?>
-                        <li><?php echo Form::check("rolesUser.$e->id", $e->id), ' ', h($e->rol) ?></li>
-                    <?php endforeach; ?>
-                    </ul>
-                </div>
+                <?php echo $form['login'] ?>
+                <?php //echo Form::text('usuario.login') ?>
             </div>
-            <div class="control-group">
-                <label class="control-label" for="usuario_activo">Activo : </label>
-                <div class="controls">
-                <?php echo Form::select('usuario.activo', array('1' => 'Si', '0' => 'No')) ?>
-                    </div>
-                </div>
-                <div class="form-actions">
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="usuario_nombres"><?php echo $form['nombres']['label'] ?>* :</label>
+            <div class="controls">
+                <?php echo $form['nombres'] ?>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="usuario_email"><?php echo $form['email']['label'] ?>* :</label>
+            <div class="controls">
+                <?php echo $form['email'] ?>
+            </div>
+        </div>
+        <!--        <div class="control-group">
+                    <label class="control-label" for="usuario_roles_id">Roles del Usuario* : </label><br/><br/>
+                    <div class="controls">
+        <?php //echo Form::dbSelect('usuario.roles_id', 'rol','') ?>
+                        <ul>
+        <?php /* foreach ($roles as $e): ?>
+          <li><?php echo Form::check("rolesUser.$e->id", $e->id), ' ', h($e->rol) ?></li>
+          <?php endforeach; */ ?>
+                            </ul>
+                        </div>
+                    </div>-->
+        <div class="form-actions">
             <?php echo Form::submit('Guardar Datos', 'class="btn btn-primary"') ?>
             <?php echo Html::linkAction('', 'Cancelar', 'class="btn"') ?>
-                    </div>
-        <?php echo Form::close() ?>
+        </div>
+        <?php //echo Form::close() ?>
+        <?php echo $form->close() ?>
     </div>
 </div>

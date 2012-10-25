@@ -35,4 +35,15 @@ class Usuario extends Form
                 ->required();
     }
 
+    public function prepareForCreate()
+    {
+        $this['clave'] = '';
+        $this['clave2'] = '';
+    }
+
+    public function prepareForEdit()
+    {
+        unset($this['clave'], $this['clave2']);
+    }
+
 }

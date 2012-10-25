@@ -14,6 +14,18 @@ use KumbiaPHP\ActiveRecord\Validation\ValidationBuilder;
 class Usuarios extends ActiveRecord implements UserInterface
 {
 
+    public function initialize()
+    {
+        $this->hasAndBelongsToMany('K2\\Backend\\Model\\Roles'
+                , 'K2\\Backend\\Model\\RolesUsuarios'
+                , 'roles_id', 'usuarios_id');
+        
+        static::$relations['hola'] = 'd';
+        
+        var_dump(static::$relations, isset(static::$relations['hola']['manuel']));
+        die;
+    }
+
     protected function validations(ValidationBuilder $builder)
     {
         $builder->notNull('login', array(
@@ -24,7 +36,7 @@ class Usuarios extends ActiveRecord implements UserInterface
 
     public function auth(\KumbiaPHP\Security\Auth\User\UserInterface $user)
     {
-        return TRUE;// crypt($user->getPassword()) === $this->getPassword();
+        return TRUE; // crypt($user->getPassword()) === $this->getPassword();
     }
 
     public function getPassword()

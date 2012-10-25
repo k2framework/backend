@@ -35,26 +35,26 @@ class UsuariosController extends Controller
      * Cambio de los datos personales de usuario.
      * 
      */
-//    public function perfil()
-//    {
-//        try {
-//            $usr = new Usuarios();
-//            $this->usuario1 = $usr->find_first(Auth::get('id'));
-//            if (Input::hasPost('usuario1')) {
-//                if ($usr->update(Input::post('usuario1'))) {
-//                    Flash::valid('Datos Actualizados Correctamente');
-//                    $this->usuario1 = $usr;
-//                }
-//            } else if (Input::hasPost('usuario2')) {
-//                if ($usr->cambiarClave(Input::post('usuario2'))) {
-//                    Flash::valid('Clave Actualizada Correctamente');
-//                    $this->usuario1 = $usr;
-//                }
-//            }
-//        } catch (KumbiaException $e) {
-//            View::excepcion($e);
-//        }
-//    }
+    public function perfil()
+    {
+        try {
+            $usr = new Usuarios();
+            $this->usuario1 = $usr->find_first(Auth::get('id'));
+            if (Input::hasPost('usuario1')) {
+                if ($usr->update(Input::post('usuario1'))) {
+                    Flash::valid('Datos Actualizados Correctamente');
+                    $this->usuario1 = $usr;
+                }
+            } else if (Input::hasPost('usuario2')) {
+                if ($usr->cambiarClave(Input::post('usuario2'))) {
+                    Flash::valid('Clave Actualizada Correctamente');
+                    $this->usuario1 = $usr;
+                }
+            }
+        } catch (KumbiaException $e) {
+            View::excepcion($e);
+        }
+    }
 
     /**
      * Crea un usuario desde el backend.
@@ -62,6 +62,8 @@ class UsuariosController extends Controller
     public function crear()
     {
         $this->form = new Form(new Usuarios());
+        
+        $this->form->prepareForCreate();
 
         if ($this->getRequest()->isMethod('POST')) {
             if ($this->form->bindRequest($this->getRequest())->isValid()) {
@@ -83,44 +85,37 @@ class UsuariosController extends Controller
      */
     public function editar($id)
     {
-//        try {
-//
-//            $id = (int) $id;
-//
-//            $usr = new Usuarios();
-//
-//            $this->usuario = $usr->find_first($id);
-//
-//            if ($this->usuario) {// verificamos la existencia del usuario
-//                //obtenemos los roles que tiene el usuario
-//                //para mostrar los checks seleccionados para estos roles.
-//                $this->rolesUser = $usr->rolesUserIds();
-//
-//                //obtenemos los roles con los que se crearán los checks.
-//                $this->roles = Load::model('admin/roles')->find_all_by_activo(1);
-//
-//                if (Input::hasPost('usuario')) {
-//
-//                    //guarda los datos del usuario, y le asigna los roles 
-//                    //seleccionados en el formulario.
-//                    if ($usr->guardar(Input::post('usuario'), Input::post('rolesUser'))) {
-//                        Flash::valid('El Usuario Ha Sido Actualizado Exitosamente...!!!');
-//                        if (!Input::isAjax()) {
-//                            return Router::redirect();
-//                        }
-//                    } else {
-//                        Flash::warning('No se Pudieron Guardar los Datos...!!!');
-//                    }
-//                }
-//            } else {
-//                Flash::warning("No existe ningun usuario con id '{$id}'");
-//                if (!Input::isAjax()) {
-//                    return Router::redirect();
-//                }
-//            }
-//        } catch (KumbiaException $e) {
-//            View::excepcion($e);
-//        }
+        $usr = new Usuarios();
+
+        $this->usuario = $usr->findByPK((int) $id);
+
+        if (!$this->usuario) {
+            $this->renderNotFound("No existe ningun usuario con id '{$id}'");
+        }
+        
+        //obtenemos los roles que tiene el usuario
+        //para mostrar los checks seleccionados para estos roles.
+//        $this->rolesUser = $usr->rolesUserIds();
+
+        //obtenemos los roles con los que se crearán los checks.
+//        $this->roles = Load::model('admin/roles')->find_all_by_activo(1);
+        
+        $this->form = new Form($this->usuario);
+        
+        $this->form->prepareForEdit();
+
+        if ($this->getRequest()->isMethod('POST')) {
+            if ($this->form->bindRequest($this->getRequest())->isValid()) {
+                if ($this->form->getData()->save()) {
+                    $this->get('flash')->success('El Usuario Ha Sido Actualizado Exitosamente...!!!');
+                    if (!$this->getRequest()->isAjax()) {
+                        return $this->getRouter()->toAction();
+                    }
+                } else {
+                    $this->get('flash')->warning('No se Pudieron Guardar los Datos...!!!');
+                }
+            }
+        }
     }
 
     /**
