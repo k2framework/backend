@@ -14,16 +14,9 @@ use KumbiaPHP\ActiveRecord\Validation\ValidationBuilder;
 class Usuarios extends ActiveRecord implements UserInterface
 {
 
-    public function initialize()
+    public function createRelations()
     {
-        $this->hasAndBelongsToMany('K2\\Backend\\Model\\Roles'
-                , 'K2\\Backend\\Model\\RolesUsuarios'
-                , 'roles_id', 'usuarios_id');
-        
-        static::$relations['hola'] = 'd';
-        
-        var_dump(static::$relations, isset(static::$relations['hola']['manuel']));
-        die;
+        //$this->hasAndBelongsToMany('K2\\Backend\\Model\\Roles');
     }
 
     protected function validations(ValidationBuilder $builder)

@@ -1,16 +1,15 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+namespace K2\Backend\Model;
+
+use KumbiaPHP\ActiveRecord\ActiveRecord;
 
 /**
  * Description of Roles
  *
  * @author maguirre
  */
-class Roles
+class Roles extends ActiveRecord
 {
     //put your code here
 }

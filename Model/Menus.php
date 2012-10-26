@@ -14,7 +14,7 @@ class Menus extends ActiveRecord
 
     protected function initialize()
     {
-        $this->hasOne('K2\\Backend\\Model\\Recursos');
+        
     }
 
 }
