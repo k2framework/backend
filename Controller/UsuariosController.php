@@ -27,8 +27,7 @@ class UsuariosController extends Controller
 
     public function index($pagina = 1)
     {
-        $usr = new Usuarios();
-        $this->usuarios = $usr->paginate($pagina);
+        $this->usuarios = Usuarios::paginate($pagina);
     }
 
     /**
@@ -85,9 +84,7 @@ class UsuariosController extends Controller
      */
     public function editar($id)
     {
-        $usr = new Usuarios();
-
-        $this->usuario = $usr->findByPK((int) $id);
+        $this->usuario = Usuarios::findByPK((int) $id);
 
         if (!$this->usuario) {
             $this->renderNotFound("No existe ningun usuario con id '{$id}'");
