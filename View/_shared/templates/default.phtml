@@ -3,7 +3,7 @@
     <head>
         <meta charset='<?php echo APP_CHARSET ?>' />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title><?php echo KumbiaPHP\View\View::get('container')->getParameter('config.name')   ?></title>
+        <title><?php echo \KumbiaPHP\Kernel\Kernel::getParam('config.name')    ?></title>
         <?php
         Tag::css('style');
         Tag::css('bootstrap.min');
