@@ -14,9 +14,10 @@ use KumbiaPHP\ActiveRecord\Validation\ValidationBuilder;
 class Usuarios extends ActiveRecord implements UserInterface
 {
 
-    public function createRelations()
+    protected function createRelations()
     {
-        //$this->hasAndBelongsToMany('K2\\Backend\\Model\\Roles');
+        $this->hasAndBelongsToMany('K2\\Backend\\Model\\Roles'
+                , 'K2\\Backend\\Model\\RolesUsuarios');
     }
 
     protected function validations(ValidationBuilder $builder)
@@ -39,7 +40,7 @@ class Usuarios extends ActiveRecord implements UserInterface
 
     public function getRoles()
     {
-        
+        return $this->get('K2\\Backend\\Model\\Roles');
     }
 
     public function getUsername()
