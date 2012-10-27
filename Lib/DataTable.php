@@ -12,7 +12,7 @@ class DataTable
      *
      * @var array
      */
-    protected $_cabeceras = array();
+    protected $cabeceras = array();
 
     /**
      * Campos a mostrar de la tabla
@@ -29,49 +29,49 @@ class DataTable
      * )
      * </code>
      */
-    protected $_campos = array();
+    protected $campos = array();
 
     /**
      * Url para el paginador
      *
      * @var string
      */
-    protected $_url = NULL;
+    protected $url = NULL;
 
     /**
      * Array de modelos AR
      *
      * @var array ActiveRecord
      */
-    protected $_model = NULL;
+    protected $model = NULL;
 
     /**
      * Paginador si se usa
      *
      * @var Paginator
      */
-    protected $_paginator = NULL;
+    protected $paginator = NULL;
 
     /**
      * Tipo de paginador a usar
      *
      * @var string
      */
-    protected $_type_paginator = NULL;
+    protected $typePaginator = NULL;
 
     /**
      * Indica si se va a crear una tabla con los campos por defecto del modelo
      *
      * @var boolean
      */
-    protected $_use_default_fields = TRUE;
+    protected $useDefaultFields = TRUE;
 
     /**
      * Nombre del campo con clave primaria del modelo
      *
      * @var string
      */
-    protected $_primary_key = 'id';
+    protected $primaryKey = 'id';
 
     /**
      * Constructor de la Clase
@@ -82,13 +82,13 @@ class DataTable
     {
         /* @var $model \KumbiaPHP\ActiveRecord\ActiveRecord */
         if (isset($model->items)) {
-            $this->_paginator = $model;
+            $this->paginator = $model;
             $model = $model->items;
         }
-        if (sizeof($model)) {
-            $this->_primary_key = $model->metadata()->getPK();
+        if (sizeof($model) && (current($model) instanceof \KumbiaPHP\ActiveRecord\ActiveRecord)) {
+            $this->primaryKey = current($model)->metadata()->getPK();
         }
-        $this->_model = $model;
+        $this->model = $model;
     }
 
     /**
@@ -109,7 +109,7 @@ class DataTable
         if (isset($params[0]) && is_array($params[0])) {
             $params = $params[0];
         }
-        $this->_cabeceras = array_merge($this->_cabeceras, $params);
+        $this->cabeceras = array_merge($this->cabeceras, $params);
     }
 
     /**
@@ -130,7 +130,7 @@ class DataTable
     {
         $params = self::getParams(func_get_args());
         if (isset($params[0]) && is_array($params[0])) { //aqui solo debe entrar si son links, imagenes, etc
-            $this->_campos = array_merge($this->_campos, $params);
+            $this->campos = array_merge($this->campos, $params);
         } else {
             foreach ($params as $field => $options) {
                 if (is_numeric($field)) {
@@ -147,8 +147,8 @@ class DataTable
                     }
                     $data['options'] = $options;
                 }
-                $this->_campos[] = $data;
-                $this->_use_default_fields = FALSE;
+                $this->campos[] = $data;
+                $this->useDefaultFields = FALSE;
             }
         }
     }
@@ -162,21 +162,21 @@ class DataTable
      */
     public function render($attrs = NULL)
     {
-        $model = $this->_model;
-        if ($this->_use_default_fields) {
+        $model = $this->model;
+        if ($this->useDefaultFields) {
             $this->_getTableSchema($model);
         }
         $table = "<table $attrs>";
 //      head de la tabla
         $table .= '<thead>';
         $table .= '<tr style="text-align:center;font-weight:bold;">';
-        foreach ($this->_cabeceras as $e) {
+        foreach ($this->cabeceras as $e) {
             $table .= "<th>$e</th>";
         }
         $table .= '</tr>';
         $table .= '</thead>';
 //       foot de la tabla
-        if ($this->_paginator && $this->_type_paginator !== FALSE) {
+        if ($this->paginator && $this->typePaginator !== FALSE) {
             $table .= '   <tfoot><tr><th colspan="100">';
             $table .= $this->_paginator();
             $table .= '</th></tr></tfoot>';
@@ -190,7 +190,7 @@ class DataTable
         if (sizeof($model)) {
             foreach ($model as $model) {
                 $table .= '<tr>';
-                foreach ($this->_campos as $field) {
+                foreach ($this->campos as $field) {
                     if (method_exists($model, $field['field'])) { //si es un metodo lo llamamos
                         $value = h($model->$field['field']());
                     } else {
@@ -223,7 +223,7 @@ class DataTable
     public function check($field_name, $boolean_field = NULL)
     {
         $this->addFields(array(
-            'field' => $this->_primary_key,
+            'field' => $this->primaryKey,
             'boolean_field' => $boolean_field,
             'options' => array(Form::check("$field_name.%s", '%s'), NULL)
         ));
@@ -245,7 +245,7 @@ class DataTable
         isset($action[1]) || $action[1] = $action[0];
         isset($text[1]) || $text[1] = $text[0];
         $this->addFields(array(
-            'field' => $this->_primary_key,
+            'field' => $this->primaryKey,
             'boolean_field' => $boolean_field,
             'options' => array(
                 Html::link("$action[0]/%s", $text[0]),
@@ -270,7 +270,7 @@ class DataTable
         isset($action[1]) || $action[1] = $action[0];
         isset($text[1]) || $text[1] = $text[0];
         $this->addFields(array(
-            'field' => $this->_primary_key,
+            'field' => $this->primaryKey,
             'boolean_field' => $boolean_field,
             'options' => array(
                 Html::img($action[0], $text[0]),
@@ -298,7 +298,7 @@ class DataTable
         isset($action[1]) || $action[1] = $action[0];
         isset($text[1]) || $text[1] = $text[0];
         $this->addFields(array(
-            'field' => $this->_primary_key,
+            'field' => $this->primaryKey,
             'boolean_field' => $boolean_field,
             'options' => array(
                 Html::link("$action[0]/%s", Html::img($url_img[0]) . " $text[0]"),
@@ -326,7 +326,7 @@ class DataTable
         isset($text[1]) || $text[1] = $text[0];
         isset($confirm[1]) || $confirm[1] = $confirm[0];
         $this->addFields(array(
-            'field' => $this->_primary_key,
+            'field' => $this->primaryKey,
             'boolean_field' => $boolean_field,
             'options' => array(
                 Js::link("$action[0]/%s", $text[0], $confirm[0]),
@@ -357,7 +357,7 @@ class DataTable
         isset($text[1]) || $text[1] = $text[0];
         isset($confirm[1]) || $confirm[1] = $confirm[0];
         $this->addFields(array(
-            'field' => $this->_primary_key,
+            'field' => $this->primaryKey,
             'boolean_field' => $boolean_field,
             'options' => array(
                 Js::link("$action[0]/%s", Html::img($url_img[0]) . " $text[0]", $confirm[0]),
@@ -380,7 +380,7 @@ class DataTable
      */
     public function url($url)
     {
-        $this->_url = "$url/";
+        $this->url = "$url/";
     }
 
     /**
@@ -391,36 +391,36 @@ class DataTable
      */
     public function typePaginator($paginator)
     {
-        $this->_type_paginator = $paginator;
+        $this->typePaginator = $paginator;
     }
 
     protected function _paginator()
     {
-        $this->_url = \KumbiaPHP\View\View::get('app.context')->createUrl();
-        if (!$this->_type_paginator) {
+        $this->url = \KumbiaPHP\View\View::get('app.context')->createUrl();
+        if (!$this->typePaginator) {
             $html = '<div class="paginador-tabla">';
-            if ($this->_paginator->count > $this->_paginator->per_page) {
-                if ($this->_paginator->prev) {
-                    $html .= Html::link($this->_url . $this->_paginator->prev, 'Anterior', 'title="Ir a la p&aacute;g. anterior"');
+            if ($this->paginator->count > $this->paginator->per_page) {
+                if ($this->paginator->prev) {
+                    $html .= Html::link($this->url . $this->paginator->prev, 'Anterior', 'title="Ir a la p&aacute;g. anterior"');
                     $html .= '&nbsp;&nbsp;';
                 }
-                for ($x = 1; $x <= $this->_paginator->total; ++$x) {
-                    $html .= $this->_paginator->current == $x ? '<b>' . $x . '</b>' : Html::link($this->_url . $x, $x);
+                for ($x = 1; $x <= $this->paginator->total; ++$x) {
+                    $html .= $this->paginator->current == $x ? '<b>' . $x . '</b>' : Html::link($this->url . $x, $x);
                     $html .= '&nbsp;&nbsp;';
                 }
-                if ($this->_paginator->next) {
-                    $html .= Html::link($this->_url . $this->_paginator->next, 'Siguiente', 'title="Ir a la p&aacute;g. siguiente"');
+                if ($this->paginator->next) {
+                    $html .= Html::link($this->url . $this->paginator->next, 'Siguiente', 'title="Ir a la p&aacute;g. siguiente"');
                 }
             }
-            $html .= '<span style="float:right;margin-right:20px;"><b>Total registros: ' . $this->_paginator->count . '</b></span></div>';
+            $html .= '<span style="float:right;margin-right:20px;"><b>Total registros: ' . $this->paginator->count . '</b></span></div>';
             return $html;
         } else {
             $parametros = array(
-                'page' => $this->_paginator,
-                'url' => substr($this->_url, 0, strlen($this->_url) - 1)
+                'page' => $this->paginator,
+                'url' => substr($this->url, 0, strlen($this->url) - 1)
             );
             ob_start();
-            \KumbiaPHP\View\View::partial('paginators/' . $this->_type_paginator, false, $parametros);
+            \KumbiaPHP\View\View::partial('paginators/' . $this->typePaginator, false, $parametros);
             $paginador = ob_get_contents();
             ob_get_clean();
             return $paginador;
@@ -436,14 +436,20 @@ class DataTable
     protected function _getTableSchema($model)
     {
         if ($model) {
-            $temp_campos = $this->_campos;
-            $temp_cabeceras = $this->_cabeceras;
-            $this->_campos = array();
-            $this->_cabeceras = array();
-            call_user_func_array(array($this, 'addFields'), current($model)->fields);
-            call_user_func_array(array($this, 'addHeaders'), current($model)->alias);
-            $this->_campos = array_merge($this->_campos, $temp_campos);
-            $this->_cabeceras = array_merge($this->_cabeceras, $temp_cabeceras);
+            $temp_campos = $this->campos;
+            $temp_cabeceras = $this->cabeceras;
+            $this->campos = array();
+            $this->cabeceras = array();
+            $fields = array();
+            $alias = array();
+            foreach(current($model)->metadata()->getAttributes() as $name => $attr){
+                $fields[] = $name;
+                $alias[] = $attr->alias;
+            }
+            call_user_func_array(array($this, 'addFields'), $fields);
+            call_user_func_array(array($this, 'addHeaders'), $fields);
+            $this->campos = array_merge($this->campos, $temp_campos);
+            $this->cabeceras = array_merge($this->cabeceras, $temp_cabeceras);
         }
     }
 
