@@ -2,6 +2,7 @@
 
 namespace K2\Backend\Model;
 
+use K2\Backend\Model\RolesUsuarios;
 use KumbiaPHP\ActiveRecord\ActiveRecord;
 use KumbiaPHP\Security\Auth\User\UserInterface;
 use KumbiaPHP\ActiveRecord\Validation\ValidationBuilder;
@@ -13,6 +14,8 @@ use KumbiaPHP\ActiveRecord\Validation\ValidationBuilder;
  */
 class Usuarios extends ActiveRecord implements UserInterface
 {
+
+    const HASH = 'K2_BACKEND';
 
     protected function createRelations()
     {
@@ -28,9 +31,9 @@ class Usuarios extends ActiveRecord implements UserInterface
         return $builder;
     }
 
-    public function auth(\KumbiaPHP\Security\Auth\User\UserInterface $user)
+    public function auth(UserInterface $user)
     {
-        return TRUE; // crypt($user->getPassword()) === $this->getPassword();
+        return TRUE; //$this->createHash($user->getPassword()) === $this->getPassword();
     }
 
     public function getPassword()
@@ -59,25 +62,50 @@ class Usuarios extends ActiveRecord implements UserInterface
                 return false;
             }
 
-            $roles = new RolesUsuarios();
-
-            foreach ($this->roles as $rol_id) {
-                if (!$roles->create(array('roles_id' => $rol_id, 'usuarios_id' => $this->id))) {
-                    $this->rollback();
-                    return false;
-                }
-            }
-
             $this->commit();
             return true;
-            
         } else {
             return false;
         }
     }
-    
-    protected function beforeSave(){
-        
+
+    protected function beforeSave()
+    {
+        //verificación y guardado de clave.
+        if (isset($this->clave, $this->clave2)) {
+            if ($this->clave !== $this->clave2) {
+                $this->addError('clave', 'Las claves no Coinciden');
+                return false;
+            } else {
+                $this->clave = $this->createHash($this->clave);
+            }
+        }
+    }
+
+    protected function afterSave()
+    {
+        //verificación y guardado de roles
+        if (isset($this->roles) && is_array($this->roles)) {
+
+            $roles = new RolesUsuarios();
+
+            RolesUsuarios::createQuery()
+                    ->where('usuarios_id = :id')
+                    ->bindValue('id', $this->id);
+
+            RolesUsuarios::deleteAll();
+
+            foreach ($this->roles as $rol_id) {
+                if (!$roles->create(array('roles_id' => $rol_id, 'usuarios_id' => $this->id))) {
+                    return false;
+                }
+            }
+        }
+    }
+
+    protected function createHash($value)
+    {
+        return crypt($value, self::HASH);
     }
 
 }
