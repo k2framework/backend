@@ -3,14 +3,20 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 26-05-2012 a las 18:32:34
+-- Tiempo de generación: 28-10-2012 a las 16:06:03
 -- Versión del servidor: 5.5.8
 -- Versión de PHP: 5.3.5
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
 --
--- Base de datos: `backend`
+-- Base de datos: `backend_k2`
 --
 
 -- --------------------------------------------------------
@@ -44,7 +50,6 @@ CREATE TABLE IF NOT EXISTS `auditorias` (
 CREATE TABLE IF NOT EXISTS `menus` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `menus_id` int(11) DEFAULT NULL,
-  `recursos_id` int(11) NOT NULL,
   `nombre` varchar(100) NOT NULL,
   `url` varchar(100) NOT NULL,
   `posicion` int(11) NOT NULL DEFAULT '100',
@@ -52,24 +57,18 @@ CREATE TABLE IF NOT EXISTS `menus` (
   `visible_en` int(11) NOT NULL DEFAULT '1',
   `activo` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
-  KEY `menus_id` (`menus_id`),
-  KEY `recursos_id` (`recursos_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=23 ;
+  KEY `menus_id` (`menus_id`) USING BTREE
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT AUTO_INCREMENT=5 ;
 
 --
 -- Volcar la base de datos para la tabla `menus`
 --
 
-INSERT INTO `menus` (`id`, `menus_id`, `recursos_id`, `nombre`, `url`, `posicion`, `clases`, `visible_en`, `activo`) VALUES
-(1, 18, 1, 'Usuarios', 'admin/usuarios', 10, NULL, 2, 1),
-(3, 18, 2, 'Roles', 'admin/roles', 20, NULL, 2, 1),
-(4, 18, 3, 'Recursos', 'admin/recursos', 30, NULL, 2, 1),
-(5, 18, 4, 'Menu', 'admin/menu', 100, NULL, 2, 1),
-(7, 18, 5, 'Privilegios', 'admin/privilegios', 90, NULL, 2, 1),
-(18, NULL, 17, 'Administración', 'admin/usuarios/index', 100, NULL, 2, 1),
-(19, NULL, 14, 'Mi Perfil', 'admin/usuarios/perfil', 90, NULL, 2, 1),
-(21, 18, 15, 'Config. Aplicacion', 'admin', 1000, NULL, 2, 1),
-(22, 18, 18, 'Auditorias', 'admin/auditorias', 900, NULL, 2, 1);
+INSERT INTO `menus` (`id`, `menus_id`, `nombre`, `url`, `posicion`, `clases`, `visible_en`, `activo`) VALUES
+(1, NULL, 'Administración', 'admin/usuarios', 100, NULL, 1, 1),
+(2, 1, 'Usuarios', 'admin/usuarios', 100, NULL, 1, 1),
+(3, 1, 'Roles', 'admin/roles', 100, NULL, 1, 1),
+(4, NULL, 'Mi Perfil', 'admin/usuarios/perfil', 90, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -79,31 +78,18 @@ INSERT INTO `menus` (`id`, `menus_id`, `recursos_id`, `nombre`, `url`, `posicion
 
 CREATE TABLE IF NOT EXISTS `recursos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `modulo` varchar(50) DEFAULT NULL,
-  `controlador` varchar(50) NOT NULL,
-  `accion` varchar(50) DEFAULT NULL,
   `recurso` varchar(200) NOT NULL,
   `descripcion` text,
   `activo` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Volcar la base de datos para la tabla `recursos`
 --
 
-INSERT INTO `recursos` (`id`, `modulo`, `controlador`, `accion`, `recurso`, `descripcion`, `activo`) VALUES
-(1, 'admin', 'usuarios', NULL, 'admin/usuarios/*', 'modulo para la administracion de los usuarios del sistema', 1),
-(2, 'admin', 'roles', NULL, 'admin/roles/*', 'modulo para la gestion de los roles de la aplicacion\r\n', 1),
-(3, 'admin', 'recursos', NULL, 'admin/recursos/*', 'modulo para la gestion de los recursos de la aplicacion', 1),
-(4, 'admin', 'menu', NULL, 'admin/menu/*', 'modulo para la administracion del menu en la app', 1),
-(5, 'admin', 'privilegios', NULL, 'admin/privilegios/*', 'modulo para la administracion de los privilegios que tendra cada rol', 1),
-(11, NULL, 'index', NULL, 'index/*', 'modulo inicial del sistema, donde se loguean los usuarios y donde se desloguean', 1),
-(14, 'admin', 'usuarios', 'perfil', 'admin/usuarios/perfil', 'modulo para la configuracion del perfil del usuario', 1),
-(15, 'admin', 'index', NULL, 'admin/index/*', 'modulo para la configuración del sistema', 1),
-(17, 'admin', 'usuarios', 'index', 'admin/usuarios/index', 'modulo para listar los usuarios del sistema, lo usará¡ el menu administracion', 1),
-(18, 'admin', 'auditorias', NULL, 'admin/auditorias/*', 'Modulo para revisar las acciones que los usuarios han realizado en el sistema', 1),
-(19, NULL, 'index', 'index', 'index/index', 'recurso que no necesita permisos, es solo de prueba :-)', 1);
+INSERT INTO `recursos` (`id`, `recurso`, `descripcion`, `activo`) VALUES
+(1, 'admin/*', 'modulo para la administracion del sistema', 1);
 
 -- --------------------------------------------------------
 
@@ -142,43 +128,14 @@ CREATE TABLE IF NOT EXISTS `roles_recursos` (
   PRIMARY KEY (`id`),
   KEY `roles_id` (`roles_id`),
   KEY `recursos_id` (`recursos_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=648 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Volcar la base de datos para la tabla `roles_recursos`
 --
 
 INSERT INTO `roles_recursos` (`id`, `roles_id`, `recursos_id`) VALUES
-(618, 1, 18),
-(619, 2, 18),
-(620, 4, 18),
-(621, 1, 15),
-(622, 2, 15),
-(623, 4, 15),
-(624, 1, 4),
-(625, 2, 4),
-(626, 4, 4),
-(627, 1, 5),
-(628, 2, 5),
-(629, 4, 5),
-(630, 1, 3),
-(631, 2, 3),
-(632, 4, 3),
-(633, 1, 2),
-(634, 2, 2),
-(635, 4, 2),
-(636, 1, 1),
-(637, 2, 1),
-(638, 4, 1),
-(639, 1, 17),
-(640, 2, 17),
-(641, 4, 17),
-(642, 1, 14),
-(643, 2, 14),
-(644, 4, 14),
-(645, 1, 11),
-(646, 2, 11),
-(647, 4, 11);
+(1, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -193,7 +150,7 @@ CREATE TABLE IF NOT EXISTS `roles_usuarios` (
   PRIMARY KEY (`id`),
   KEY `roles_id` (`roles_id`),
   KEY `usuarios_id` (`usuarios_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=53 ;
 
 --
 -- Volcar la base de datos para la tabla `roles_usuarios`
@@ -202,7 +159,16 @@ CREATE TABLE IF NOT EXISTS `roles_usuarios` (
 INSERT INTO `roles_usuarios` (`id`, `roles_id`, `usuarios_id`) VALUES
 (1, 1, 2),
 (2, 2, 3),
-(3, 4, 3);
+(3, 4, 3),
+(8, 1, 12),
+(38, 2, 42),
+(40, 1, 44),
+(41, 2, 44),
+(42, 4, 44),
+(44, 2, 45),
+(45, 4, 45),
+(48, 2, 46),
+(52, 4, 47);
 
 -- --------------------------------------------------------
 
@@ -219,15 +185,22 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `activo` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `login` (`login`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=48 ;
 
 --
 -- Volcar la base de datos para la tabla `usuarios`
 --
 
 INSERT INTO `usuarios` (`id`, `login`, `clave`, `nombres`, `email`, `activo`) VALUES
-(2, 'usuario', 'baxuN8I44GotM', 'usuario del sistema', 'asd@mail.com', 1),
-(3, 'admin', 'baxuN8I44GotM', 'usuario administrador del sistema', 'manuel_j555@hotmail.com', 1);
+(2, 'usuario', 'baxuN8I44GotM', 'usuario del sistema', 'programador.manuel@gmail.com', 1),
+(3, 'admin', 'baxuN8I44GotM', 'usuario administrador del sistema', 'manuel_j555@hotmail.com', 1),
+(6, 'fghdfg', '123', 'asdasd', 'asdasds@sdasdasd', 1),
+(12, 'admin11', 'sdfdfsd', 'dfgdfg', 'manuel_j555@hotmail.com', 1),
+(42, 'admin222', '111', '111', 'manuel_j555@hotmail.com', 1),
+(44, 'admin55', '345', '345', 'manuel_j555@hotmail.com', 1),
+(45, 'manu', 'K2932zu3yPbLQ', 'Manuel José Papá', 'manuel_j555@hotmail.com', 1),
+(46, 'otromas', 'K2YHTXv7/p8Mk', '123123', 'manuel_j555@hotmail.com', 1),
+(47, 'dfgdfgdfgfdgfdgdfg', 'K2nF2wV1VJp2c', 'fdgdfgfg', 'manuel_j555@hotmail.com', 1);
 
 --
 -- Filtros para las tablas descargadas (dump)
@@ -243,19 +216,18 @@ ALTER TABLE `auditorias`
 -- Filtros para la tabla `menus`
 --
 ALTER TABLE `menus`
-  ADD CONSTRAINT `menus_ibfk_2` FOREIGN KEY (`recursos_id`) REFERENCES `recursos` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `menus_ibfk_1` FOREIGN KEY (`menus_id`) REFERENCES `menus` (`id`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `roles_recursos`
 --
 ALTER TABLE `roles_recursos`
-  ADD CONSTRAINT `roles_recursos_ibfk_2` FOREIGN KEY (`recursos_id`) REFERENCES `recursos` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `roles_recursos_ibfk_1` FOREIGN KEY (`roles_id`) REFERENCES `roles` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `roles_recursos_ibfk_1` FOREIGN KEY (`roles_id`) REFERENCES `roles` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `roles_recursos_ibfk_2` FOREIGN KEY (`recursos_id`) REFERENCES `recursos` (`id`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `roles_usuarios`
 --
 ALTER TABLE `roles_usuarios`
-  ADD CONSTRAINT `roles_usuarios_ibfk_2` FOREIGN KEY (`usuarios_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `roles_usuarios_ibfk_1` FOREIGN KEY (`roles_id`) REFERENCES `roles` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `roles_usuarios_ibfk_1` FOREIGN KEY (`roles_id`) REFERENCES `roles` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `roles_usuarios_ibfk_2` FOREIGN KEY (`usuarios_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
