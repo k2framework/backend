@@ -4,6 +4,7 @@ namespace K2\Backend\Form;
 
 use KumbiaPHP\Form\Form;
 use K2\Backend\Model\Roles;
+use K2\Backend\Model\Usuarios;
 
 /**
  * Description of Usuario
@@ -44,17 +45,65 @@ class Usuario extends Form
                 ->required();
     }
 
-    public function prepareForCreate()
+    public static function create()
     {
-        $this['clave'] = '';
-        $this['clave2'] = '';
+        return new static(new Usuarios());
     }
 
-    public function prepareForEdit()
+    public static function edit(Usuarios $usr)
     {
-        unset($this['clave'], $this['clave2'], $this['nombres'], $this['email'], $this['login']);
+        $form = new Form($usr);
 
-        $this['roles']->setValue($this->model->get('K2\\Backend\\Model\\Roles'));
+        $form->add('roles', 'select')
+                ->setOptionsFromResultset(Roles::findAllBy('activo', true)
+                        , 'id', 'rol')
+                ->setLabel('Roles de Usuario')
+                ->attrs(array('multiple' => 'multiple'))
+                ->setValue($usr->get('K2\\Backend\\Model\\Roles'))
+                ->required();
+
+        return $form;
+    }
+
+    public static function perfil(Usuarios $usr)
+    {
+        $form = new Form($usr);
+
+        $form->setName('perfil');
+        
+        $form->add('nombres')
+                ->setLabel('Nombre Completo')
+                ->required();
+
+        $form->add('email', 'email')
+                ->setLabel('Correo Electronico')
+                ->required();
+
+        return $form;
+    }
+
+    public static function cambioClave(Usuarios $usr)
+    {
+        $form = new Form($usr);
+        
+        $form->setName('cambioClave');
+
+        $form->add('clave_actual', 'password')
+                ->setLabel('Contrase&ntilde;a Actual')
+                ->required();
+
+        $form->add('nueva_clave', 'password')
+                ->setLabel('Nueva Contrase&ntilde;a')
+                ->equalTo('clave2')
+                ->setValue(NULL)
+                ->required();
+
+        $form->add('clave2', 'password')
+                ->setLabel('Volver a escribir Contrase&ntilde;a')
+                ->required();
+        
+
+        return $form;
     }
 
 }

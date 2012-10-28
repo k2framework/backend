@@ -1,58 +1,62 @@
 <div class="page-header">
     <h1>Configuraci&oacute;n de Perfil</h1>
 </div>       
-<?php View::content() ?>
+<?php KumbiaPHP\View\View::content(true) ?>
 <ul class="nav nav-tabs">
     <li class="active"><a href="#datos-personales" data-toggle="tab">Datos Personales</a></li>
     <li><a href="#clave" data-toggle="tab">Contrase&ntilde;a</a></li>
 </ul>
 <div class="tab-content">
     <div id="datos-personales" class="tab-pane active">
-        <?php echo Ajax::form('res-datos-personales', NULL, 'form-horizontal') //Form::open() ?>
+        <?php //echo Ajax::form('res-datos-personales', NULL, 'form-horizontal') //Form::open() ?>
+        <?php KumbiaPHP\View\View::partial('K2\Backend:form_errors', FALSE, array('form' => $form1)) ?>
+        <?php echo $form1->open(array('class' => 'form-horizontal')); ?>
         <fieldset>
             <legend>Configurar Datos Personales</legend>
             <br/>
             <div id="res-datos-personales"></div>
             <div class="control-group">                
-                <label class="control-label" for="usuario_nombres">Nombre Completo* : </label>
+                <label class="control-label" for="perfil_nombres"><?php echo $form1['nombres']['label'] ?></label>
                 <div class="controls">
-                    <?php echo Form::text('usuario1.nombres') ?>
+                    <?php echo $form1['nombres'] ?>
                 </div>
             </div>
             <div class="control-group">                
-                <label class="control-label" for="usuario_email">Correo Electronico* : </label>
+                <label class="control-label" for="perfil_email"><?php echo $form1['email']['label'] ?></label>
                 <div class="controls">
-                    <?php echo Form::text('usuario1.email') ?>
+                    <?php echo $form1['email'] ?>
                 </div>
             </div>
             <div class="form-actions">
                 <?php echo Form::submit('Guardar Cambios', 'name="datos_personas" class="btn btn-primary"') ?>
             </div>
         </fieldset>
-        <?php echo Form::close() ?>
+        <?php echo $form1->close(); ?>
     </div>
     <div id="clave" class="tab-pane">
-        <?php echo Ajax::form('res-clave', NULL, 'form-horizontal')//Form::open() ?>
+        <?php //echo Ajax::form('res-clave', NULL, 'form-horizontal')//Form::open() ?>
+        <?php KumbiaPHP\View\View::partial('K2\Backend:form_errors', FALSE, array('form' => $form2)) ?>
+        <?php echo $form2->open(array('class' => 'form-horizontal')) ?>
         <fieldset>
             <legend>Cambiar Contrase&ntilde;a</legend>
             <br/>
             <div id="res-clave"></div>
             <div class="control-group">
-                <label class="control-label" for="usuario_clave">Contrase&ntilde;a Actual * : </label>
+                <label class="control-label" for="cambioClave_clave_actual"><?php echo $form2['clave_actual']['label'] ?></label>
                 <div class="controls">
-                    <?php echo Form::pass('usuario2.clave_actual') ?>
+                    <?php echo $form2['clave_actual'] ?>
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="usuario_clave">Nueva Contrase&ntilde;a* : </label>
+                <label class="control-label" for="cambioClave_nueva_clave"><?php echo $form2['nueva_clave']['label'] ?></label>
                 <div class="controls">
-                    <?php echo Form::pass('usuario2.nueva_clave') ?>
+                    <?php echo $form2['nueva_clave'] ?>
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="usuario_clave2">Volver a escribir Contrase&ntilde;a* : </label>
+                <label class="control-label" for="cambioClave_clave2"><?php echo $form2['clave2']['label'] ?></label>
                 <div class="controls">
-                    <?php echo Form::pass('usuario2.nueva_clave2') ?>
+                    <?php echo $form2['clave2'] ?>
                 </div>
             </div>
             <div class="form-actions">

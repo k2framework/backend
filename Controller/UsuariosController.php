@@ -36,23 +36,27 @@ class UsuariosController extends Controller
      */
     public function perfil()
     {
-        try {
-            $usr = new Usuarios();
-            $this->usuario1 = $usr->find_first(Auth::get('id'));
-            if (Input::hasPost('usuario1')) {
-                if ($usr->update(Input::post('usuario1'))) {
-                    Flash::valid('Datos Actualizados Correctamente');
-                    $this->usuario1 = $usr;
-                }
-            } else if (Input::hasPost('usuario2')) {
-                if ($usr->cambiarClave(Input::post('usuario2'))) {
-                    Flash::valid('Clave Actualizada Correctamente');
-                    $this->usuario1 = $usr;
+        $this->usuario = Usuarios::findByPK($this->get('security')->getToken('id'));
+
+        $this->form1 = Form::perfil($this->usuario);
+
+        $this->form2 = Form::cambioClave($this->usuario);
+
+        if ($this->getRequest()->isMethod('post')) {
+            if ($this->getRequest()->get('perfil')) {
+                $form = $this->form1;
+            } elseif ($this->getRequest()->get('cambioClave')) {
+                $form = $this->form2;
+            }
+            if ($form->bindRequest($this->getRequest())->isValid()) {
+                if ($this->usuario->guardar()) {
+                    $this->get('flash')->success('Los datos fueron guardados correctamente...!!!');
+                } else {
+                    $form->setErrors($this->usuario->getErrors());
                 }
             }
-        } catch (KumbiaException $e) {
-            View::excepcion($e);
         }
+        $this->form2->setData(array());
     }
 
     /**
@@ -60,21 +64,18 @@ class UsuariosController extends Controller
      */
     public function crear()
     {
-        $this->form = new Form(new Usuarios());
-
-        $this->form->prepareForCreate();
+        $this->form = Form::create();
 
         if ($this->getRequest()->isMethod('POST')) {
             if ($this->form->bindRequest($this->getRequest())->isValid()) {
                 $usuario = $this->form->getData();
-                if ($usuario->crear()) {
+                if ($usuario->guardar()) {
                     $this->get('flash')->success('El Usuario Ha Sido Creado Exitosamente...!!!');
                     if (!$this->getRequest()->isAjax()) {
-                        return $this->getRouter()->toAction();
+                        return $this->getRouter()->toAction('editar/' . $usuario->id);
                     }
                 } else {
                     $this->form->setErrors($usuario->getErrors());
-                    $this->form->addError(NULL, 'No se Pudieron Guardar los Datos...!!!');
                 }
             }
         }
@@ -86,26 +87,18 @@ class UsuariosController extends Controller
      */
     public function editar($id)
     {
-        $this->usuario = Usuarios::findByPK((int) $id);
-
-        if (!$this->usuario) {
+        if (!$this->usuario = Usuarios::findByPK((int) $id)) {
             $this->renderNotFound("No existe ningun usuario con id '{$id}'");
         }
 
-        $this->form = new Form($this->usuario);
-
-        $this->form->prepareForEdit();
+        $this->form = Form::edit($this->usuario);
 
         if ($this->getRequest()->isMethod('POST')) {
             if ($this->form->bindRequest($this->getRequest())->isValid()) {
-                if ($this->form->getData()->save()) {
+                if ($this->usuario->guardar()) {
                     $this->get('flash')->success('El Usuario Ha Sido Actualizado Exitosamente...!!!');
-                    if (!$this->getRequest()->isAjax()) {
-                        return $this->getRouter()->toAction();
-                    }
                 } else {
                     $this->form->setErrors($this->usuario->getErrors());
-                    $this->form->addError(NULL, 'No se Pudieron Guardar los Datos...!!!');
                 }
             }
         }
@@ -117,20 +110,18 @@ class UsuariosController extends Controller
      */
     public function activar($id)
     {
-//        try {
-//            $id = (int) $id;
-//            $usuario = new Usuarios();
-//            if (!$usuario->find_first($id)) { //si no existe el usuario
-//                Flash::warning("No existe ningun usuario con id '{$id}'");
-//            } else if ($usuario->activar()) {
-//                Flash::valid("La Cuenta del Usuario {$usuario->login} ({$usuario->nombres}) fué activada...!!!");
-//            } else {
-//                Flash::warning('No se Pudo Activar la cuenta del Usuario...!!!');
-//            }
-//        } catch (KumbiaException $e) {
-//            View::excepcion($e);
-//        }
-//        return Router::toAction('');
+        if (!$usuario = Usuarios::findByPK((int) $id)) {
+            $this->renderNotFound("No existe ningun usuario con id '{$id}'");
+        }
+
+        $usuario->activo = true;
+
+        if ($usuario->save()) {
+            $this->get('flash')->success("La Cuenta del Usuario {$usuario->login} ({$usuario->nombres}) fué activada...!!!");
+        } else {
+            $this->get('flash')->warning('No se Pudo Activar la cuenta del Usuario...!!!');
+        }
+        return $this->getRouter()->toAction();
     }
 
     /**
@@ -139,20 +130,18 @@ class UsuariosController extends Controller
      */
     public function desactivar($id)
     {
-//        try {
-//            $id = (int) $id;
-//            $usuario = new Usuarios();
-//            if (!$usuario->find_first($id)) { //si no existe el usuario
-//                Flash::warning("No existe ningun usuario con id '{$id}'");
-//            } else if ($usuario->desactivar()) {
-//                Flash::valid("La Cuenta del Usuario {$usuario->login} ({$usuario->nombres}) fué desactivada...!!!");
-//            } else {
-//                Flash::warning('No se Pudo Desactivar la cuenta del Usuario...!!!');
-//            }
-//        } catch (KumbiaException $e) {
-//            View::excepcion($e);
-//        }
-//        return Router::toAction('');
+        if (!$usuario = Usuarios::findByPK((int) $id)) {
+            $this->renderNotFound("No existe ningun usuario con id '{$id}'");
+        }
+
+        $usuario->activo = false;
+
+        if ($usuario->save()) {
+            $this->get('flash')->success("La Cuenta del Usuario {$usuario->login} ({$usuario->nombres}) fué desactivada...!!!");
+        } else {
+            $this->get('flash')->warning('No se Pudo Desactivar la cuenta del Usuario...!!!');
+        }
+        return $this->getRouter()->toAction();
     }
 
 }

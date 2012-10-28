@@ -33,7 +33,7 @@ class Usuarios extends ActiveRecord implements UserInterface
 
     public function auth(UserInterface $user)
     {
-        return TRUE; //$this->createHash($user->getPassword()) === $this->getPassword();
+        return $this->createHash($user->getPassword()) === $this->getPassword();
     }
 
     public function getPassword()
@@ -51,26 +51,36 @@ class Usuarios extends ActiveRecord implements UserInterface
         return $this->login;
     }
 
-    public function crear()
+    public function guardar()
     {
-        if (isset($this->roles) && is_array($this->roles)) {
+        $this->begin();
 
-            $this->begin();
-
-            if (!$this->save()) {
-                $this->rollback();
-                return false;
-            }
-
+        if ($this->save()) {
             $this->commit();
             return true;
-        } else {
+        }
+        //$this->addError('TODO', 'No se Pudieron Guardar los Datos...!!!');
+        $this->rollback();
+        return false;
+    }
+
+    protected function beforeCreate()
+    {
+        if (!isset($this->roles) || !is_array($this->roles)) {
             return false;
         }
     }
 
     protected function beforeSave()
     {
+        //si se está editando la clave
+        if ( isset($this->clave_actual) ){
+            if ( $this->createHash($this->clave_actual) !== $this->clave ){
+                $this->addError('clave', 'La clave Actual no es Correcta');
+                return false;
+            }
+            $this->clave = $this->nueva_clave;
+        }
         //verificación y guardado de clave.
         if (isset($this->clave, $this->clave2)) {
             if ($this->clave !== $this->clave2) {
@@ -97,6 +107,7 @@ class Usuarios extends ActiveRecord implements UserInterface
 
             foreach ($this->roles as $rol_id) {
                 if (!$roles->create(array('roles_id' => $rol_id, 'usuarios_id' => $this->id))) {
+                    $this->addError('TODO', 'No se Pudieron Guardar los Datos...!!!');
                     return false;
                 }
             }
