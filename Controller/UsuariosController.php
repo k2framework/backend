@@ -61,18 +61,20 @@ class UsuariosController extends Controller
     public function crear()
     {
         $this->form = new Form(new Usuarios());
-        
+
         $this->form->prepareForCreate();
 
         if ($this->getRequest()->isMethod('POST')) {
             if ($this->form->bindRequest($this->getRequest())->isValid()) {
-                if ($this->form->getData()->crear()) {
+                $usuario = $this->form->getData();
+                if ($usuario->crear()) {
                     $this->get('flash')->success('El Usuario Ha Sido Creado Exitosamente...!!!');
                     if (!$this->getRequest()->isAjax()) {
                         return $this->getRouter()->toAction();
                     }
                 } else {
-                    $this->get('flash')->warning('No se Pudieron Guardar los Datos...!!!');
+                    $this->form->setErrors($usuario->getErrors());
+                    $this->form->addError(NULL, 'No se Pudieron Guardar los Datos...!!!');
                 }
             }
         }
@@ -89,18 +91,11 @@ class UsuariosController extends Controller
         if (!$this->usuario) {
             $this->renderNotFound("No existe ningun usuario con id '{$id}'");
         }
-        
-        //obtenemos los roles que tiene el usuario
-        //para mostrar los checks seleccionados para estos roles.
-//        $this->rolesUser = $usr->rolesUserIds();
 
-        //obtenemos los roles con los que se crearán los checks.
-//        $this->roles = Load::model('admin/roles')->find_all_by_activo(1);
-        
         $this->form = new Form($this->usuario);
-        
+
         $this->form->prepareForEdit();
-        
+
         if ($this->getRequest()->isMethod('POST')) {
             if ($this->form->bindRequest($this->getRequest())->isValid()) {
                 if ($this->form->getData()->save()) {
@@ -109,7 +104,8 @@ class UsuariosController extends Controller
                         return $this->getRouter()->toAction();
                     }
                 } else {
-                    $this->get('flash')->warning('No se Pudieron Guardar los Datos...!!!');
+                    $this->form->setErrors($this->usuario->getErrors());
+                    $this->form->addError(NULL, 'No se Pudieron Guardar los Datos...!!!');
                 }
             }
         }
