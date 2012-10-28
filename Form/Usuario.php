@@ -21,6 +21,7 @@ class Usuario extends Form
 
         $this->add('clave', 'password')
                 ->setLabel('Contrase&ntilde;a')
+                ->equalTo('clave2')
                 ->required();
 
         $this->add('clave2', 'password')
