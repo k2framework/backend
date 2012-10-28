@@ -3,6 +3,7 @@
 namespace K2\Backend\Form;
 
 use KumbiaPHP\Form\Form;
+use K2\Backend\Model\Roles;
 
 /**
  * Description of Usuario
@@ -32,6 +33,13 @@ class Usuario extends Form
 
         $this->add('email', 'email')
                 ->setLabel('Correo Electronico')
+                ->required();
+
+        $this->add('roles', 'select')
+                ->setOptionsFromResultset(Roles::findAllBy('activo', true)
+                        , 'id', 'rol')
+                ->setLabel('Roles de Usuario')
+                ->attrs(array('multiple'=>'multiple'))
                 ->required();
     }
 

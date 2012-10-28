@@ -65,6 +65,7 @@ class UsuariosController extends Controller
         $this->form->prepareForCreate();
 
         if ($this->getRequest()->isMethod('POST')) {
+            var_dump($_POST);return;
             if ($this->form->bindRequest($this->getRequest())->isValid()) {
                 if ($this->form->getData()->save()) {
                     $this->get('flash')->success('El Usuario Ha Sido Creado Exitosamente...!!!');

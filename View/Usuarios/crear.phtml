@@ -3,7 +3,7 @@
 </div>
 <div class="row">
     <div class="span3">
-        <?php //KumbiaPHP\View\View::partial('backend/menus/usuarios') ?>
+        <?php KumbiaPHP\View\View::partial('K2/Backend:menus/usuarios') ?>
     </div>
     <div class="span8 span-derecho" >
         <div id="res-form-ajax">
@@ -15,7 +15,6 @@
             <label class="control-label" for="usuario_login"><?php echo $form['login']['label'] ?>* :</label>
             <div class="controls">
                 <?php echo $form['login'] ?>
-                <?php //echo Form::text('usuario.login') ?>
             </div>
         </div>
         <div class="control-group">
@@ -42,22 +41,16 @@
                 <?php echo $form['email'] ?>
             </div>
         </div>
-        <!--        <div class="control-group">
-                    <label class="control-label" for="usuario_roles_id">Roles del Usuario* : </label><br/><br/>
-                    <div class="controls">
-        <?php //echo Form::dbSelect('usuario.roles_id', 'rol','') ?>
-                        <ul>
-        <?php /* foreach ($roles as $e): ?>
-          <li><?php echo Form::check("rolesUser.$e->id", $e->id), ' ', h($e->rol) ?></li>
-          <?php endforeach; */ ?>
-                            </ul>
-                        </div>
-                    </div>-->
+        <div class="control-group">
+            <label class="control-label" for="usuario_email"><?php echo $form['roles']['label'] ?>* :</label>
+            <div class="controls">
+                <?php echo $form['roles']->render('<br/>') ?>
+            </div>
+        </div>
         <div class="form-actions">
             <?php echo Form::submit('Guardar Datos', 'class="btn btn-primary"') ?>
             <?php echo Html::linkAction('', 'Cancelar', 'class="btn"') ?>
         </div>
-        <?php //echo Form::close() ?>
         <?php echo $form->close() ?>
     </div>
 </div>
