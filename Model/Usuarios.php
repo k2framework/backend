@@ -48,4 +48,36 @@ class Usuarios extends ActiveRecord implements UserInterface
         return $this->login;
     }
 
+    public function crear()
+    {
+        if (isset($this->roles) && is_array($this->roles)) {
+
+            $this->begin();
+
+            if (!$this->save()) {
+                $this->rollback();
+                return false;
+            }
+
+            $roles = new RolesUsuarios();
+
+            foreach ($this->roles as $rol_id) {
+                if (!$roles->create(array('roles_id' => $rol_id, 'usuarios_id' => $this->id))) {
+                    $this->rollback();
+                    return false;
+                }
+            }
+
+            $this->commit();
+            return true;
+            
+        } else {
+            return false;
+        }
+    }
+    
+    protected function beforeSave(){
+        
+    }
+
 }

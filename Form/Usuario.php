@@ -39,7 +39,7 @@ class Usuario extends Form
                 ->setOptionsFromResultset(Roles::findAllBy('activo', true)
                         , 'id', 'rol')
                 ->setLabel('Roles de Usuario')
-                ->attrs(array('multiple'=>'multiple'))
+                ->attrs(array('multiple' => 'multiple'))
                 ->required();
     }
 
@@ -51,7 +51,9 @@ class Usuario extends Form
 
     public function prepareForEdit()
     {
-        unset($this['clave'], $this['clave2']);
+        unset($this['clave'], $this['clave2'], $this['nombres'], $this['email'], $this['login']);
+
+        $this['roles']->setValue($this->model->get('K2\\Backend\\Model\\Roles'));
     }
 
 }

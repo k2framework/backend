@@ -65,9 +65,8 @@ class UsuariosController extends Controller
         $this->form->prepareForCreate();
 
         if ($this->getRequest()->isMethod('POST')) {
-            var_dump($_POST);return;
             if ($this->form->bindRequest($this->getRequest())->isValid()) {
-                if ($this->form->getData()->save()) {
+                if ($this->form->getData()->crear()) {
                     $this->get('flash')->success('El Usuario Ha Sido Creado Exitosamente...!!!');
                     if (!$this->getRequest()->isAjax()) {
                         return $this->getRouter()->toAction();
@@ -101,7 +100,7 @@ class UsuariosController extends Controller
         $this->form = new Form($this->usuario);
         
         $this->form->prepareForEdit();
-
+        
         if ($this->getRequest()->isMethod('POST')) {
             if ($this->form->bindRequest($this->getRequest())->isValid()) {
                 if ($this->form->getData()->save()) {

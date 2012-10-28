@@ -15,35 +15,11 @@
         </div>
         <?php echo $form->open(array('class' => 'form-horizontal')) ?>
         <div class="control-group">
-            <label class="control-label" for="usuario_login"><?php echo $form['login']['label'] ?>* :</label>
+            <label class="control-label" for="usuario_email"><?php echo $form['roles']['label'] ?>* :</label>
             <div class="controls">
-                <?php echo $form['login'] ?>
-                <?php //echo Form::text('usuario.login') ?>
+                <?php echo $form['roles'] ?>
             </div>
         </div>
-        <div class="control-group">
-            <label class="control-label" for="usuario_nombres"><?php echo $form['nombres']['label'] ?>* :</label>
-            <div class="controls">
-                <?php echo $form['nombres'] ?>
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="usuario_email"><?php echo $form['email']['label'] ?>* :</label>
-            <div class="controls">
-                <?php echo $form['email'] ?>
-            </div>
-        </div>
-        <!--        <div class="control-group">
-                    <label class="control-label" for="usuario_roles_id">Roles del Usuario* : </label><br/><br/>
-                    <div class="controls">
-        <?php //echo Form::dbSelect('usuario.roles_id', 'rol','') ?>
-                        <ul>
-        <?php /* foreach ($roles as $e): ?>
-          <li><?php echo Form::check("rolesUser.$e->id", $e->id), ' ', h($e->rol) ?></li>
-          <?php endforeach; */ ?>
-                            </ul>
-                        </div>
-                    </div>-->
         <div class="form-actions">
             <?php echo Form::submit('Guardar Datos', 'class="btn btn-primary"') ?>
             <?php echo Html::linkAction('', 'Cancelar', 'class="btn"') ?>
