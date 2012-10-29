@@ -13,10 +13,6 @@ use K2\Backend\Model\MenuInterface;
  */
 class Menu
 {
-
-    const BACKEND = 1;
-    const APP = 2;
-
     /**
      *
      * @var Security 
@@ -28,7 +24,7 @@ class Menu
         $this->security = $s;
     }
 
-    public function render($entorno = self::BACKEND)
+    public function render($entorno = MenuInterface::BACKEND)
     {
         $registros = Menus::getItems($entorno);
         $html = '';
