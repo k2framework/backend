@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset='<?php echo APP_CHARSET ?>' />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title><?php echo \KumbiaPHP\Kernel\Kernel::getParam('config.name') ?></title>
+        <?php
+        Tag::css('style');
+        Tag::css('bootstrap.min');
+        Tag::css('backend/estilos');
+        Tag::js('jquery/jquery.min', -100);
+        Tag::js('jquery/jquery.kumbiaphp');
+        Tag::js('bootstrap.min');
+        Tag::js('global');
+        echo Html::includeCss();
+        ?>
+    </head>
+    <body>
+        <?php \KumbiaPHP\View\View::partial('K2/Backend:cabecera_admin') ?>
+        <div class="container">
+            <div id="contenido" class="content">
+                <div class="alert alert-error">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    No tienes permisos para acceder a la ruta: <b><?php echo urldecode($url)  ?></b>
+                </div>
+            </div>
+            <?php \KumbiaPHP\View\View::partial('K2/Backend:backend/pie') ?>
+        </div>
+        <?php echo Html::includeJs(); ?>
+    </body>
+</html>
