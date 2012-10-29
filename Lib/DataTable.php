@@ -2,7 +2,9 @@
 
 namespace K2\Backend\Lib;
 
-use \Html;
+use \Html,
+    \Form,
+    \Js;
 
 class DataTable
 {
@@ -442,7 +444,7 @@ class DataTable
             $this->cabeceras = array();
             $fields = array();
             $alias = array();
-            foreach(current($model)->metadata()->getAttributes() as $name => $attr){
+            foreach (current($model)->metadata()->getAttributes() as $name => $attr) {
                 $fields[] = $name;
                 $alias[] = $attr->alias;
             }
