@@ -2,28 +2,12 @@
 
 namespace K2\Backend\Controller;
 
-use K2\Backend\Form\Rol as Form;
 use K2\Backend\Model\Roles;
-use KumbiaPHP\Kernel\Controller\Controller;
+use K2\Backend\Form\Rol as Form;
+use K2\Backend\Controller\Controller;
 
 class RolesController extends Controller
 {
-
-    /**
-     * Luego de ejecutar las acciones, se verifica si la petición es ajax
-     * para no mostrar ni vista ni template.
-     */
-    protected function afterFilter()
-    {
-        if ($this->getRequest()->isAjax()) {
-            $this->setView(null, null);
-        }
-    }
-
-    protected function beforeFilter()
-    {
-        $this->setTemplate('K2/Backend:default');
-    }
 
     public function index($pagina = 1)
     {
@@ -40,9 +24,7 @@ class RolesController extends Controller
             if ($form->bindRequest($this->getRequest())->isValid()) {
                 if ($rol->save()) {
                     $this->get('flash')->success('El Rol Ha Sido Agregado Exitosamente...!!!');
-                    if (!$this->getRequest()->isAjax()) {
-                        return $this->getRouter()->toAction('editar/' . $rol->id);
-                    }
+                    return $this->toAction('editar/' . $rol->id);
                 } else {
                     $form->setErrors($rol->getErrors());
                 }

@@ -2,28 +2,12 @@
 
 namespace K2\Backend\Controller;
 
-use K2\Backend\Form\Usuario as Form;
 use K2\Backend\Model\Usuarios;
-use KumbiaPHP\Kernel\Controller\Controller;
+use K2\Backend\Form\Usuario as Form;
+use K2\Backend\Controller\Controller;
 
 class UsuariosController extends Controller
 {
-
-    /**
-     * Luego de ejecutar las acciones, se verifica si la petición es ajax
-     * para no mostrar ni vista ni template.
-     */
-    protected function afterFilter()
-    {
-        if ($this->getRequest()->isAjax()) {
-            $this->setView(null, null);
-        }
-    }
-
-    protected function beforeFilter()
-    {
-        $this->setTemplate('K2/Backend:default');
-    }
 
     public function index($pagina = 1)
     {
@@ -71,9 +55,7 @@ class UsuariosController extends Controller
                 $usuario = $this->form->getData();
                 if ($usuario->guardar()) {
                     $this->get('flash')->success('El Usuario Ha Sido Creado Exitosamente...!!!');
-                    if (!$this->getRequest()->isAjax()) {
-                        return $this->getRouter()->toAction('editar/' . $usuario->id);
-                    }
+                    return $this->toAction('editar/' . $usuario->id);
                 } else {
                     $this->form->setErrors($usuario->getErrors());
                 }
