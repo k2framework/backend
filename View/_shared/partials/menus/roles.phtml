@@ -1,5 +1,16 @@
-<?php $res = Load::model('admin/roles')->find('limit: 8', 'order: id DESC'); ?>
-<?php $actual = Form::getFieldValue('rol.id') //vriable con el id del registro que se edita ?>
+<?php
+
+use K2\Backend\Model\Roles;
+
+Roles::createQuery()
+        ->limit(8)
+        ->order('id DESC');
+$res = Roles::findAll();
+
+
+
+$actual = Form::getFieldValue('rol.id') //vriable con el id del registro que se edita 
+?>
 
 <ul class="nav nav-tabs nav-stacked visible-desktop">
     <li class="<?php if (!$actual) echo 'active'; ?>">

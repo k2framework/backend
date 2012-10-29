@@ -5,7 +5,7 @@
     <?php \KumbiaPHP\View\View::content(true) ?>
 </div> 
 <?php
-\KumbiaPHP\View\View::partial('K2/Backend:backend/barra_superior_listas', FALSE, array('texto' => 'Crear Usuario', 'opciones' => FALSE));
+\KumbiaPHP\View\View::partial('K2/Backend:barra_superior_listas', FALSE, array('texto' => 'Crear Usuario', 'opciones' => FALSE));
 $dt = new \K2\Backend\Lib\DataTable($usuarios);
 $dt->addHeaders('id', 'Login', 'Nombres', 'Correo Electronico', 'Estado', 'Editar');
 $dt->addFields('id', 'login', 'nombres', 'email');
