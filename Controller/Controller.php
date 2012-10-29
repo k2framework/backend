@@ -38,7 +38,7 @@ class Controller extends Base
     protected function toAction($action = NULL)
     {
         if (!$this->getRequest()->isAjax()) {
-            return $this->getRouter()->toAction($url);
+            return $this->getRouter()->toAction($action);
         }
     }
 
