@@ -1,0 +1,71 @@
+<div class="page-header">
+    <h1><?php eh($titulo) ?></h1>
+</div>
+<div class="row">
+    <div class="span3">
+        <?php \KumbiaPHP\View\View::partial('K2/Backend:menus/menus') ?>
+    </div>
+    <div class="span8 span-derecho" >
+        <div id="res-form-ajax">
+            <?php \KumbiaPHP\View\View::content(true) ?>
+            <?php KumbiaPHP\View\View::partial('K2\Backend:form_errors', FALSE, array('form' => $form)) ?>
+        </div>
+        <?php //echo Ajax::form('res-form-ajax', NULL, 'form-horizontal') ?>
+        <?php echo $form->open(array('class' => 'form-horizontal')) ?>
+        <div class="control-group">
+            <label class="control-label" for="menus_menus_id"><?php echo $form['menus_id']['label'] ?> : </label>
+            <div class="controls">
+                <?php echo $form['menus_id'] ?>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="menus_nombre"><?php echo $form['nombre']['label'] ?> : </label>
+            <div class="controls">
+                <?php echo $form['nombre'] ?>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="menus_url"><?php echo $form['url']['label'] ?> : </label>
+            <div class="controls">
+                <?php echo $form['url'] ?>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="menus_posicion"><?php echo $form['posicion']['label'] ?> : </label>
+            <div class="controls">
+                <?php echo $form['posicion'] ?>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="menus_clases"><?php echo $form['clases']['label'] ?> : </label>
+            <div class="controls">
+                <?php echo $form['clases'] ?>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="menus_visible_en"><?php echo $form['visible_en']['label'] ?> : </label>
+            <div class="controls" style="margin-left: 210px">
+                <?php echo $form['visible_en'] ?>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="menus_activo"><?php echo $form['activo']['label'] ?> : </label>
+            <div class="controls" style="margin-left: 210px">
+                <?php echo $form['activo'] ?>
+            </div>
+        </div>
+        <div class="form-actions">
+            <?php echo Form::submit('Guardar', 'class="btn btn-primary"') ?>
+            <?php echo Html::linkAction('', 'Cancelar', 'class="btn"') ?>
+        </div>
+        <?php echo Form::close() ?>
+    </div>
+</div>
+<script type="text/javascript" >
+    $(function(){
+        $("#menu_recursos_id").live('change',function(){
+            var recurso = $('option:selected',this).text();
+            $("#menu_url").val(recurso.replace('/*',''));
+        });
+    });
+</script>
