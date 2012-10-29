@@ -11,11 +11,11 @@ class MenuController extends Controller
 
     public function index($pagina = 1)
     {
-        
+
         Menus::createQuery()
                 ->select('menus.*, menuPadre.nombre as padre')
                 ->leftJoin('menus as menuPadre', 'menuPadre.id = menus.menus_id');
-        
+
         $this->menus = Menus::paginate($pagina);
     }
 
@@ -105,32 +105,33 @@ class MenuController extends Controller
 
     public function eliminar($id = NULL)
     {
-        try {
-            if (is_int($id)) {
-                $menu = new Menus();
-
-                if (!$menu->find_first($id)) {
-                    Flash::warning("No existe ningun menú con id '{$id}'");
-                } elseif ($menu->delete()) {
-                    Flash::valid("El Menu <b>{$menu->nombre}</b> fué Eliminado...!!!");
-                } else {
-                    Flash::warning("No se Pudo Eliminar el Menu <b>{$menu->nombre}</b>...!!!");
-                }
-            } elseif (is_string($id)) {
-                $menu = new Menus();
-                if ($menu->delete_all("id IN ($id)")) {
-                    Flash::valid("Los Menús <b>{$id}</b> fueron Eliminados...!!!");
-                } else {
-                    Flash::warning("No se Pudieron Eliminar los Menús...!!!");
-                }
-            } elseif (Input::hasPost('menu_id')) {
-                $this->menus = Input::post('menu_id');
-                return;
+        if (is_numeric($id)) {
+            //si es numero, queremos eliminar 1 solo.
+            if (!$menu = Menus::findByPK($id)) { //si no existe
+                return $this->renderNotFound("No existe el Menú con id = <b>$id</b>");
             }
-        } catch (KumbiaException $e) {
-            View::excepcion($e);
+
+            if ($menu->delete()) {
+                $this->get('flash')->success("El Menú <b>{$menu->nombre}</b> fué Eliminado...!!!");
+            } else {
+                $this->get('flash')->warning("No se Pudo Eliminar el Menú <b>{$menu->nombre}</b>...!!!");
+            }
+        } elseif (is_string($id)) {
+            //si son varios ids concatenados por coma:    3,6,89,...
+            Menus::createQuery()
+                    ->where('id IN (:ids)')
+                    ->bindValue('ids', $id);
+
+            if (Menus::deleteAll()) {
+                $this->get('flash')->success("Los Menús <b>{$id}</b> fueron Eliminados...!!!");
+            } else {
+                $this->get('flash')->warning("No se Pudieron Eliminar los Menús...!!!");
+            }
+        } elseif ($this->getRequest()->get('menu_id', NULL)) {
+            $this->ids = $this->getRequest()->get('menu_id');
+            return;
         }
-        return Router::redirect();
+        return $this->getRouter()->toAction();
     }
 
 }
