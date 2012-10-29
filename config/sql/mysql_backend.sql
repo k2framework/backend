@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 28-10-2012 a las 16:06:03
+-- Tiempo de generación: 29-10-2012 a las 14:42:21
 -- Versión del servidor: 5.5.8
 -- Versión de PHP: 5.3.5
 
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `menus` (
   `activo` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `menus_id` (`menus_id`) USING BTREE
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT AUTO_INCREMENT=6 ;
 
 --
 -- Volcar la base de datos para la tabla `menus`
@@ -68,7 +68,8 @@ INSERT INTO `menus` (`id`, `menus_id`, `nombre`, `url`, `posicion`, `clases`, `v
 (1, NULL, 'Administración', 'admin/usuarios', 100, NULL, 1, 1),
 (2, 1, 'Usuarios', 'admin/usuarios', 100, NULL, 1, 1),
 (3, 1, 'Roles', 'admin/roles', 100, NULL, 1, 1),
-(4, NULL, 'Mi Perfil', 'admin/usuarios/perfil', 90, NULL, 1, 1);
+(4, NULL, 'Mi Perfil', 'admin/usuarios/perfil', 90, NULL, 1, 1),
+(5, 1, 'Menús', 'admin/menu', 100, NULL, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -150,25 +151,16 @@ CREATE TABLE IF NOT EXISTS `roles_usuarios` (
   PRIMARY KEY (`id`),
   KEY `roles_id` (`roles_id`),
   KEY `usuarios_id` (`usuarios_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=53 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=57 ;
 
 --
 -- Volcar la base de datos para la tabla `roles_usuarios`
 --
 
 INSERT INTO `roles_usuarios` (`id`, `roles_id`, `usuarios_id`) VALUES
-(1, 1, 2),
 (2, 2, 3),
 (3, 4, 3),
-(8, 1, 12),
-(38, 2, 42),
-(40, 1, 44),
-(41, 2, 44),
-(42, 4, 44),
-(44, 2, 45),
-(45, 4, 45),
-(48, 2, 46),
-(52, 4, 47);
+(56, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -185,22 +177,15 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `activo` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `login` (`login`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=48 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Volcar la base de datos para la tabla `usuarios`
 --
 
 INSERT INTO `usuarios` (`id`, `login`, `clave`, `nombres`, `email`, `activo`) VALUES
-(2, 'usuario', 'baxuN8I44GotM', 'usuario del sistema', 'programador.manuel@gmail.com', 1),
-(3, 'admin', 'baxuN8I44GotM', 'usuario administrador del sistema', 'manuel_j555@hotmail.com', 1),
-(6, 'fghdfg', '123', 'asdasd', 'asdasds@sdasdasd', 1),
-(12, 'admin11', 'sdfdfsd', 'dfgdfg', 'manuel_j555@hotmail.com', 1),
-(42, 'admin222', '111', '111', 'manuel_j555@hotmail.com', 1),
-(44, 'admin55', '345', '345', 'manuel_j555@hotmail.com', 1),
-(45, 'manu', 'K2932zu3yPbLQ', 'Manuel José Papá', 'manuel_j555@hotmail.com', 1),
-(46, 'otromas', 'K2YHTXv7/p8Mk', '123123', 'manuel_j555@hotmail.com', 1),
-(47, 'dfgdfgdfgfdgfdgdfg', 'K2nF2wV1VJp2c', 'fdgdfgfg', 'manuel_j555@hotmail.com', 1);
+(2, 'usuario', 'K2932zu3yPbLQ', 'usuario del sistema', 'programador.manuel@gmail.com', 1),
+(3, 'admin', 'K2932zu3yPbLQ', 'usuario administrador del sistema', 'manuel_j555@hotmail.com', 1);
 
 --
 -- Filtros para las tablas descargadas (dump)
