@@ -15,6 +15,10 @@ namespace K2\Backend\Model;
 interface MenuInterface
 {
 
+    const BACKEND = 1;
+    const APP = 2;
+    const ALL = 3;
+
     /**
      * Devuelve un array de Objetos MenuInterface que son los items
      * principales que tendrá el menu para el entorno indicado
