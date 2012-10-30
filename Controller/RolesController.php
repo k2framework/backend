@@ -73,9 +73,10 @@ class RolesController extends Controller
             }
         } elseif (is_string($id)) {
             //si son varios ids concatenados por coma:    3,6,89,...
-            Roles::createQuery()
-                    ->where('id IN (:ids)')
-                    ->bindValue('ids', $id);
+            $q = Roles::createQuery();
+            foreach (explode(',', $id) as $index => $e) {
+                $q->whereOr("id = :id_$index")->bindValue("id_$index", $e);
+            }
 
             if (Roles::deleteAll()) {
                 $this->get('flash')->success("Los Roles <b>{$id}</b> fueron Eliminados...!!!");

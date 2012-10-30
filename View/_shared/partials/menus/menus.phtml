@@ -3,7 +3,7 @@
 use K2\Backend\Model\Menus;
 
 Menus::createQuery()
-        ->limit(8)
+        ->limit(5)
         ->order('id DESC');
 $res = Menus::findAll();
 

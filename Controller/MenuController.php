@@ -118,9 +118,10 @@ class MenuController extends Controller
             }
         } elseif (is_string($id)) {
             //si son varios ids concatenados por coma:    3,6,89,...
-            Menus::createQuery()
-                    ->where('id IN (:ids)')
-                    ->bindValue('ids', $id);
+            $q = Menus::createQuery();
+            foreach (explode(',', $id) as $index => $e) {
+                $q->whereOr("id = :id_$index")->bindValue("id_$index", $e);
+            }
 
             if (Menus::deleteAll()) {
                 $this->get('flash')->success("Los Menús <b>{$id}</b> fueron Eliminados...!!!");

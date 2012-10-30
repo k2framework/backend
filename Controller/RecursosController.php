@@ -57,6 +57,7 @@ class RecursosController extends Controller
         $this->form = $form;
         $this->recurso = $recurso;
     }
+
     public function eliminar($id = NULL)
     {
         if (is_numeric($id)) {
@@ -72,9 +73,10 @@ class RecursosController extends Controller
             }
         } elseif (is_string($id)) {
             //si son varios ids concatenados por coma:    3,6,89,...
-            Recursos::createQuery()
-                    ->where('id IN (:ids)')
-                    ->bindValue('ids', $id);
+            $q = Recursos::createQuery();
+            foreach (explode(',', $id) as $index => $e) {
+                $q->whereOr("id = :id_$index")->bindValue("id_$index", $e);
+            }
 
             if (Recursos::deleteAll()) {
                 $this->get('flash')->success("Los Recursos <b>{$id}</b> fueron Eliminados...!!!");
@@ -120,6 +122,5 @@ class RecursosController extends Controller
         }
         return $this->getRouter()->toAction();
     }
-
 
 }
