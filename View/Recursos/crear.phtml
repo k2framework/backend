@@ -1,0 +1,38 @@
+<div class="page-header">
+    <h1><?php eh($titulo) ?></h1>
+</div>
+<div class="row">
+    <div class="span3">
+        <?php \KumbiaPHP\View\View::partial('K2/Backend:menus/recursos') ?>
+    </div>
+    <div class="span8 span-derecho" >
+        <div id="res-form-ajax">
+            <?php \KumbiaPHP\View\View::content(true) ?>
+            <?php KumbiaPHP\View\View::partial('K2\Backend:form_errors', FALSE, array('form' => $form)) ?>
+        </div>
+        <?php echo $form->open(array('class' => 'form-horizontal')) ?>
+        <div class="control-group">
+            <label class="control-label" for="recursos_recurso"><?php echo $form['recurso']['label'] ?>* : </label>
+            <div class="controls">
+                <?php echo $form['recurso'] ?>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="recursos_descripcion"><?php echo $form['descripcion']['label'] ?>* : </label>
+            <div class="controls">
+                <?php echo $form['descripcion'] ?>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="recursos_activo"><?php echo $form['activo']['label'] ?>* : </label>
+            <div class="controls">
+                <?php echo $form['activo'] ?>
+            </div>
+        </div>
+        <div class="form-actions">
+            <?php echo Form::submit('Guardar Datos', 'class="btn btn-primary"') ?>
+            <?php echo Html::linkAction('', 'Cancelar', 'class="btn"') ?>
+        </div>
+        <?php echo Form::close() ?>
+    </div>
+</div>

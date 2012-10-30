@@ -1,5 +1,14 @@
-<?php $res = Load::model('admin/recursos')->find('limit: 8', 'order: id DESC'); ?>
-<?php $actual = Form::getFieldValue('recurso.id') //vriable con el id del registro que se edita ?>
+<?php
+
+use K2\Backend\Model\Recursos;
+
+Recursos::createQuery()
+        ->limit(8)
+        ->order('id DESC');
+$res = Recursos::findAll();
+
+$actual = Form::getFieldValue('recurso.id') //vriable con el id del registro que se edita 
+?>
 
 <ul class="nav nav-tabs nav-stacked visible-desktop">
     <li class="<?php if (!$actual) echo 'active'; ?>">
