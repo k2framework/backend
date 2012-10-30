@@ -27,7 +27,10 @@
         <div class="control-group">
             <label class="control-label" for="menus_url"><?php echo $form['url']['label'] ?> : </label>
             <div class="controls">
-                <?php echo $form['url'] ?>
+                <div class="input-prepend">
+                    <span class="add-on"><?php echo KumbiaPHP\View\View::app()->getBaseUrl() ?></span>
+                    <?php echo $form['url'] ?>
+                </div>
             </div>
         </div>
         <div class="control-group">
