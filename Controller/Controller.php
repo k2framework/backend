@@ -25,6 +25,9 @@ class Controller extends Base
 
     protected function beforeFilter()
     {
+        if (!$this->get('security')->isLogged()) {
+            return $this->get('firewall')->showLogin();
+        }
         $this->setTemplate('K2/Backend:default');
     }
 
