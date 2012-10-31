@@ -19,7 +19,7 @@ class Controller extends Base
     protected function afterFilter()
     {
         if ($this->getRequest()->isAjax()) {
-            $this->setView(null, null);
+            $this->setView(null, 'K2/Backend:ajax');
         }
     }
 
