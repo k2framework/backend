@@ -64,11 +64,3 @@
         <?php echo Form::close() ?>
     </div>
 </div>
-<script type="text/javascript" >
-    $(function(){
-        $("#menu_recursos_id").live('change',function(){
-            var recurso = $('option:selected',this).text();
-            $("#menu_url").val(recurso.replace('/*',''));
-        });
-    });
-</script>
