@@ -14,7 +14,10 @@
         <div class="control-group">
             <label class="control-label" for="recursos_recurso"><?php echo $form['recurso']['label'] ?>* : </label>
             <div class="controls">
-                <?php echo $form['recurso'] ?>
+                <div class="input-prepend">
+                    <span class="add-on"><?php echo KumbiaPHP\View\View::app()->getBaseUrl() ?></span>
+                    <?php echo $form['recurso'] ?>
+                </div>
             </div>
         </div>
         <div class="control-group">
