@@ -24,7 +24,7 @@ class RecursosController extends Controller
             if ($form->bindRequest($this->getRequest())->isValid()) {
                 if ($recurso->save()) {
                     $this->get('flash')->success('El Recurso Ha Sido Agregado Exitosamente...!!!');
-                    return $this->toAction('editar/' . $recurso->id);
+                    return $this->getRouter()->toAction('editar/' . $recurso->id);
                 } else {
                     $form->setErrors($recurso->getErrors());
                 }

@@ -29,7 +29,7 @@ class MenuController extends Controller
             if ($form->bindRequest($this->getRequest())->isValid()) {
                 if ($menu->save()) {
                     $this->get('flash')->success('El Menú Ha Sido Agregado Exitosamente...!!!');
-                    return $this->toAction('editar/' . $menu->id);
+                    return $this->getRouter()->toAction('editar/' . $menu->id);
                 } else {
                     $form->setErrors($menu->getErrors());
                 }

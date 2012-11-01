@@ -55,7 +55,7 @@ class UsuariosController extends Controller
                 $usuario = $this->form->getData();
                 if ($usuario->guardar()) {
                     $this->get('flash')->success('El Usuario Ha Sido Creado Exitosamente...!!!');
-                    return $this->toAction('editar/' . $usuario->id);
+                    return $this->getRouter()->toAction('editar/' . $usuario->id);
                 } else {
                     $this->form->setErrors($usuario->getErrors());
                 }

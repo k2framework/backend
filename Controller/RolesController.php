@@ -24,7 +24,7 @@ class RolesController extends Controller
             if ($form->bindRequest($this->getRequest())->isValid()) {
                 if ($rol->save()) {
                     $this->get('flash')->success('El Rol Ha Sido Agregado Exitosamente...!!!');
-                    return $this->toAction('editar/' . $rol->id);
+                    return $this->getRouter()->toAction('editar/' . $rol->id);
                 } else {
                     $form->setErrors($rol->getErrors());
                 }
