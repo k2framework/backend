@@ -3,6 +3,35 @@ K2_Backend
 
 El mismo backend de la beta2 de kumbiaphp, ahora para K2
 
+Instalación
+-----------
+
+Para instalar el Backend en una Aplicación solo se debe descargar el proyecto y colocarlo en la carpeta "app/modules/K2/Backend/" ( realmente puede ir donde sea, respetando las carpetas "K2/Backend" ), quedando la estructura de directorios como aparece a continuación:
+
+    app/modules/K2/Backend/
+                        |--Controller
+                        |--Model
+                        |--View
+                        |--Demas archivos...
+                        
+Luego de tener los archivos descargados correctamente se debe agregar el módulo en el AppKernel:
+
+    //archivo AppKernel.php
+    protected function registerRoutes()
+    {
+        $routes = array(
+            '/' => __DIR__ . '/modules/Index/',
+            ... //otros módulos
+            '/admin' => __DIR__ . '/modules/K2/Backend/', //acá se agrega el módulo del backend.
+        );
+
+        return $routes;
+    }
+
+Con esto ya debemos tener el Módulo instalado en el sistema, sin embargo aun faltan configurar algunas cosas para que todo funcione bien.
+
+    * Copiar el contenido de la carpeta public del Backend en la carpeta public del Proyecto.
+
 Gestión de Usuarios
 -----
 
