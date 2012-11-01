@@ -20,6 +20,7 @@ class JsRouter
             $script = "<script>window.location='$url';</script>";
             die($script);
             $event->getResponse()->setContent($script);
+            $event->stopPropagation();
         }
     }
 
