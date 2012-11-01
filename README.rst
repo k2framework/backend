@@ -3,7 +3,7 @@ K2_Backend
 
 .. contents:: El mismo backend de la beta2 de kumbiaphp, ahora para K2
 
-Instalación
+Instalacion
 -----------
 
 Para instalar el Backend en una Aplicación solo se debe descargar el proyecto y colocarlo en la carpeta "app/modules/K2/Backend/" ( realmente puede ir donde sea, respetando las carpetas "K2/Backend" ), quedando la estructura de directorios como aparece a continuación::
@@ -43,14 +43,14 @@ Cualquier duda, error ó problema, dejarlo como un `issue <https://github.com/ma
 
 Cualquier persona que desea colaborar con el desarrollo es bienvenida :-)
 
-Gestión de Usuarios
+Gestion de Usuarios
 -----
 
 Permite la creación edición y eliminación de usuarios de la aplicación.
 
 Los Usuarios tienen perfiles asociados, con ello se puede controlar que puede hacer cada usuario dependiendo de los perfiles que posea.
 
-Gestión de Roles (Perfiles)
+Gestion de Roles (Perfiles)
 -----
 
 Permite la creación edición y eliminación de Roles de la aplicación.
@@ -59,7 +59,7 @@ Los roles son un identificador de que tipo de papel juega un usuario dentro de l
 
 Ejemplo: usuarios visitantes, moderadores, administradores, etc.
 
-Gestión de Recursos
+Gestion de Recursos
 -----
 
 Los recursos son cada uno de los módulos ( páginas ) que tiene la aplicación.
@@ -74,12 +74,12 @@ Ejemplos de recursos Validos:
 - modulo/controlador/*     Modulo controlador y todas las acciones del mismo. 
 - modulo/*/*               Modulo todos los controladores y acciones del mismo. 
 
-Gestión de Privilegios ( Permisos de roles a recursos )
+Gestion de Privilegios ( Permisos de roles a recursos )
 -----
 
 Permite establecer a que recursos tiene acceso cada rol en la aplicacion.
 
-Gestión de Menus
+Gestion de Menus
 -----
 
 Permite la creación edición y eliminación de Menus de la aplicación.
