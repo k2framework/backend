@@ -10,7 +10,10 @@
             <?php KumbiaPHP\View\View::content(true) ?>
             <?php KumbiaPHP\View\View::partial('K2\Backend:form_errors', FALSE, array('form' => $form)) ?>
         </div>
-        <?php echo $form->open(array('class' => 'form-horizontal')) ?>
+        <?php echo $form->open(array(
+            'class' => 'form-horizontal js-remote',
+            'data-div' => 'res-form-ajax'
+        )) ?>
         <div class="control-group">
             <label class="control-label" for="usuario_login"><?php echo $form['login']['label'] ?>* :</label>
             <div class="controls">
