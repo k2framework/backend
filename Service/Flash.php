@@ -3,6 +3,7 @@
 namespace K2\Backend\Service;
 
 use KumbiaPHP\Flash\Flash as Base;
+use KumbiaPHP\Kernel\Event\ResponseEvent;
 
 /**
  * Clase que permite el envio de mensajes flash desde un controlador,
@@ -26,6 +27,13 @@ class Flash extends Base
         }
         $code .= '</div>' . PHP_EOL;
         return $code;
+    }
+
+    public function onResponse(ResponseEvent $event)
+    {
+        if ('' === $event->getResponse()->getContent()) {
+            $event->getResponse()->setContent((string) $this);
+        }
     }
 
 }
