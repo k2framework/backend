@@ -8,7 +8,7 @@
 </ul>
 <div class="tab-content">
     <div id="datos-personales" class="tab-pane active">
-        <?php KumbiaPHP\View\View::partial('K2\Backend:form_errors', FALSE, array('form' => $form1)) ?>
+        <?php KumbiaPHP\View\View::partial('K2/Backend:form_errors', FALSE, array('form' => $form1)) ?>
         <?php echo $form1->open(array(
             'class' => 'form-horizontal js-remote',
             'data-div' => 'res-datos-personales'
@@ -36,7 +36,7 @@
         <?php echo $form1->close(); ?>
     </div>
     <div id="clave" class="tab-pane">
-        <?php KumbiaPHP\View\View::partial('K2\Backend:form_errors', FALSE, array('form' => $form2)) ?>
+        <?php KumbiaPHP\View\View::partial('K2/Backend:form_errors', FALSE, array('form' => $form2)) ?>
         <?php echo $form2->open(array(
             'class' => 'form-horizontal js-remote',
             'data-div' => 'res-clave'

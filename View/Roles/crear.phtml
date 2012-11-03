@@ -3,12 +3,12 @@
 </div>
 <div class="row">
     <div class="span3">
-        <?php \KumbiaPHP\View\View::partial('K2\Backend:menus/roles') ?>
+        <?php \KumbiaPHP\View\View::partial('K2/Backend:menus/roles') ?>
     </div>
     <div class="span8 span-derecho" >
         <div id="res-form-ajax">
             <?php \KumbiaPHP\View\View::content(true) ?>
-            <?php KumbiaPHP\View\View::partial('K2\Backend:form_errors', FALSE, array('form' => $form)) ?>
+            <?php KumbiaPHP\View\View::partial('K2/Backend:form_errors', FALSE, array('form' => $form)) ?>
         </div>
         <?php echo $form->open(array(
             'class' => 'form-horizontal js-remote',
