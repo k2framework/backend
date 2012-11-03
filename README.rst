@@ -17,15 +17,23 @@ Para instalar el Backend en una Aplicación solo se debe descargar el proyecto y
 Luego de tener los archivos descargados correctamente se debe agregar el módulo en el AppKernel::
 
     //archivo AppKernel.php
+    protected function registerModules()
+    {
+        $modules = array(
+            'KumbiaPHP'   => __DIR__ . '/../../vendor/kumbiaphp/kumbiaphp/src/',
+            'Index'       => __DIR__ . '/modules/',
+            ...
+            'K2/Backend'   => __DIR__ . '/modules/',
+        );
+        ...
+    }
     protected function registerRoutes()
     {
-        $routes = array(
-            '/' => __DIR__ . '/modules/Index/',
-            ... //otros módulos
-            '/admin' => __DIR__ . '/modules/K2/Backend/', //acá se agrega el módulo del backend.
+        return array(
+            '/'                 => 'Index',
+            ...
+            '/admin'                 => 'K2/Backend',
         );
-
-        return $routes;
     }
 
 Con esto ya debemos tener el Módulo instalado en el sistema, sin embargo aun faltan configurar algunas cosas para que todo funcione bien.
