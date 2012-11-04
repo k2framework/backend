@@ -33,7 +33,8 @@ class Usuarios extends ActiveRecord implements UserInterface
 
     public function auth(UserInterface $user)
     {
-        return $this->createHash($user->getPassword()) === $this->getPassword();
+        return $this->createHash($user->getPassword()) === $this->getPassword()
+                && $this->activo == true;
     }
 
     public function getPassword()
@@ -74,8 +75,8 @@ class Usuarios extends ActiveRecord implements UserInterface
     protected function beforeSave()
     {
         //si se está editando la clave
-        if ( isset($this->clave_actual) ){
-            if ( $this->createHash($this->clave_actual) !== $this->clave ){
+        if (isset($this->clave_actual)) {
+            if ($this->createHash($this->clave_actual) !== $this->clave) {
                 $this->addError('clave', 'La clave Actual no es Correcta');
                 return false;
             }

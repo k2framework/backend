@@ -1,0 +1,40 @@
+<div class="page-header">
+    <h1>Edición del Rol (Perfil)</h1>
+</div>
+<div class="row">
+    <div class="span3">
+        <?php \KumbiaPHP\View\View::partial('K2/Backend:menus/roles') ?>
+    </div>
+    <div class="span8 span-derecho" >
+        <div id="res-form-ajax">
+            <?php \KumbiaPHP\View\View::content(true) ?>
+            <?php //KumbiaPHP\View\View::partial('K2/Backend:form_errors', FALSE, array('form' => $form)) ?>
+        </div>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Ruta</th>
+                    <th>Permitir Acceso</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <td><?php
+            \KumbiaPHP\View\View::partial('paginators/classic', false, array(
+                'page' => $recursos,
+                'url' => KumbiaPHP\View\View::app()->createUrl() . $rol->id,
+            ))
+            ?></td>
+                </tr>
+            </tfoot>
+            <tbody>
+                <?php foreach ($recursos->items as $e): ?>
+                    <tr>
+                        <td><?php eh($e->recurso) ?></td>
+                        <td><?php echo \Form::check("recurso.$e->id", $e->id, NULL, $e->rol == $rol->id) ?></td>
+                    </tr>
+                <?php endforeach ?>
+            </tbody>
+        </table>
+    </div>
+</div>             
