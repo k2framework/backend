@@ -398,7 +398,7 @@ class DataTable
 
     protected function _paginator()
     {
-        $this->url = \KumbiaPHP\View\View::get('app.context')->createUrl();
+        $this->url = \KumbiaPHP\View\View::get('app.context')->getCurrentUrl();
         if (!$this->typePaginator) {
             $html = '<div class="paginador-tabla">';
             if ($this->paginator->count > $this->paginator->per_page) {

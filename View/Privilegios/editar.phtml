@@ -1,40 +1,46 @@
 <div class="page-header">
-    <h1>Edición del Rol (Perfil)</h1>
+    <h2>Privilegios del Rol (Perfil): <small style="text-transform: uppercase"><?php eh($rol->rol) ?></small></h2>
 </div>
 <div class="row">
     <div class="span3">
-        <?php \KumbiaPHP\View\View::partial('K2/Backend:menus/roles') ?>
+        <?php \KumbiaPHP\View\View::partial('K2/Backend:menus/privilegios') ?>
     </div>
     <div class="span8 span-derecho" >
         <div id="res-form-ajax">
             <?php \KumbiaPHP\View\View::content(true) ?>
-            <?php //KumbiaPHP\View\View::partial('K2/Backend:form_errors', FALSE, array('form' => $form)) ?>
+        </div>
+        <?php echo \Form::open(); ?>
+        <div class="well" style="padding: 8px;border-radius: 2px;">  
+            <input type="submit" class="btn btn-primary" value="Guardar Cambios" />
         </div>
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
                     <th>Ruta</th>
+                    <th>Descripción</th>
                     <th>Permitir Acceso</th>
                 </tr>
             </thead>
             <tfoot>
                 <tr>
                     <td><?php
-            \KumbiaPHP\View\View::partial('paginators/classic', false, array(
-                'page' => $recursos,
-                'url' => KumbiaPHP\View\View::app()->createUrl() . $rol->id,
-            ))
-            ?></td>
+        \KumbiaPHP\View\View::partial('paginators/classic', false, array(
+            'page' => $recursos,
+            'url' => KumbiaPHP\View\View::app()->getCurrentUrl() . $rol->id,
+        ))
+        ?></td>
                 </tr>
             </tfoot>
             <tbody>
                 <?php foreach ($recursos->items as $e): ?>
                     <tr>
                         <td><?php eh($e->recurso) ?></td>
-                        <td><?php echo \Form::check("recurso.$e->id", $e->id, NULL, $e->rol == $rol->id) ?></td>
+                        <td><?php eh($e->descripcion) ?></td>
+                        <td class="span2"><?php echo \Form::check("recursos.$e->id", $e->id, NULL, $e->rol == $rol->id) ?></td>
                     </tr>
                 <?php endforeach ?>
             </tbody>
         </table>
+        <?php echo \Form::close(); ?>
     </div>
 </div>             
