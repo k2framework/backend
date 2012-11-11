@@ -20,10 +20,12 @@ class Flash extends Base
     public function __toString()
     {
         $code = '<div class="messages-flash">' . PHP_EOL;
-        foreach ((array) $this->getAll() as $type => $message) {
-            $code.= "<div class=\"alert alert-$type\">
-            <button type=\"button\" class=\"close\" data-dismiss=\"alert\">×</button>
-            $message</div>" . PHP_EOL;
+        foreach ((array) $this->getAll() as $type => $messages) {
+            foreach ((array) $messages as $message) {
+                $code.= "<div class=\"alert alert-$type\">
+                <button type=\"button\" class=\"close\" data-dismiss=\"alert\">×</button>
+                $message</div>" . PHP_EOL;
+            }
         }
         $code .= '</div>' . PHP_EOL;
         return $code;
