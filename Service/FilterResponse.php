@@ -23,7 +23,7 @@ class FilterResponse
             die($script);
             $event->getResponse()->setContent($script);
             $event->stopPropagation();
-        } elseif ('' === $event->getResponse()->getContent()) {
+        } elseif (null === $event->getResponse()->getContent()) {
             //si no devolvimos ninguna data en la respuesta, cargamos los mensajes flash
             $event->getResponse()->setContent(View::content(true)); //mostramos los mensajes flash
         }
