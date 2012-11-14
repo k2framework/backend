@@ -62,7 +62,7 @@ class UsuariosController extends Controller
                     $this->get('flash')->error($this->usuario->getErrors());
                 }
             } else {
-                $this->get('flash')->error($form->getErrors());
+                $this->get('flash')->error($this->form->getErrors());
             }
         }
     }
@@ -87,7 +87,7 @@ class UsuariosController extends Controller
                     $this->get('flash')->error($this->usuario->getErrors());
                 }
             } else {
-                $this->get('flash')->error($form->getErrors());
+                $this->get('flash')->error($this->form->getErrors());
             }
         }
     }
