@@ -36,8 +36,10 @@ class UsuariosController extends Controller
                 if ($this->usuario->guardar()) {
                     $this->get('flash')->success('Los datos fueron guardados correctamente...!!!');
                 } else {
-                    $form->setErrors($this->usuario->getErrors());
+                    $this->get('flash')->error($this->usuario->getErrors());
                 }
+            } else {
+                $this->get('flash')->error($form->getErrors());
             }
         }
         $this->form2->setData(array());
@@ -57,8 +59,10 @@ class UsuariosController extends Controller
                     $this->get('flash')->success('El Usuario Ha Sido Creado Exitosamente...!!!');
                     return $this->getRouter()->toAction('editar/' . $usuario->id);
                 } else {
-                    $this->form->setErrors($usuario->getErrors());
+                    $this->get('flash')->error($this->usuario->getErrors());
                 }
+            } else {
+                $this->get('flash')->error($form->getErrors());
             }
         }
     }
@@ -80,8 +84,10 @@ class UsuariosController extends Controller
                 if ($this->usuario->guardar()) {
                     $this->get('flash')->success('El Usuario Ha Sido Actualizado Exitosamente...!!!');
                 } else {
-                    $this->form->setErrors($this->usuario->getErrors());
+                    $this->get('flash')->error($this->usuario->getErrors());
                 }
+            } else {
+                $this->get('flash')->error($form->getErrors());
             }
         }
     }
