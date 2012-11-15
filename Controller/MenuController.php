@@ -69,42 +69,34 @@ class MenuController extends Controller
 
     public function activar($id)
     {
-        try {
-            $id = (int) $id;
-
-            $menu = new Menus();
-
-            if (!Menus::findByPK($id)) {
-                Flash::warning("No existe ningun menú con id '{$id}'");
-            } elseif ($menu->activar()) {
-                Flash::valid("El menu <b>{$menu->nombre}</b> Esta ahora <b>Activo</b>...!!!");
-            } else {
-                Flash::warning("No se Pudo Activar el menu <b>{$menu->nombre}</b>...!!!");
-            }
-        } catch (KumbiaException $e) {
-            View::excepcion($e);
+        if (!$menu = Menus::findByPK((int) $id)) {
+            return $this->renderNotFound("No existe el menu con id = <b>$id</b>");
         }
-        return Router::redirect();
+
+        $menu->activo = true;
+
+        if ($menu->save()) {
+            $this->get('flash')->success("El menu <b>{$menu->nombre}</b> Esta ahora <b>Activo</b>...!!!");
+        } else {
+            $this->get('flash')->warning("No se Pudo Activar el menu <b>{$menu->nombre}</b>...!!!");
+        }
+        return $this->getRouter()->toAction();
     }
 
     public function desactivar($id)
     {
-        try {
-            $id = (int) $id;
-
-            $menu = new Menus();
-
-            if (!Menus::findByPK($id)) {
-                Flash::warning("No existe ningun menú con id '{$id}'");
-            } elseif ($menu->desactivar()) {
-                Flash::valid("El menu <b>{$menu->nombre}</b> Esta ahora <b>Inactivo</b>...!!!");
-            } else {
-                Flash::warning("No se Pudo Desactivar el menu <b>{$menu->menu}</b>...!!!");
-            }
-        } catch (KumbiaException $e) {
-            View::excepcion($e);
+        if (!$menu = Menus::findByPK((int) $id)) {
+            return $this->renderNotFound("No existe el menu con id = <b>$id</b>");
         }
-        return Router::redirect();
+
+        $menu->activo = false;
+
+        if ($menu->save()) {
+            $this->get('flash')->success("El menu <b>{$menu->nombre}</b> Esta ahora <b>Inactivo</b>...!!!");
+        } else {
+            $this->get('flash')->warning("No se Pudo Desactivar el menu <b>{$menu->nombre}</b>...!!!");
+        }
+        return $this->getRouter()->toAction();
     }
 
     public function eliminar($id = NULL)
