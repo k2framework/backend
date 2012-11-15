@@ -31,8 +31,10 @@ class MenuController extends Controller
                     $this->get('flash')->success('El Menú Ha Sido Agregado Exitosamente...!!!');
                     return $this->getRouter()->toAction('editar/' . $menu->id);
                 } else {
-                    $form->setErrors($menu->getErrors());
+                    $this->get('flash')->error($menu->getErrors());
                 }
+            }else{
+                $this->get('flash')->error($form->getErrors());
             }
         }
         $this->form = $form;
@@ -55,8 +57,10 @@ class MenuController extends Controller
                 if ($menu->save()) {
                     $this->get('flash')->success('El Menú Ha Sido Actualizado Exitosamente...!!!');
                 } else {
-                    $form->setErrors($menu->getErrors());
+                    $this->get('flash')->error($menu->getErrors());
                 }
+            }else{
+                $this->get('flash')->error($form->getErrors());
             }
         }
         $this->form = $form;

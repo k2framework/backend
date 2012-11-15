@@ -26,8 +26,10 @@ class RecursosController extends Controller
                     $this->get('flash')->success('El Recurso Ha Sido Agregado Exitosamente...!!!');
                     return $this->getRouter()->toAction('editar/' . $recurso->id);
                 } else {
-                    $form->setErrors($recurso->getErrors());
+                    $this->get('flash')->error($recurso->getErrors());
                 }
+            } else {
+                $this->get('flash')->error($form->getErrors());
             }
         }
         $this->form = $form;
@@ -50,8 +52,10 @@ class RecursosController extends Controller
                 if ($recurso->save()) {
                     $this->get('flash')->success('El Recurso Ha Sido Actualizado Exitosamente...!!!');
                 } else {
-                    $form->setErrors($recurso->getErrors());
+                    $this->get('flash')->error($recurso->getErrors());
                 }
+            } else {
+                $this->get('flash')->error($form->getErrors());
             }
         }
         $this->form = $form;

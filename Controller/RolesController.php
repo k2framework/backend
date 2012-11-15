@@ -26,8 +26,10 @@ class RolesController extends Controller
                     $this->get('flash')->success('El Rol Ha Sido Agregado Exitosamente...!!!');
                     return $this->getRouter()->toAction('editar/' . $rol->id);
                 } else {
-                    $form->setErrors($rol->getErrors());
+                    $this->get('flash')->error($rol->getErrors());
                 }
+            } else {
+                $this->get('flash')->error($form->getErrors());
             }
         }
         $this->form = $form;
@@ -50,8 +52,10 @@ class RolesController extends Controller
                 if ($rol->save()) {
                     $this->get('flash')->success('El Rol Ha Sido Actualizado Exitosamente...!!!');
                 } else {
-                    $form->setErrors($rol->getErrors());
+                    $this->get('flash')->error($rol->getErrors());
                 }
+            } else {
+                $this->get('flash')->error($form->getErrors());
             }
         }
         $this->form = $form;
