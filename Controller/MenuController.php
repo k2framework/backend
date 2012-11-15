@@ -74,7 +74,7 @@ class MenuController extends Controller
 
             $menu = new Menus();
 
-            if (!$menu->find_first($id)) {
+            if (!Menus::findByPK($id)) {
                 Flash::warning("No existe ningun menú con id '{$id}'");
             } elseif ($menu->activar()) {
                 Flash::valid("El menu <b>{$menu->nombre}</b> Esta ahora <b>Activo</b>...!!!");
@@ -94,7 +94,7 @@ class MenuController extends Controller
 
             $menu = new Menus();
 
-            if (!$menu->find_first($id)) {
+            if (!Menus::findByPK($id)) {
                 Flash::warning("No existe ningun menú con id '{$id}'");
             } elseif ($menu->desactivar()) {
                 Flash::valid("El menu <b>{$menu->nombre}</b> Esta ahora <b>Inactivo</b>...!!!");
