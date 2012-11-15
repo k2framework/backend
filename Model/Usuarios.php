@@ -26,7 +26,9 @@ class Usuarios extends ActiveRecord implements UserInterface
     protected function validations(ValidationBuilder $builder)
     {
         $builder->notNull('login', array(
-            'message' => "Escribe tu login por favor :-)"
+            'message' => "Escribe tu login por favor"
+        ))->unique('login', array(
+            'message' => "El <b>login</b> ya está siendo Utilizado"
         ));
         return $builder;
     }
