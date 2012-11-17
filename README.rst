@@ -14,9 +14,12 @@ Para instalar el Backend en una Aplicación solo se debe descargar el proyecto y
                         |--View
                         |--Demas archivos...
                         
-Luego de tener los archivos descargados correctamente se debe agregar el módulo en el AppKernel::
+Luego de tener los archivos descargados correctamente se debe agregar el módulo en el AppKernel:
 
-    //archivo AppKernel.php
+.. code-block:: php
+
+    <?php //archivo AppKernel.php
+
     protected function registerModules()
     {
         $modules = array(
