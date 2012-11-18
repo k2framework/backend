@@ -36,11 +36,15 @@
                     <tr>
                         <td><?php eh($e->recurso) ?></td>
                         <td><?php eh($e->descripcion) ?></td>
-                        <td class="span2"><?php echo \Form::check("recursos.$e->id", $e->id, NULL, $e->rol == $rol->id) ?></td>
+                        <td class="span2">
+                            <?php echo \Form::check("recursos.$e->recursos_id"
+                                    , $e->recursos_id, NULL, $e->roles_id == $rol->id)
+                            ?>
+                        </td>
                     </tr>
-                <?php endforeach ?>
+<?php endforeach ?>
             </tbody>
         </table>
-        <?php echo \Form::close(); ?>
+<?php echo \Form::close(); ?>
     </div>
 </div>             
