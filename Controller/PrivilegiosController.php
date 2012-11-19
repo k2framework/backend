@@ -41,7 +41,6 @@ class PrivilegiosController extends Controller
                 ->bindValue('rol', $this->rol->id);
 
         $this->recursos = RolesRecursos::paginate($pagina);
-        $this->get("k2_debug")->dump("data", $this->recursos);
 
         if ($this->getRequest()->isMethod('post')) {
             $seleccionados = $this->getRequest()->get('recursos');

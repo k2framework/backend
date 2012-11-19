@@ -24,7 +24,7 @@ class IndexController extends Controller
 
     public function index()
     {
-        
+        return $this->getRouter()->forward('K2/Backend:usuarios/index');
     }
 
     public function login()

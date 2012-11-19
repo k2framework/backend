@@ -34,7 +34,7 @@ class RolesRecursos extends ActiveRecord
                 //si el recurso no está seleccionado, lo vamos a eliminar
                 $eliminar[] = $re->id;
             } else {
-                $existentes[] = $re->id;
+                $existentes[] = $re->recursos_id;
             }
         }
         //los elementos a agregar son los seleccionados que no existen aun en la BD
