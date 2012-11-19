@@ -43,7 +43,7 @@ class PrivilegiosController extends Controller
         $this->recursos = RolesRecursos::paginate($pagina);
 
         if ($this->getRequest()->isMethod('post')) {
-            $seleccionados = $this->getRequest()->get('recursos');
+            $seleccionados = $this->getRequest()->get('recursos', array());
             //acá debemos actualizar los privilegios del rol.
             if (RolesRecursos::editar($this->rol, $this->recursos->items, $seleccionados)) {
                 $this->get('flash')->success("Los privilegios del Rol 
