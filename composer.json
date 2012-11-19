@@ -1,0 +1,10 @@
+{
+    "name": "K2/Backend",
+    "type": "library",
+    "autoload": {
+        "psr-0":{ 
+            "K2\\Backend\\": "/"
+        }
+    },
+    "minimum-stability": "dev"
+}
