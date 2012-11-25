@@ -6,10 +6,10 @@ use K2\Backend\Model\Menus;
 use K2\Backend\Form\Menu as Form;
 use K2\Backend\Controller\Controller;
 
-class MenuController extends Controller
+class menuController extends Controller
 {
 
-    public function index($pagina = 1)
+    public function index_action($pagina = 1)
     {
 
         Menus::createQuery()
@@ -19,7 +19,7 @@ class MenuController extends Controller
         $this->menus = Menus::paginate($pagina);
     }
 
-    public function crear()
+    public function crear_action()
     {
         $this->titulo = 'Crear Menu';
 
@@ -40,7 +40,7 @@ class MenuController extends Controller
         $this->form = $form;
     }
 
-    public function editar($id)
+    public function editar_action($id)
     {
         $this->titulo = 'Editar Menu';
 
@@ -67,7 +67,7 @@ class MenuController extends Controller
         $this->menu = $menu;
     }
 
-    public function activar($id)
+    public function activar_action($id)
     {
         if (!$menu = Menus::findByPK((int) $id)) {
             return $this->renderNotFound("No existe el menu con id = <b>$id</b>");
@@ -83,7 +83,7 @@ class MenuController extends Controller
         return $this->getRouter()->toAction();
     }
 
-    public function desactivar($id)
+    public function desactivar_action($id)
     {
         if (!$menu = Menus::findByPK((int) $id)) {
             return $this->renderNotFound("No existe el menu con id = <b>$id</b>");
@@ -99,7 +99,7 @@ class MenuController extends Controller
         return $this->getRouter()->toAction();
     }
 
-    public function eliminar($id = NULL)
+    public function eliminar_action($id = NULL)
     {
         if (is_numeric($id)) {
             //si es numero, queremos eliminar 1 solo.

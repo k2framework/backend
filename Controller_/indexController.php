@@ -9,7 +9,7 @@ use KumbiaPHP\Kernel\Controller\Controller;
  *
  * @author manuel
  */
-class IndexController extends Controller
+class indexController extends Controller
 {
 
     protected function beforeFilter()
@@ -22,12 +22,12 @@ class IndexController extends Controller
         $this->limitParams = false;
     }
 
-    public function index()
+    public function index_action()
     {
         return $this->getRouter()->forward('K2/Backend:usuarios/index');
     }
 
-    public function login()
+    public function login_action()
     {
         $this->setView(null);
     }

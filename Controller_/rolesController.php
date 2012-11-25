@@ -6,15 +6,15 @@ use K2\Backend\Model\Roles;
 use K2\Backend\Form\Rol as Form;
 use K2\Backend\Controller\Controller;
 
-class RolesController extends Controller
+class rolesController extends Controller
 {
 
-    public function index($pagina = 1)
+    public function index_action($pagina = 1)
     {
         $this->roles = Roles::paginate($pagina);
     }
 
-    public function crear()
+    public function crear_action()
     {
         $this->titulo = 'Crear Rol (Perfil)';
 
@@ -35,7 +35,7 @@ class RolesController extends Controller
         $this->form = $form;
     }
 
-    public function editar($id)
+    public function editar_action($id)
     {
         $this->titulo = 'Editar Rol (Perfil)';
 
@@ -62,7 +62,7 @@ class RolesController extends Controller
         $this->rol = $rol;
     }
 
-    public function eliminar($id = NULL)
+    public function eliminar_action($id = NULL)
     {
         if (is_numeric($id)) {
             //si es numero, queremos eliminar 1 solo.
@@ -94,7 +94,7 @@ class RolesController extends Controller
         return $this->getRouter()->toAction();
     }
 
-    public function activar($id)
+    public function activar_action($id)
     {
         if (!$rol = Roles::findByPK((int) $id)) {
             return $this->renderNotFound("No existe el Rol con id = <b>$id</b>");
@@ -110,7 +110,7 @@ class RolesController extends Controller
         return $this->getRouter()->toAction();
     }
 
-    public function desactivar($id)
+    public function desactivar_action($id)
     {
 
         if (!$rol = Roles::findByPK((int) $id)) {

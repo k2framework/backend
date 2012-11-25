@@ -6,10 +6,10 @@ use K2\Backend\Model\Usuarios;
 use K2\Backend\Form\Usuario as Form;
 use K2\Backend\Controller\Controller;
 
-class UsuariosController extends Controller
+class usuariosController extends Controller
 {
 
-    public function index($pagina = 1)
+    public function index_action($pagina = 1)
     {
         $this->usuarios = Usuarios::paginate($pagina);
     }
@@ -18,7 +18,7 @@ class UsuariosController extends Controller
      * Cambio de los datos personales de usuario.
      * 
      */
-    public function perfil()
+    public function perfil_action()
     {
         $this->usuario = Usuarios::findByPK($this->get('security')->getToken('id'));
 
@@ -48,7 +48,7 @@ class UsuariosController extends Controller
     /**
      * Crea un usuario desde el backend.
      */
-    public function crear()
+    public function crear_action()
     {
         $this->form = Form::create();
 
@@ -71,7 +71,7 @@ class UsuariosController extends Controller
      * Edita los datos de un usuario desde el backend.
      * @param  int $id id del usuario a editar
      */
-    public function editar($id)
+    public function editar_action($id)
     {
         if (!$this->usuario = Usuarios::findByPK((int) $id)) {
             $this->renderNotFound("No existe ningun usuario con id '{$id}'");
@@ -96,7 +96,7 @@ class UsuariosController extends Controller
      * Activa un usuario desde el backend
      * @param  int $id id del usuario a activar
      */
-    public function activar($id)
+    public function activar_action($id)
     {
         if (!$usuario = Usuarios::findByPK((int) $id)) {
             $this->renderNotFound("No existe ningun usuario con id '{$id}'");
@@ -116,7 +116,7 @@ class UsuariosController extends Controller
      * Desactiva un usuario desde el backend
      * @param  int $id id del usuario a desactivar
      */
-    public function desactivar($id)
+    public function desactivar_action($id)
     {
         if (!$usuario = Usuarios::findByPK((int) $id)) {
             $this->renderNotFound("No existe ningun usuario con id '{$id}'");

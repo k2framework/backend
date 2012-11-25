@@ -12,10 +12,10 @@ use K2\Backend\Controller\Controller;
  *
  * @author manuel
  */
-class PrivilegiosController extends Controller
+class privilegiosController extends Controller
 {
 
-    public function index()
+    public function index_action()
     {
         Roles::createQuery()->order("id DESC");
         if (!$rol = Roles::first()) {
@@ -25,7 +25,7 @@ class PrivilegiosController extends Controller
         return $this->getRouter()->toAction('editar/' . $rol->id);
     }
 
-    public function editar($rol_id, $pagina = 1)
+    public function editar_action($rol_id, $pagina = 1)
     {
         //verificamos la existencia del rol
         if (!$this->rol = Roles::findByPK((int) $rol_id)) {
