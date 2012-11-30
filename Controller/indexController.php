@@ -29,6 +29,7 @@ class indexController extends Controller {
         $this->setView(null);
         if ($this->get('session')->has(Security::LOGIN_ERROR)) {
             $this->get('flash')->error($this->get('session')->get(Security::LOGIN_ERROR));
+            $this->get('session')->delete(Security::LOGIN_ERROR);
         }
     }
 
