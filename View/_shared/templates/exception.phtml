@@ -3,7 +3,7 @@
     <head>
         <meta charset='<?php echo APP_CHARSET ?>' />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title><?php echo \KumbiaPHP\Kernel\Kernel::getParam('config.name') ?></title>
+        <title><?php echo \K2\Kernel\App::getParameter('config.name') ?></title>
         <?php
         Tag::css('style');
         Tag::css('bootstrap.min');
@@ -16,7 +16,7 @@
         ?>
     </head>
     <body>
-        <?php \KumbiaPHP\View\View::partial('K2/Backend:cabecera_admin') ?>
+        <?php \K2\View\View::partial('K2/Backend:cabecera_admin') ?>
         <div class="container">
             <div id="contenido" class="content">
                 <div class="alert alert-error">
@@ -24,7 +24,7 @@
                     No tienes permisos para acceder a la ruta: <b><?php echo urldecode($url)  ?></b>
                 </div>
             </div>
-            <?php \KumbiaPHP\View\View::partial('K2/Backend:backend/pie') ?>
+            <?php \K2\View\View::partial('K2/Backend:backend/pie') ?>
         </div>
         <?php echo Html::includeJs(); ?>
     </body>

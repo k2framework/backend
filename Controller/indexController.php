@@ -2,8 +2,8 @@
 
 namespace K2\Backend\Controller;
 
-use KumbiaPHP\Security\Security;
-use KumbiaPHP\Kernel\Controller\Controller;
+use K2\Security\Security;
+use K2\Kernel\Controller\Controller;
 
 /**
  * Description of IndexController

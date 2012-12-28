@@ -2,8 +2,8 @@
 
 namespace K2\Backend\Service;
 
-use KumbiaPHP\View\View;
-use KumbiaPHP\Kernel\Event\ResponseEvent;
+use K2\View\View;
+use K2\Kernel\Event\ResponseEvent;
 
 /**
  * La clase Ejecuta funcionalidades en el evento kumbia.response

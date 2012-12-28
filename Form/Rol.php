@@ -2,7 +2,7 @@
 
 namespace K2\Backend\Form;
 
-use KumbiaPHP\Form\Form;
+use K2\Form\Form;
 use K2\Backend\Model\Roles;
 
 /**

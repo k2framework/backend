@@ -3,7 +3,7 @@
     <head>
         <meta charset='<?php echo APP_CHARSET ?>' />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title><?php echo \KumbiaPHP\Kernel\Kernel::getParam('config.name') ?></title>
+        <title><?php echo \K2\Kernel\App::getParameter('config.name') ?></title>
         <?php
         Tag::css('style');
         Tag::css('bootstrap.min');
@@ -24,7 +24,7 @@
         </style>
     </head>
     <body>
-        <?php //\KumbiaPHP\View\View::partial('K2/Backend:cabecera_app'); ?>
+        <?php //\K2\View\View::partial('K2/Backend:cabecera_app'); ?>
         <div class="container">
             <div id="contenido" class="content">
                 <div id="form_logueo" class="modal" style="position:relative; top: auto; left: auto; margin: 0 auto; z-index: 1">
@@ -32,7 +32,7 @@
                         <h3>Iniciar Sesi&oacute;n</h3>                        
                     </div>
                     <div class="modal-body">
-                        <?php \KumbiaPHP\View\View::content(true) ?>
+                        <?php \K2\View\View::content(true) ?>
                         <?php echo Form::open(NULL, 'post', 'class="form-horizontal"') ?>
                         <div class="control-group">
                             <label class="control-label" for="login">Usuario </label>
@@ -46,7 +46,7 @@
                                 <?php echo Form::pass('form_login.clave', 'autocomplete="off"') ?>
                             </div>
                         </div>
-                        <?php if (\KumbiaPHP\Kernel\Kernel::getParam('k2.backend.recordar_sesion')): ?>
+                        <?php if (\K2\Kernel\App::getParameter('k2.backend.recordar_sesion')): ?>
                             <div class="controls">
                                 <label class="checkbox">
                                     <?php //echo Form::check('recordar', 1, NULL, MyAuth::cookiesActivas()) ?> No cerrar Sesión
@@ -55,7 +55,7 @@
                         <?php endif; ?>
                     </div>
                     <div class="modal-footer">
-                        <?php if (\KumbiaPHP\Kernel\Kernel::getParam('k2.backend.registro')): ?>
+                        <?php if (\K2\Kernel\App::getParameter('k2.backend.registro')): ?>
                             <?php echo Html::link('registro', 'Registrate') ?>
                         <?php endif; ?>
                         <?php echo Form::submit('Ingresar', 'class="btn btn-primary btn-large"') ?>

@@ -1,10 +1,10 @@
 <div class="page-header">
     <h1>Recursos del Sistema</h1>
 </div>
-<?php \KumbiaPHP\View\View::content(true) ?>
+<?php \K2\View\View::content(true) ?>
 <?php
 echo Form::open('admin/recursos/eliminar', 'post', 'class="form_lista"');
-\KumbiaPHP\View\View::partial('K2/Backend:barra_superior_listas', FALSE, array('texto' => 'Crear Recurso'));
+\K2\View\View::partial('K2/Backend:barra_superior_listas', FALSE, array('texto' => 'Crear Recurso'));
 $dt = new K2\Backend\Lib\DataTable($recursos);
 $dt->addHeaders(Form::check('seleccionar_todos', 'todos', NULL, FALSE));
 $dt->addHeaders('id', 'ruta', 'Descripción', 'Estado');

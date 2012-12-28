@@ -3,11 +3,11 @@
 </div>
 <div class="row">
     <div class="span3">
-        <?php \KumbiaPHP\View\View::partial('K2/Backend:menus/roles') ?>
+        <?php \K2\View\View::partial('K2/Backend:menus/roles') ?>
     </div>
     <div class="span8 span-derecho" >
         <div id="res-form-ajax">
-            <?php \KumbiaPHP\View\View::content(true) ?>
+            <?php \K2\View\View::content(true) ?>
         </div>
         <?php echo $form->open(array(
             'class' => 'form-horizontal js-remote',

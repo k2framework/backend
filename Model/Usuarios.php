@@ -3,9 +3,9 @@
 namespace K2\Backend\Model;
 
 use K2\Backend\Model\RolesUsuarios;
-use KumbiaPHP\ActiveRecord\ActiveRecord;
-use KumbiaPHP\Security\Auth\User\UserInterface;
-use KumbiaPHP\ActiveRecord\Validation\ValidationBuilder;
+use K2\ActiveRecord\ActiveRecord;
+use K2\Security\Auth\User\UserInterface;
+use K2\ActiveRecord\Validation\ValidationBuilder;
 
 /**
  * Description of Usuarios
@@ -102,11 +102,11 @@ class Usuarios extends ActiveRecord implements UserInterface
 
             $roles = new RolesUsuarios();
 
-            RolesUsuarios::createQuery()
+            $q = RolesUsuarios::createQuery()
                     ->where('usuarios_id = :id')
                     ->bindValue('id', $this->id);
 
-            RolesUsuarios::deleteAll();
+            RolesUsuarios::deleteAll($q);
 
             foreach ($this->roles as $rol_id) {
                 if (!$roles->create(array('roles_id' => $rol_id, 'usuarios_id' => $this->id))) {

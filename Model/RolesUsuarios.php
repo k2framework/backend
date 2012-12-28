@@ -2,7 +2,7 @@
 
 namespace K2\Backend\Model;
 
-use KumbiaPHP\ActiveRecord\ActiveRecord;
+use K2\ActiveRecord\ActiveRecord;
 
 /**
  * Description of Roles

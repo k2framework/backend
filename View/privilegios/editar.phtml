@@ -3,11 +3,11 @@
 </div>
 <div class="row">
     <div class="span3">
-        <?php \KumbiaPHP\View\View::partial('K2/Backend:menus/privilegios') ?>
+        <?php \K2\View\View::partial('K2/Backend:menus/privilegios') ?>
     </div>
     <div class="span8 span-derecho" >
         <div id="res-form-ajax">
-            <?php \KumbiaPHP\View\View::content(true) ?>
+            <?php \K2\View\View::content(true) ?>
         </div>
         <?php echo \Form::open(); ?>
         <div class="well" style="padding: 8px;border-radius: 2px;">  
@@ -24,9 +24,9 @@
             <tfoot>
                 <tr>
                     <td><?php
-        \KumbiaPHP\View\View::partial('paginators/classic', false, array(
+        \K2\View\View::partial('paginators/classic', false, array(
             'page' => $recursos,
-            'url' => KumbiaPHP\View\View::app()->getCurrentUrl() . $rol->id,
+            'url' => K2\View\View::app()->getCurrentUrl() . $rol->id,
         ))
         ?></td>
                 </tr>

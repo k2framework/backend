@@ -82,12 +82,12 @@ class DataTable
      */
     public function __construct($model)
     {
-        /* @var $model \KumbiaPHP\ActiveRecord\ActiveRecord */
+        /* @var $model \K2\ActiveRecord\ActiveRecord */
         if (isset($model->items)) {
             $this->paginator = $model;
             $model = $model->items;
         }
-        if (sizeof($model) && (current($model) instanceof \KumbiaPHP\ActiveRecord\ActiveRecord)) {
+        if (sizeof($model) && (current($model) instanceof \K2\ActiveRecord\ActiveRecord)) {
             $this->primaryKey = current($model)->metadata()->getPK();
         }
         $this->model = $model;
@@ -398,7 +398,7 @@ class DataTable
 
     protected function _paginator()
     {
-        $this->url = \KumbiaPHP\View\View::get('app.context')->getCurrentUrl();
+        $this->url = \K2\Kernel\App::getContext()->getCurrentUrl();
         if (!$this->typePaginator) {
             $html = '<div class="paginador-tabla">';
             if ($this->paginator->count > $this->paginator->per_page) {
@@ -422,7 +422,7 @@ class DataTable
                 'url' => substr($this->url, 0, strlen($this->url) - 1)
             );
             ob_start();
-            \KumbiaPHP\View\View::partial('paginators/' . $this->typePaginator, false, $parametros);
+            \K2\View\View::partial('paginators/' . $this->typePaginator, false, $parametros);
             $paginador = ob_get_contents();
             ob_get_clean();
             return $paginador;

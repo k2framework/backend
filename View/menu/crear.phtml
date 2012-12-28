@@ -3,11 +3,11 @@
 </div>
 <div class="row">
     <div class="span3">
-        <?php \KumbiaPHP\View\View::partial('K2/Backend:menus/menus') ?>
+        <?php \K2\View\View::partial('K2/Backend:menus/menus') ?>
     </div>
     <div class="span8 span-derecho" >
         <div id="res-form-ajax">
-            <?php \KumbiaPHP\View\View::content(true) ?>
+            <?php \K2\View\View::content(true) ?>
         </div>
         <?php echo $form->open(array(
             'class' => 'form-horizontal js-remote',
@@ -29,7 +29,7 @@
             <label class="control-label" for="menus_url"><?php echo $form['url']['label'] ?> : </label>
             <div class="controls">
                 <div class="input-prepend">
-                    <span class="add-on"><?php echo KumbiaPHP\View\View::app()->getBaseUrl() ?></span>
+                    <span class="add-on"><?php echo K2\View\View::app()->getBaseUrl() ?></span>
                     <?php echo $form['url'] ?>
                 </div>
             </div>

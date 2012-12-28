@@ -2,7 +2,7 @@
 
 namespace K2\Backend\Controller;
 
-use KumbiaPHP\Kernel\Controller\Controller as Base;
+use K2\Kernel\Controller\Controller as Base;
 
 /**
  * Description of IndexController

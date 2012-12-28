@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `menus` (
   `visible_en` int(11) NOT NULL DEFAULT '1',
   `activo` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
-  KEY `menus_id` (`menus_id`) USING BTREE
+  KEY `menus_id` (`menus_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT AUTO_INCREMENT=6 ;
 
 --

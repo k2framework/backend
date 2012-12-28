@@ -3,7 +3,7 @@
 namespace K2\Backend\Service;
 
 use K2\Backend\Model\Menus;
-use KumbiaPHP\Security\Security;
+use K2\Security\Security;
 use K2\Backend\Model\MenuInterface;
 
 /**

@@ -9,13 +9,13 @@
             <a class="brand">Modulo de Administracion</a>
             <div class="nav-collapse">
                 <?php
-                echo \KumbiaPHP\View\View::get('k2_backend_menu')
+                echo \K2\Kernel\App::get('k2_backend_menu')
                         ->render(\K2\Backend\Model\MenuInterface::BACKEND)
                 ?>
                 <ul class="nav pull-right">
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-transform: capitalize;">
-                            <?php eh(\KumbiaPHP\View\View::get('security')->getToken('nombres')) ?>
+                            <?php eh(\K2\Kernel\App::get('security')->getToken('nombres')) ?>
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">

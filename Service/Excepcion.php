@@ -2,9 +2,9 @@
 
 namespace K2\Backend\Service;
 
-use KumbiaPHP\Kernel\Event\ExceptionEvent;
-use KumbiaPHP\Di\Container\ContainerInterface;
-use KumbiaPHP\Security\Exception\UserNotAuthorizedException;
+use K2\Kernel\Event\ExceptionEvent;
+use K2\Di\Container\ContainerInterface;
+use K2\Security\Exception\UserNotAuthorizedException;
 
 /**
  * Clase para capturar las excepciones del backend y crear las vistas

@@ -2,8 +2,8 @@
 
 namespace K2\Backend\Model;
 
-use KumbiaPHP\ActiveRecord\ActiveRecord;
-use KumbiaPHP\Security\Acl\Role\RoleInterface;
+use K2\ActiveRecord\ActiveRecord;
+use K2\Security\Acl\Role\RoleInterface;
 
 /**
  * Description of Roles
