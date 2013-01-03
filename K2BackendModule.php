@@ -3,7 +3,7 @@
 namespace K2\Backend;
 
 use K2\Kernel\Module;
-use K2\Kernel\Event\KumbiaEvents as E;
+use K2\Kernel\Event\K2Events as E;
 
 class K2BackendModule extends Module
 {
