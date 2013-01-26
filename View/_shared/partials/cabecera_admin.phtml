@@ -9,8 +9,8 @@
             <a class="brand">Modulo de Administracion</a>
             <div class="nav-collapse">
                 <?php
-                echo \K2\Kernel\App::get('k2_backend_menu')
-                        ->render(\K2\Backend\Model\MenuInterface::BACKEND)
+                echo \K2\View\View::partial("K2/Backend:menu", false, array(
+                    'items' => K2\Backend\Model\Menus::getItems(K2\Backend\Model\Menus::BACKEND)))
                 ?>
                 <ul class="nav pull-right">
                     <li class="dropdown">

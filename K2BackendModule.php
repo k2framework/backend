@@ -10,9 +10,7 @@ class K2BackendModule extends Module
 
     public function init()
     {
-        $this->container->set('k2_backend_menu', function($c) {
-                    return new Service\Menu($c['security']);
-                })->set('k2_backend_exception', function($c) {
+        $this->container->set('k2_backend_exception', function($c) {
                     return new Service\Excepcion($c);
                 })->set('k2_backend_filter_resonse', function($c) {
                     return new Service\FilterResponse();
