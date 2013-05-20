@@ -2,6 +2,7 @@
 
 namespace K2\Backend\Controller;
 
+use K2\Kernel\App;
 use K2\Kernel\Controller\Controller as Base;
 
 /**
@@ -18,30 +19,29 @@ class Controller extends Base
      */
     protected function afterFilter()
     {
-        if ($this->getRequest()->isAjax()) {
-            $this->setView(null, null);
+        if (App::getRequest()->isAjax()) {
+            $this->setView(false);
         }
     }
 
     protected function beforeFilter()
     {
-        if (!$this->get('security')->isLogged()) {
-            return $this->get('firewall')->showLogin();
+        if (!App::get('security')->isLogged()) {
+            return App::get('firewall')->showLogin();
         }
-        $this->setTemplate('K2/Backend:default');
     }
 
     protected function redirect($url = NULL)
     {
-        if (!$this->getRequest()->isAjax()) {
-            return $this->getRouter()->redirect($url);
+        if (!App::getRequest()->isAjax()) {
+            return App::getRouter()->redirect($url);
         }
     }
 
     protected function toAction($action = NULL)
     {
-        if (!$this->getRequest()->isAjax()) {
-            return $this->getRouter()->toAction($action);
+        if (!App::getRequest()->isAjax()) {
+            return App::getRouter()->toAction($action);
         }
     }
 

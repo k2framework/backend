@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset='{{ _charset }}' />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{ app.config.name|default }}</title>
+        {% block css %}
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css" />
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css" />
+        <link rel="stylesheet" href="{{ asset('css/backend/estilos.css') }}" type="text/css" />
+        {% endblock %}
+        <style>
+            #form_logueo label.control-label{
+                width: 75px !important;
+            }
+            #form_logueo .controls{
+                margin-left: 90px !important;
+            }
+        </style>
+    </head>
+    <body>
+        {% include '@K2Backend/cabecera_app.twig' %}
+        <div class="container">
+            <div id="contenido" class="content">
+                <div id="form_logueo" class="modal" style="position:relative; top: auto; left: auto; margin: 0 auto; z-index: 1">
+                    <div class="modal-header">
+                        <h3>Iniciar Sesi&oacute;n</h3>                        
+                    </div>
+                    <div class="modal-body">
+                        {% include '@K2Backend/flashes.twig' %}
+                        <form class="form-horizontal" method="post" action="{{ url('_autenticate') }}">
+                        <div class="control-group">
+                            <label class="control-label" for="login_login">Usuario </label>
+                            <div class="controls">
+                                {{ form_input('login.login') }}
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="login_clave">Contrase&ntilde;a </label>
+                            <div class="controls">
+                                {{ form_input('login.clave', 'password', {'autocomplete':'off'}) }}
+                            </div>
+                        </div>
+                            <div class="controls">
+                                <label class="checkbox">
+                                    {{ form_check('recordar', 1) }}No cerrar Sesión
+                                </label>
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" value="Ingresar"  class="btn btn-primary btn-large" />
+                    </div>
+                        </form>
+                </div>
+            </div>
+            <footer>
+                <p>
+                    Tiempo: {{ round((microtime(1) - constant('START_TIME')), 4) }} seg.
+                    Memoria Usada: {{ number_format(memory_get_usage() / 1048576, 2) }} MB
+                </p>
+            </footer>
+        </div>
+        <script type="text/javascript" src="{{ asset('js/jquery/jquery.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/jquery/jquery.kumbiaphp.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/jquery/bootstrap.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/global.js') }}"></script>
+        {% block javascript %}
+        {% endblock %}
+    </body>
+</html>

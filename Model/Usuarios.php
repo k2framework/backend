@@ -5,7 +5,7 @@ namespace K2\Backend\Model;
 use K2\Backend\Model\RolesUsuarios;
 use K2\ActiveRecord\ActiveRecord;
 use K2\Security\Auth\User\UserInterface;
-use K2\ActiveRecord\Validation\ValidationBuilder;
+use K2\Validation\ValidationBuilder;
 
 /**
  * Description of Usuarios

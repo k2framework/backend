@@ -1,0 +1,9 @@
+<div class="messages-flash">
+{% for type, messages in app.messages %}
+{% for message in messages %}
+<div class="alert alert-{{ type }}">{{ message|raw }}
+<button type="button" class="close" data-dismiss="alert">×</button></div>
+{% endfor %}
+{% endfor %}
+</div>
+
