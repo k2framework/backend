@@ -10,6 +10,15 @@ use K2\Backend\Controller\Controller;
 class usuariosController extends Controller
 {
 
+    public function menu_lateral_action($active = 0)
+    {
+        $this->usuarios = Usuarios::createQuery()
+                ->limit(8)
+                ->order('id DESC')
+                ->findAll();
+        $this->active = $active;
+    }
+
     public function index_action($pagina = 1)
     {
         $this->usuarios = Usuarios::paginate($pagina);
