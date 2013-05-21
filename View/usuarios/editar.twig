@@ -1,0 +1,20 @@
+{% extends "@K2Backend/base_crud.twig" %}
+
+{% block lateral render('@K2Backend/usuarios/menu_lateral',[usuario.id]) %}
+
+{% block page_header %}Edición del Usuario <small>{{ usuario.login|title }}</small>{% endblock %}
+
+{% block row %}
+<form class="form-horizontal" method="post" action="{{ url() }}">
+    <div class="control-group">
+        {{ form_label('usuario.roles','Roles de Usuario* :',{class:'control-label'}) }}
+        <div class="controls">
+            {{ form_select('usuario.roles', form_options(roles, 'rol'), attrs={required:true, multiple:true}) }}
+        </div>
+    </div>
+    <div class="form-actions">
+        <input type="submit" class="btn btn-primary" value="Guardar Datos">
+        <a class="btn" href="{{ url(action='') }}">Cancelar</a>
+    </div>
+</form>
+{% endblock %}

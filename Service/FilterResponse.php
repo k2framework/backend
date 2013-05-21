@@ -24,8 +24,9 @@ class FilterResponse
             $event->getResponse()->setContent($script);
             $event->stopPropagation();
         } elseif (null === $event->getResponse()->getContent()) {
+            $content = \K2\Kernel\App::get('twig')->render('@K2Backend/flashes.twig');
             //si no devolvimos ninguna data en la respuesta, cargamos los mensajes flash
-            $event->getResponse()->setContent(View::content(true)); //mostramos los mensajes flash
+            $event->getResponse()->setContent($content); //mostramos los mensajes flash
         }
     }
 

@@ -2,12 +2,22 @@
 
 namespace K2\Backend\Controller;
 
+use K2\Kernel\App;
+use K2\Backend\Model\Roles;
 use K2\Backend\Model\Usuarios;
-use K2\Backend\Form\Usuario as Form;
 use K2\Backend\Controller\Controller;
 
 class usuariosController extends Controller
 {
+
+    public function menu_lateral_action($active = 0)
+    {
+        $this->usuarios = Usuarios::createQuery()
+                ->limit(8)
+                ->order('id DESC')
+                ->findAll();
+        $this->active = $active;
+    }
 
     public function index_action($pagina = 1)
     {
@@ -50,19 +60,19 @@ class usuariosController extends Controller
      */
     public function crear_action()
     {
-        $this->form = Form::create();
+        $this->roles = Roles::findAllBy('activo', true);
 
         if ($this->getRequest()->isMethod('POST')) {
-            if ($this->form->bindRequest($this->getRequest())->isValid()) {
-                $usuario = $this->form->getData();
-                if ($usuario->guardar()) {
-                    $this->get('flash')->success('El Usuario Ha Sido Creado Exitosamente...!!!');
-                    return $this->getRouter()->toAction('editar/' . $usuario->id);
-                } else {
-                    $this->get('flash')->error($this->usuario->getErrors());
-                }
+
+            $user = new Usuarios();
+
+            App::get('mapper')->bindPublic($user, 'usuario');
+
+            if ($user->guardar()) {
+                App::get('flash')->success('El Usuario Ha Sido Creado Exitosamente...!!!');
+                return $this->getRouter()->toAction('editar/' . $user->id);
             } else {
-                $this->get('flash')->error($this->form->getErrors());
+                App::get('flash')->error($user->getErrors());
             }
         }
     }
@@ -77,17 +87,17 @@ class usuariosController extends Controller
             $this->renderNotFound("No existe ningun usuario con id '{$id}'");
         }
 
-        $this->form = Form::edit($this->usuario);
+        $this->roles = Roles::findAllBy('activo', true);
 
         if ($this->getRequest()->isMethod('POST')) {
-            if ($this->form->bindRequest($this->getRequest())->isValid()) {
-                if ($this->usuario->guardar()) {
-                    $this->get('flash')->success('El Usuario Ha Sido Actualizado Exitosamente...!!!');
-                } else {
-                    $this->get('flash')->error($this->usuario->getErrors());
-                }
+            
+            App::get('mapper')->bindPublic($this->usuario, 'usuario');
+
+            if ($this->usuario->guardar()) {
+                App::get('flash')->success('El Usuario Ha Sido Actualizado Exitosamente...!!!');
+                return $this->getRouter()->toAction('editar/' . $this->usuario->id);
             } else {
-                $this->get('flash')->error($this->form->getErrors());
+                App::get('flash')->error($this->usuario->getErrors());
             }
         }
     }

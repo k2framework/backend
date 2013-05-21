@@ -1,0 +1,50 @@
+{% extends "@K2Backend/base_crud.twig" %}
+
+{% block lateral render('@K2Backend/usuarios/menu_lateral') %}
+
+{% block page_header 'Crear Usuario' %}
+
+{% block row %}
+<form class="form-horizontal js-remote" method="post" action="{{ url() }}" data-div="res-form-ajax">
+    <div class="control-group">
+        {{ form_label('usuario.login','Nombre de Usuario (Login)* :',{class:'control-label'}) }}
+        <div class="controls">
+            {{ form_input('usuario.login', attrs={required:true}) }}
+        </div>
+    </div>
+    <div class="control-group">
+        {{ form_label('usuario.clave','Contraseña* :',{class:'control-label'}) }}
+        <div class="controls">
+            {{ form_input('usuario.clave', 'password', attrs={required:true}) }}
+        </div>
+    </div>
+    <div class="control-group">
+        {{ form_label('usuario.clave2','Volver a escribir Contraseña* :',{class:'control-label'}) }}
+        <div class="controls">
+            {{ form_input('usuario.clave2', 'password', attrs={required:true}) }}
+        </div>
+    </div>
+    <div class="control-group">
+        {{ form_label('usuario.nombres','Nombre Completo* :',{class:'control-label'}) }}
+        <div class="controls">
+            {{ form_input('usuario.nombres', attrs={required:true}) }}
+        </div>
+    </div>
+    <div class="control-group">
+        {{ form_label('usuario.email','Correo Electronico* :',{class:'control-label'}) }}
+        <div class="controls">
+            {{ form_input('usuario.email', 'email', attrs={required:true}) }}
+        </div>
+    </div>
+    <div class="control-group">
+        {{ form_label('usuario.roles','Roles de Usuario* :',{class:'control-label'}) }}
+        <div class="controls">
+            {{ form_select('usuario.roles', form_options(roles, 'rol'), attrs={required:true, multiple:true}) }}
+        </div>
+    </div>
+    <div class="form-actions">
+        <input type="submit" class="btn btn-primary" value="Guardar Datos">
+        <a class="btn" href="{{ url(action='') }}">Cancelar</a>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "@K2Backend/default.twig" %}
+
+{% block flashes null %}
+
+{% block content %}
+<div class="row">
+    <div class="span3">{% block lateral null %}</div>
+    <div class="span8 span-derecho" >
+        <div id="res-form-ajax">
+            {% include '@K2Backend/flashes.twig' %}
+        </div>
+        {% block row null %}
+    </div>
+</div>
+{% endblock %}
