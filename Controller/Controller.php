@@ -31,17 +31,17 @@ class Controller extends Base
         }
     }
 
-    protected function redirect($url = NULL)
+    protected function redirect($url = null)
     {
         if (!App::getRequest()->isAjax()) {
-            return App::getRouter()->redirect($url);
+            return $this->getRouter()->redirect($url);
         }
     }
 
-    protected function toAction($action = NULL)
+    protected function toAction($action = null)
     {
         if (!App::getRequest()->isAjax()) {
-            return App::getRouter()->toAction($action);
+            return $this->getRouter()->toAction($action);
         }
     }
 

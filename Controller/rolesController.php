@@ -9,6 +9,15 @@ use K2\Backend\Controller\Controller;
 class rolesController extends Controller
 {
 
+    public function menu_lateral_action($active = 0)
+    {
+        $this->roles = Roles::createQuery()
+                ->limit(8)
+                ->order('id DESC')
+                ->findAll();
+        $this->active = $active;
+    }
+
     public function index_action($pagina = 1)
     {
         $this->roles = Roles::paginate($pagina);
@@ -16,50 +25,42 @@ class rolesController extends Controller
 
     public function crear_action()
     {
-        $this->titulo = 'Crear Rol (Perfil)';
-
-        $form = new Form($rol = new Roles());
-
         if ($this->getRequest()->isMethod('post')) {
-            if ($form->bindRequest($this->getRequest())->isValid()) {
-                if ($rol->save()) {
-                    App::get('flash')->success('El Rol Ha Sido Agregado Exitosamente...!!!');
-                    return $this->getRouter()->toAction('editar/' . $rol->id);
-                } else {
-                    App::get('flash')->error($rol->getErrors());
-                }
+
+            $rol = new Roles();
+
+            App::get('mapper')->bindPublic($rol, 'rol');
+
+            if ($rol->save()) {
+                App::get('flash')->success('El Rol Ha Sido Agregado Exitosamente...!!!');
+                return $this->getRouter()->toAction('editar/' . $rol->id);
             } else {
-                App::get('flash')->error($form->getErrors());
+                App::get('flash')->error($rol->getErrors());
             }
         }
-        $this->form = $form;
     }
 
     public function editar_action($id)
     {
         $this->titulo = 'Editar Rol (Perfil)';
 
-        $this->setView('crear');
+        $this->setView('@K2Backend/roles/crear');
 
-        if (!$rol = Roles::findByPK((int) $id)) {
+        if (!$this->rol = Roles::findByID($id)) {
             return $this->renderNotFound("No existe el Rol con id = <b>$id</b>");
         }
 
-        $form = new Form($rol);
-
         if ($this->getRequest()->isMethod('post')) {
-            if ($form->bindRequest($this->getRequest())->isValid()) {
-                if ($rol->save()) {
-                    App::get('flash')->success('El Rol Ha Sido Actualizado Exitosamente...!!!');
-                } else {
-                    App::get('flash')->error($rol->getErrors());
-                }
+
+            App::get('mapper')->bindPublic($this->rol, 'rol');
+
+            if ($this->rol->save()) {
+                App::get('flash')->success('El Rol Ha Sido Actualizado Exitosamente...!!!');
+                return $this->toAction('editar/' . $this->rol->id);
             } else {
-                App::get('flash')->error($form->getErrors());
+                App::get('flash')->error($this->rol->getErrors());
             }
         }
-        $this->form = $form;
-        $this->rol = $rol;
     }
 
     public function eliminar_action($id = NULL)
@@ -82,7 +83,7 @@ class rolesController extends Controller
                 $q->whereOr("id = :id_$index")->bindValue("id_$index", $e);
             }
 
-            if (Roles::deleteAll()) {
+            if (Roles::deleteAll($q)) {
                 App::get('flash')->success("Los Roles <b>{$id}</b> fueron Eliminados...!!!");
             } else {
                 App::get('flash')->warning("No se Pudieron Eliminar los Roles...!!!");
