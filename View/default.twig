@@ -5,9 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{{ app.config.name|default }}</title>
         {% block css %}
-        <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css" />
-        <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css" />
-        <link rel="stylesheet" href="{{ asset('css/backend/estilos.css') }}" type="text/css" />
+        <link rel="stylesheet" href="{{ asset('@K2Backend/css/bootstrap.min.css') }}" type="text/css" />
+        <link rel="stylesheet" href="{{ asset('@K2Backend/css/backend/estilos.css') }}" type="text/css" />
         {% endblock %}
     </head>
     <body>
@@ -25,8 +24,8 @@
         </div>
         <script type="text/javascript" src="{{ asset('js/jquery/jquery.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/jquery/jquery.kumbiaphp.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/jquery/bootstrap.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/global.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('@K2Backend/js/bootstrap.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('@K2Backend/js/global.js') }}"></script>
         {% block javascript %}
         {% endblock %}
     </body>
