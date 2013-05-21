@@ -1,67 +1,60 @@
-<div class="page-header">
-    <h1><?php eh($titulo) ?></h1>
-</div>
-<div class="row">
-    <div class="span3">
-        <?php \K2\View\View::partial('K2/Backend:menus/menus') ?>
+{% extends "@K2Backend/base_crud.twig" %}
+
+{% block lateral render('@K2Backend/menu/menu_lateral') %}
+
+{% block page_header titulo|default('Crear Menu') %}
+
+{% block row %}
+<div id="res-form-ajax"></div>
+<form class="form-horizontal js-remote" method="post" action="{{ url() }}" data-div="res-form-ajax">
+    <div class="control-group">
+        {{ form_label('menu.menus_id','Menú Padre :',{class:'control-label'}) }}
+        <div class="controls">
+            {{ form_select('menu.menus_id', form_options(menus, 'nombre')) }}
+        </div>
     </div>
-    <div class="span8 span-derecho" >
-        <div id="res-form-ajax">
-            <?php \K2\View\View::content(true) ?>
+    <div class="control-group">
+        {{ form_label('menu.nombre','Texto a Mostrar* :',{class:'control-label'}) }}
+        <div class="controls">
+            {{ form_input('menu.nombre', attrs={required:true}) }}
         </div>
-        <?php echo $form->open(array(
-            'class' => 'form-horizontal js-remote',
-            'data-div' => 'res-form-ajax'
-        )); ?>
-        <div class="control-group">
-            <label class="control-label" for="menus_menus_id"><?php echo $form['menus_id']['label'] ?> : </label>
-            <div class="controls">
-                <?php echo $form['menus_id'] ?>
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="menus_nombre"><?php echo $form['nombre']['label'] ?> : </label>
-            <div class="controls">
-                <?php echo $form['nombre'] ?>
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="menus_url"><?php echo $form['url']['label'] ?> : </label>
-            <div class="controls">
-                <div class="input-prepend">
-                    <span class="add-on"><?php echo K2\View\View::app()->getBaseUrl() ?></span>
-                    <?php echo $form['url'] ?>
-                </div>
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="menus_posicion"><?php echo $form['posicion']['label'] ?> : </label>
-            <div class="controls">
-                <?php echo $form['posicion'] ?>
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="menus_clases"><?php echo $form['clases']['label'] ?> : </label>
-            <div class="controls">
-                <?php echo $form['clases'] ?>
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="menus_visible_en"><?php echo $form['visible_en']['label'] ?> : </label>
-            <div class="controls" style="margin-left: 210px">
-                <?php echo $form['visible_en'] ?>
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="menus_activo"><?php echo $form['activo']['label'] ?> : </label>
-            <div class="controls" style="margin-left: 210px">
-                <?php echo $form['activo'] ?>
-            </div>
-        </div>
-        <div class="form-actions">
-            <?php echo Form::submit('Guardar', 'class="btn btn-primary"') ?>
-            <?php echo Html::linkAction('', 'Cancelar', 'class="btn"') ?>
-        </div>
-        <?php echo Form::close() ?>
     </div>
-</div>
+    <div class="control-group">
+        {{ form_label('menu.url','URL del Menú* :',{class:'control-label'}) }}
+        <div class="controls">
+            <div class="input-prepend">
+                <span class="add-on">{{ constant('PUBLIC_PATH') }}</span>
+                {{ form_input('menu.url', attrs={required:true}) }}
+            </div>
+        </div>
+    </div>
+    <div class="control-group">
+        {{ form_label('menu.posicion','Relevancia del Elemento* :',{class:'control-label'}) }}
+        <div class="controls">
+            {{ form_input('menu.posicion', 'number', {required:true}, 100) }}
+        </div>
+    </div>
+    <div class="control-group">
+        {{ form_label('menu.clases','Clases CSS para el Item :',{class:'control-label'}) }}
+        <div class="controls">
+            {{ form_input('menu.clases') }}
+        </div>
+    </div>
+    <div class="control-group">
+        {{ form_label('menu.visible_en','Visible en* :',{class:'control-label'}) }}
+        <div class="controls">
+            {{ form_select('menu.visible_en', visibilidad, attrs={required:true}) }}
+        </div>
+    </div>
+    <div class="control-group">
+        {{ form_label('rol.activo','Activo (Visible)* :',{class:'control-label'}) }}
+        <div class="controls">
+            {{ form_select('rol.activo', {1:'Si',0:'No'}, attrs={required:true}) }}
+        </div>
+    </div>
+    <div class="form-actions">
+        <input type="submit" class="btn btn-primary" value="Guardar Datos" />
+        <a class="btn" href="{{ url(action="") }}">Cancelar</a>
+    </div>
+</form>
+{% endblock %}

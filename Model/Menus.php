@@ -64,7 +64,7 @@ class Menus extends ActiveRecord implements MenuInterface
 
     public function getId()
     {
-        return $this->id;
+        return isset($this->id) ? $this->id : null;
     }
 
     public function getPadre()

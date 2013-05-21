@@ -2,12 +2,30 @@
 
 namespace K2\Backend\Controller;
 
+use K2\Kernel\App;
 use K2\Backend\Model\Menus;
-use K2\Backend\Form\Menu as Form;
 use K2\Backend\Controller\Controller;
 
 class menuController extends Controller
 {
+
+    public $visibilidad = array(
+        Menus::BACKEND => 'Solo en El Backend',
+        Menus::APP => 'Solo en La Aplicación, fuera del Backend',
+        Menus::ALL => 'En cualquier parte del sistema',
+    );
+
+    public function menu_lateral_action($active = 0)
+    {
+        $this->items = Menus::createQuery()
+                ->limit(8)
+                ->order('id DESC')
+                ->findAll();
+        $this->active = $active;
+        $this->column = 'nombre';
+
+        $this->setView('@K2Backend/_partials/menu_lateral');
+    }
 
     public function index_action($pagina = 1)
     {
@@ -21,50 +39,46 @@ class menuController extends Controller
 
     public function crear_action()
     {
-        $this->titulo = 'Crear Menu';
-
-        $form = new Form($menu = new Menus());
+        $this->menus = Menus::findAll();
 
         if ($this->getRequest()->isMethod('post')) {
-            if ($form->bindRequest($this->getRequest())->isValid()) {
-                if ($menu->save()) {
-                    $this->get('flash')->success('El Menú Ha Sido Agregado Exitosamente...!!!');
-                    return $this->getRouter()->toAction('editar/' . $menu->id);
-                } else {
-                    $this->get('flash')->error($menu->getErrors());
-                }
+
+            $menu = new Menus();
+
+            App::get('mapper')->bindPublic($menu, 'menu');
+
+            if ($menu->save()) {
+                App::get('flash')->success('El Menú Ha Sido Agregado Exitosamente...!!!');
+                return $this->getRouter()->toAction('editar/' . $menu->id);
             } else {
-                $this->get('flash')->error($form->getErrors());
+                App::get('flash')->error($rol->getErrors());
             }
         }
-        $this->form = $form;
     }
 
     public function editar_action($id)
     {
+        $this->menus = Menus::findAll();
+
         $this->titulo = 'Editar Menu';
 
-        $this->setView('crear');
+        $this->setView('@K2Backend/menu/crear');
 
-        if (!$menu = Menus::findByPK((int) $id)) {
+        if (!$this->menu = Menus::findByID($id)) {
             return $this->renderNotFound("No existe el Menú con id = <b>$id</b>");
         }
 
-        $form = new Form($menu);
-
         if ($this->getRequest()->isMethod('post')) {
-            if ($form->bindRequest($this->getRequest())->isValid()) {
-                if ($menu->save()) {
-                    $this->get('flash')->success('El Menú Ha Sido Actualizado Exitosamente...!!!');
-                } else {
-                    $this->get('flash')->error($menu->getErrors());
-                }
+
+            App::get('mapper')->bindPublic($this->menu, 'menu');
+
+            if ($this->menu->save()) {
+                App::get('flash')->success('El Menú Ha Sido Actualizado Exitosamente...!!!');
+                return $this->toAction('editar/' . $this->menu->id);
             } else {
-                $this->get('flash')->error($form->getErrors());
+                App::get('flash')->error($this->menu->getErrors());
             }
         }
-        $this->form = $form;
-        $this->menu = $menu;
     }
 
     public function activar_action($id)
@@ -76,9 +90,9 @@ class menuController extends Controller
         $menu->activo = true;
 
         if ($menu->save()) {
-            $this->get('flash')->success("El menu <b>{$menu->nombre}</b> Esta ahora <b>Activo</b>...!!!");
+            App::get('flash')->success("El menu <b>{$menu->nombre}</b> Esta ahora <b>Activo</b>...!!!");
         } else {
-            $this->get('flash')->warning("No se Pudo Activar el menu <b>{$menu->nombre}</b>...!!!");
+            App::get('flash')->warning("No se Pudo Activar el menu <b>{$menu->nombre}</b>...!!!");
         }
         return $this->getRouter()->toAction();
     }
@@ -92,9 +106,9 @@ class menuController extends Controller
         $menu->activo = false;
 
         if ($menu->save()) {
-            $this->get('flash')->success("El menu <b>{$menu->nombre}</b> Esta ahora <b>Inactivo</b>...!!!");
+            App::get('flash')->success("El menu <b>{$menu->nombre}</b> Esta ahora <b>Inactivo</b>...!!!");
         } else {
-            $this->get('flash')->warning("No se Pudo Desactivar el menu <b>{$menu->nombre}</b>...!!!");
+            App::get('flash')->warning("No se Pudo Desactivar el menu <b>{$menu->nombre}</b>...!!!");
         }
         return $this->getRouter()->toAction();
     }
@@ -108,9 +122,9 @@ class menuController extends Controller
             }
 
             if ($menu->delete()) {
-                $this->get('flash')->success("El Menú <b>{$menu->nombre}</b> fué Eliminado...!!!");
+                App::get('flash')->success("El Menú <b>{$menu->nombre}</b> fué Eliminado...!!!");
             } else {
-                $this->get('flash')->warning("No se Pudo Eliminar el Menú <b>{$menu->nombre}</b>...!!!");
+                App::get('flash')->warning("No se Pudo Eliminar el Menú <b>{$menu->nombre}</b>...!!!");
             }
         } elseif (is_string($id)) {
             //si son varios ids concatenados por coma:    3,6,89,...
@@ -119,13 +133,13 @@ class menuController extends Controller
                 $q->whereOr("id = :id_$index")->bindValue("id_$index", $e);
             }
 
-            if (Menus::deleteAll()) {
-                $this->get('flash')->success("Los Menús <b>{$id}</b> fueron Eliminados...!!!");
+            if (Menus::deleteAll($q)) {
+                App::get('flash')->success("Los Menús <b>{$id}</b> fueron Eliminados...!!!");
             } else {
-                $this->get('flash')->warning("No se Pudieron Eliminar los Menús...!!!");
+                App::get('flash')->warning("No se Pudieron Eliminar los Menús...!!!");
             }
-        } elseif ($this->getRequest()->get('menu_id', NULL)) {
-            $this->ids = $this->getRequest()->get('menu_id');
+        } elseif ($this->getRequest()->post('menu_id', null)) {
+            $this->ids = $this->getRequest()->post('menu_id');
             return;
         }
         return $this->getRouter()->toAction();
@@ -134,7 +148,7 @@ class menuController extends Controller
     public function items_action($entorno = Menus::APP)
     {
         $this->items = Menus::getItems($entorno);
-        
+
         $this->security = \K2\Kernel\App::get('security');
     }
 

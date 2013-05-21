@@ -12,11 +12,14 @@ class usuariosController extends Controller
 
     public function menu_lateral_action($active = 0)
     {
-        $this->usuarios = Usuarios::createQuery()
+        $this->items = Usuarios::createQuery()
                 ->limit(8)
                 ->order('id DESC')
                 ->findAll();
         $this->active = $active;
+        $this->column = 'login';
+        
+        $this->setView('@K2Backend/_partials/menu_lateral');
     }
 
     public function index_action($pagina = 1)

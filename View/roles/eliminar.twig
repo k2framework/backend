@@ -1,16 +1,3 @@
-{% extends "@K2Backend/default.twig" %}
+{% extends "@K2Backend/base_eliminar.twig" %}
 
-{% import '@K2Backend/macros.twig' as macros %}
-
-{% block page_header 'Eliminación de Registros' %}
-
-{% block content %}
-<div class="alert-block alert alert-danger">
-    <p>¿ Realmente deseas eliminar los Roles <b>{{ ids|join(', ') }}</b> del Sistema ?</p>
-    <hr/>
-    <p>
-        <a class="btn btn-danger" href="{{ url(action="eliminar/"~ids|join(',')) }}">Si</a>
-        <a class="btn btn-inverse" href="{{ url(action="") }}">No</a>
-    </p>
-</div>
-{% endblock %}
+{% block model_name 'los Roles' %}

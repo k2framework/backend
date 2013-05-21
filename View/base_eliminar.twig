@@ -1,0 +1,14 @@
+{% extends "@K2Backend/default.twig" %}
+
+{% block page_header 'Eliminación de Registros' %}
+
+{% block content %}
+<div class="alert-block alert alert-danger">
+    <p>{% block pregunta %}¿ Realmente deseas eliminar {% block model_name '' %} <b>{{ ids|join(', ') }}</b> del Sistema ?{% endblock %}</p>
+    <hr/>
+    <p>
+        <a class="btn btn-danger" href="{{ url(action="eliminar/"~ids|join(',')) }}">Si</a>
+        <a class="btn btn-inverse" href="{{ url(action="") }}">No</a>
+    </p>
+</div>
+{% endblock %}

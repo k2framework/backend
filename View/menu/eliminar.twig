@@ -1,12 +1,4 @@
-<div class="page-header">
-    <h1>Eliminación de Registros</h1>
-</div>
-<?php \K2\View\View::content(true) ?>
-<div class="alert-block alert alert-danger">
-    <p>¿ Realmente deseas eliminar los menus <b><?php echo join(', ', $ids) ?></b> del Sistema ?</p>
-    <hr/>
-    <p>
-        <?php echo Html::linkAction('eliminar/' .join(',', $ids), 'Si','class="btn btn-danger"'); ?>
-        <?php echo Html::linkAction('', 'No','class="btn btn-inverse"'); ?>
-    </p>
-</div>
+{% extends "@K2Backend/base_eliminar.twig" %}
+
+{% block model_name 'los Menús' %}
+

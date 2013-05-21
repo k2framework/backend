@@ -2,14 +2,12 @@
     <li class="{{ active == 0 ? 'active' : '' }}">
         <a href="{{ url(action="crear") }}">Agregar Nuevo</a>
     </li>
-    {% for item in roles %}
+    {% for item in items %}
     <li class="{{ active == item.id ? 'active' : '' }}">
-        <a href="{{ url(action="editar/" ~ item.id) }}">{{ item.rol|upper }}<div style="clear: both"></div></a>
+        <a href="{{ url(action="editar/" ~ item.id) }}">{{ attribute(item, column)|title }}<div style="clear: both"></div></a>
     </li>
     {% endfor %}
-    {% if roles|length > 8 %}
     <li>
         <a href="{{ url(action="") }}">Ver Todos...</a>
     </li>
-    {% endif %}
 </ul>
