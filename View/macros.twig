@@ -4,6 +4,7 @@
 <a href="{{ url[index] }}" >
 <img src="{{ asset(img[index]) }}" alt="{{ text[index]|default(asset(img[index])) }}" />{{ text[index]|default }}
 {% else %}
+<a href="{{ url }}" >
 <img src="{{ asset(img) }}" alt="{{ text|default(asset(img)) }}" />{{ text }}
 {% endif %}
 </a>

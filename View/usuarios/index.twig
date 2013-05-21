@@ -24,10 +24,11 @@
                 <td>{{ item.login }}</td>
                 <td>{{ item.nombres }}</td>
                 <td>{{ item.email }}</td>
-                <td>{{ macros.imgLink(['img/figuras/circulo_verde.png','img/figuras/circulo_rojo.png'],
+                <td>{{ macros.imgLink(['@K2Backend/img/figuras/circulo_verde.png',
+                                       '@K2Backend/img/figuras/circulo_rojo.png'],
                        [url(action='desactivar/' ~ item.id),url(action='activar/' ~ item.id)],
                        null, item.activo == 1) }}</td>
-                <td>{{ macros.imgLink('img/figuras/editar.png', url(action='editar/' ~ item.id)) }}</td>
+                <td>{{ macros.imgLink('@K2Backend/img/figuras/editar.png', url(action='editar/' ~ item.id)) }}</td>
             </tr>
         {% endfor %}
     </tbody>

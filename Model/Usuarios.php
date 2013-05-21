@@ -62,7 +62,7 @@ class Usuarios extends ActiveRecord implements UserInterface
             $this->commit();
             return true;
         }
-        //$this->addError('TODO', 'No se Pudieron Guardar los Datos...!!!');
+        $this->addError('TODO', 'No se Pudieron Guardar los Datos...!!!');
         $this->rollback();
         return false;
     }

@@ -16,7 +16,7 @@
                 <div class="page-header">
                     <h1>{% block page_header '' %}</h1>
                 </div>
-                {% include '@K2Backend/flashes.twig' %}
+                {% block flashes %}{% include '@K2Backend/flashes.twig' %}{% endblock %}
                 {% block content %}
                 {% endblock content %}
             </div>

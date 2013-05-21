@@ -38,7 +38,7 @@ class Usuario extends Form
                 ->required();
 
         $this->add('roles', 'select')
-                ->setOptionsFromResultset(Roles::findAllBy('activo', true)
+                ->setOptionsFromResultset(
                         , 'id', 'rol')
                 ->setLabel('Roles de Usuario')
                 ->attrs(array('multiple' => 'multiple'))
