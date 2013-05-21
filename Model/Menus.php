@@ -15,7 +15,7 @@ class Menus extends ActiveRecord implements MenuInterface
 
     protected function createRelations()
     {
-        $this->hasMany(__CLASS__);
+        //$this->belongsTo(__CLASS__, 'menus_id');
     }
 
     public function getClasses()
@@ -65,6 +65,13 @@ class Menus extends ActiveRecord implements MenuInterface
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getPadre()
+    {
+        if (null !== $this->menus_id) {
+            return static::findByID($this->menus_id);
+        }
     }
 
 }
