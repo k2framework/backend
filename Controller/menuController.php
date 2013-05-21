@@ -33,7 +33,7 @@ class menuController extends Controller
                 } else {
                     $this->get('flash')->error($menu->getErrors());
                 }
-            }else{
+            } else {
                 $this->get('flash')->error($form->getErrors());
             }
         }
@@ -59,7 +59,7 @@ class menuController extends Controller
                 } else {
                     $this->get('flash')->error($menu->getErrors());
                 }
-            }else{
+            } else {
                 $this->get('flash')->error($form->getErrors());
             }
         }
@@ -129,6 +129,13 @@ class menuController extends Controller
             return;
         }
         return $this->getRouter()->toAction();
+    }
+
+    public function items_action($entorno = Menus::APP)
+    {
+        $this->items = Menus::getItems($entorno);
+        
+        $this->security = \K2\Kernel\App::get('security');
     }
 
 }

@@ -1,10 +1,5 @@
 <?php
-
-use K2\Backend\Model\Menus;
-use K2\Kernel\App;
-use K2\View\View;
-
-isset($classes) || $classes = 'nav';
+{% set classes = classes|default('nav') %}
 
 $security = App::get("security");
 ?>

@@ -1,0 +1,22 @@
+{% set classes = classes|default('nav') %}
+
+{% if items %}
+    <ul class="{{ classes }}"> 
+        {% for item in items %}
+            {# si tiene permisos para acceder al menú #}
+            {% if security.hasPermissions(item.url) %}
+                {% set hasSubItems = item.hasSubItems() %}
+                {% if hasSubItems %}
+                    <li class="dropdown">
+                        <a href="{{ url(item.url) }}" class="dropdown-toggle" data-toggle="dropdown">
+{{ item.title }} <b class="caret"></b></a>
+                        {% include _self with {items: item.subItems, classes:'dropdown-menu'} %}
+                {% else %}
+                    <li class="">
+                        <a href="{{ url(item.url) }}">{{ item.title }}</a>
+                {% endif %}
+                    </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endif %}

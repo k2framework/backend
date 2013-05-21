@@ -18,7 +18,7 @@
         </style>
     </head>
     <body>
-        {% include '@K2Backend/cabecera_app.twig' %}
+        {% include '@K2Backend/_partials/cabecera_app.twig' %}
         <div class="container">
             <div id="contenido" class="content">
                 <div id="form_logueo" class="modal" style="position:relative; top: auto; left: auto; margin: 0 auto; z-index: 1">
@@ -26,7 +26,7 @@
                         <h3>Iniciar Sesi&oacute;n</h3>                        
                     </div>
                     <div class="modal-body">
-                        {% include '@K2Backend/flashes.twig' %}
+                        {% include '@K2Backend/_partials/flashes.twig' %}
                         <form class="form-horizontal" method="post" action="{{ url('_autenticate') }}">
                         <div class="control-group">
                             <label class="control-label" for="login_login">Usuario </label>
@@ -52,7 +52,7 @@
                         </form>
                 </div>
             </div>
-            {% include '@K2Backend/pie.twig' %}
+            {% include '@K2Backend/_partials/pie.twig' %}
         </div>
         <script type="text/javascript" src="{{ asset('js/jquery/jquery.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/jquery/jquery.kumbiaphp.js') }}"></script>

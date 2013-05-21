@@ -10,17 +10,17 @@
         {% endblock %}
     </head>
     <body>
-        {% include '@K2Backend/cabecera_app.twig' %}
+        {% include '@K2Backend/_partials/cabecera_admin.twig' %}
         <div class="container">
             <div id="contenido" class="content">
                 <div class="page-header">
                     <h1>{% block page_header '' %}</h1>
                 </div>
-                {% block flashes %}{% include '@K2Backend/flashes.twig' %}{% endblock %}
+                {% block flashes %}{% include '@K2Backend/_partials/flashes.twig' %}{% endblock %}
                 {% block content %}
                 {% endblock content %}
             </div>
-            {% include '@K2Backend/pie.twig' %}
+            {% include '@K2Backend/_partials/pie.twig' %}
         </div>
         <script type="text/javascript" src="{{ asset('js/jquery/jquery.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/jquery/jquery.kumbiaphp.js') }}"></script>

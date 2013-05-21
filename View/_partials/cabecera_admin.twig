@@ -8,18 +8,15 @@
             </a>
             <a class="brand">Modulo de Administracion</a>
             <div class="nav-collapse">
-                <?php
-                echo \K2\View\View::partial("K2/Backend:menu", false, array(
-                    'items' => K2\Backend\Model\Menus::getItems(K2\Backend\Model\Menus::BACKEND)))
-                ?>
+                {{ render("@K2Backend/menu/items", [constant('K2\\Backend\\Model\\Menus::BACKEND')]) }}
                 <ul class="nav pull-right">
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-transform: capitalize;">
-                            <?php eh(\K2\Kernel\App::get('security')->getToken('nombres')) ?>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            {{ app.user.nombres|title }}
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><?php echo Html::link('logout', 'Salir') ?></li>
+                            <li><a href="{{ url('logout') }}">Salir</a></li>
                         </ul>
                     </li>
                 </ul>

@@ -4,7 +4,7 @@
     </li>
     {% for item in usuarios %}
     <li class="{{ active == item.id ? 'active' : '' }}">
-        <a href="{{ url(action="action/" ~ item.id) }}">{{ item.login|upper }}<div style="clear: both"></div></a>
+        <a href="{{ url(action="editar/" ~ item.id) }}">{{ item.login|upper }}<div style="clear: both"></div></a>
     </li>
     {% endfor %}
     {% if usuarios|length > 8 %}
