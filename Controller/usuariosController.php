@@ -30,29 +30,23 @@ class usuariosController extends Controller
      */
     public function perfil_action()
     {
-        $this->usuario = Usuarios::findByPK($this->get('security')->getToken('id'));
-
-        $this->form1 = Form::perfil($this->usuario);
-
-        $this->form2 = Form::cambioClave($this->usuario);
+        $this->usuario = Usuarios::findByPK(App::get('security')->getToken('id'));
 
         if ($this->getRequest()->isMethod('post')) {
-            if ($this->getRequest()->get('perfil')) {
-                $form = $this->form1;
-            } elseif ($this->getRequest()->get('cambioClave')) {
-                $form = $this->form2;
+            if ($this->getRequest()->request('perfil')) {
+                App::get('mapper')->bindPublic($this->usuario, 'perfil');
+            } elseif ($this->getRequest()->request('clave')) {
+                App::get('mapper')->bindPublic($this->usuario, 'clave');
             }
-            if ($form->bindRequest($this->getRequest())->isValid()) {
-                if ($this->usuario->guardar()) {
-                    $this->get('flash')->success('Los datos fueron guardados correctamente...!!!');
-                } else {
-                    $this->get('flash')->error($this->usuario->getErrors());
-                }
+
+            if ($this->usuario->guardar()) {
+                App::get('flash')->success('Los datos fueron guardados correctamente...!!!');
             } else {
-                $this->get('flash')->error($form->getErrors());
+                App::get('flash')->error($this->usuario->getErrors());
             }
         }
-        $this->form2->setData(array());
+
+        $this->perfil = $this->clave = $this->usuario;
     }
 
     /**
@@ -90,7 +84,7 @@ class usuariosController extends Controller
         $this->roles = Roles::findAllBy('activo', true);
 
         if ($this->getRequest()->isMethod('POST')) {
-            
+
             App::get('mapper')->bindPublic($this->usuario, 'usuario');
 
             if ($this->usuario->guardar()) {
@@ -115,9 +109,9 @@ class usuariosController extends Controller
         $usuario->activo = true;
 
         if ($usuario->save()) {
-            $this->get('flash')->success("La Cuenta del Usuario {$usuario->login} ({$usuario->nombres}) fué activada...!!!");
+            App::get('flash')->success("La Cuenta del Usuario {$usuario->login} ({$usuario->nombres}) fué activada...!!!");
         } else {
-            $this->get('flash')->warning('No se Pudo Activar la cuenta del Usuario...!!!');
+            App::get('flash')->warning('No se Pudo Activar la cuenta del Usuario...!!!');
         }
         return $this->getRouter()->toAction();
     }
@@ -135,9 +129,9 @@ class usuariosController extends Controller
         $usuario->activo = false;
 
         if ($usuario->save()) {
-            $this->get('flash')->success("La Cuenta del Usuario {$usuario->login} ({$usuario->nombres}) fué desactivada...!!!");
+            App::get('flash')->success("La Cuenta del Usuario {$usuario->login} ({$usuario->nombres}) fué desactivada...!!!");
         } else {
-            $this->get('flash')->warning('No se Pudo Desactivar la cuenta del Usuario...!!!');
+            App::get('flash')->warning('No se Pudo Desactivar la cuenta del Usuario...!!!');
         }
         return $this->getRouter()->toAction();
     }

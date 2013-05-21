@@ -1,70 +1,70 @@
-<div class="page-header">
-    <h1>Configuraci&oacute;n de Perfil</h1>
-</div>       
-<?php K2\View\View::content(true) ?>
+{% extends "@K2Backend/default.twig" %}
+
+{% block lateral render('@K2Backend/usuarios/menu_lateral') %}
+
+{% block page_header 'Configuración de Perfil' %}
+
+{% block content %}
 <ul class="nav nav-tabs">
     <li class="active"><a href="#datos-personales" data-toggle="tab">Datos Personales</a></li>
     <li><a href="#clave" data-toggle="tab">Contrase&ntilde;a</a></li>
 </ul>
 <div class="tab-content">
     <div id="datos-personales" class="tab-pane active">
-        <?php echo $form1->open(array(
-            'class' => 'form-horizontal js-remote',
-            'data-div' => 'res-datos-personales'
-        )); ?>
+        <form method="post" action="{{ url() }}" class="form-horizontal js-remote" data-div="res-datos-personales">
         <fieldset>
             <legend>Configurar Datos Personales</legend>
             <br/>
             <div id="res-datos-personales"></div>
-            <div class="control-group">                
-                <label class="control-label" for="perfil_nombres"><?php echo $form1['nombres']['label'] ?></label>
+            <div class="control-group">
+                {{ form_label('perfil.nombres','Nombre Completo* :',{class:'control-label'}) }}
                 <div class="controls">
-                    <?php echo $form1['nombres'] ?>
+                    {{ form_input('perfil.nombres', attrs={required:true}) }}
                 </div>
             </div>
-            <div class="control-group">                
-                <label class="control-label" for="perfil_email"><?php echo $form1['email']['label'] ?></label>
+            <div class="control-group">
+                {{ form_label('perfil.email','Correo Electronico* :',{class:'control-label'}) }}
                 <div class="controls">
-                    <?php echo $form1['email'] ?>
+                    {{ form_input('perfil.email', 'email', attrs={required:true}) }}
                 </div>
             </div>
             <div class="form-actions">
-                <?php echo Form::submit('Guardar Cambios', 'name="datos_personas" class="btn btn-primary"') ?>
+                <input type="submit" class="btn btn-primary" value="Guardar Datos">
+                <a class="btn" href="{{ url(action='') }}">Cancelar</a>
             </div>
         </fieldset>
-        <?php echo $form1->close(); ?>
+        </form>
     </div>
     <div id="clave" class="tab-pane">
-        <?php echo $form2->open(array(
-            'class' => 'form-horizontal js-remote',
-            'data-div' => 'res-clave'
-        )) ?>
+        <form method="post" action="{{ url() }}" class="form-horizontal js-remote" data-div="res-clave">
         <fieldset>
             <legend>Cambiar Contrase&ntilde;a</legend>
             <br/>
             <div id="res-clave"></div>
             <div class="control-group">
-                <label class="control-label" for="cambioClave_clave_actual"><?php echo $form2['clave_actual']['label'] ?></label>
+                {{ form_label('clave.clave_actual','Contraseña Actual* :',{class:'control-label'}) }}
                 <div class="controls">
-                    <?php echo $form2['clave_actual'] ?>
+                    {{ form_input('clave.clave_actual', 'password', attrs={required:true}) }}
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="cambioClave_nueva_clave"><?php echo $form2['nueva_clave']['label'] ?></label>
+                {{ form_label('clave.clave','Contraseña* :',{class:'control-label'}) }}
                 <div class="controls">
-                    <?php echo $form2['nueva_clave'] ?>
+                    {{ form_input('clave.clave', 'password', attrs={required:true}) }}
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="cambioClave_clave2"><?php echo $form2['clave2']['label'] ?></label>
+                {{ form_label('clave.clave2','Volver a escribir Contraseña* :',{class:'control-label'}) }}
                 <div class="controls">
-                    <?php echo $form2['clave2'] ?>
+                    {{ form_input('clave.clave2', 'password', attrs={required:true}) }}
                 </div>
             </div>
             <div class="form-actions">
-                <?php echo Form::submit('Guardar Cambios', 'name="cambiar_clave" class="btn btn-primary"') ?>
+                <input type="submit" class="btn btn-primary" value="Guardar Datos">
+                <a class="btn" href="{{ url(action='') }}">Cancelar</a>
             </div>
         </fieldset>
-        <?php echo Form::close() ?>
+        </form>
     </div>
 </div>
+{% endblock %}

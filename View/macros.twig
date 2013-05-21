@@ -9,3 +9,9 @@
 {% endif %}
 </a>
 {% endmacro %}
+
+{% macro imgLinkConfirm(img, url, text = '', confirm = '¿Realmente desea Eliminar Este Registro?') %}
+<a href="{{ url }}" title="{{ confirm }}" class="js-confirm" >
+<img src="{{ asset(img) }}" alt="{{ text|default(asset(img)) }}" />{{ text }}
+</a>
+{% endmacro %}
