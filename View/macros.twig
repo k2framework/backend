@@ -1,0 +1,10 @@
+{% macro imgLink(img, url, text = '', condition = null) %}
+{% if condition is not null %}
+{% set index = condition ? 0 : 1 %}
+<a href="{{ url[index] }}" >
+<img src="{{ asset(img[index]) }}" alt="{{ text[index]|default(asset(img[index])) }}" />{{ text[index]|default }}
+{% else %}
+<img src="{{ asset(img) }}" alt="{{ text|default(asset(img)) }}" />{{ text }}
+{% endif %}
+</a>
+{% endmacro %}

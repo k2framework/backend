@@ -18,7 +18,7 @@ class indexController extends Controller {
     }
 
     public function index_action() {
-        return App::getRouter()->forward('K2Backend:usuarios/index');
+        return $this->getRouter()->forward('@K2Backend/usuarios/index');
     }
 
     public function login_action() {
