@@ -1,50 +1,41 @@
-<div class="page-header">
-    <h2>Privilegios del Rol (Perfil): <small style="text-transform: uppercase"><?php eh($rol->rol) ?></small></h2>
+{% extends "@K2Backend/base_crud.twig" %}
+
+{% block page_header %}
+<h2>Privilegios del Rol (Perfil): <small> {{ rol.rol|title }}</small></h2>
+{% endblock %}
+
+{% block lateral render('@K2Backend/privilegios/menu_lateral',[rol.id|default]) %}
+
+{% block row %}
+<div id="res-form-ajax"></div>
+<form method="post" action="{{ url() }}">
+<div class="well" style="padding: 8px;border-radius: 2px;">  
+    <input type="submit" class="btn btn-primary" value="Guardar Cambios" />
 </div>
-<div class="row">
-    <div class="span3">
-        <?php \K2\View\View::partial('K2/Backend:menus/privilegios') ?>
-    </div>
-    <div class="span8 span-derecho" >
-        <div id="res-form-ajax">
-            <?php \K2\View\View::content(true) ?>
-        </div>
-        <?php echo \Form::open(); ?>
-        <div class="well" style="padding: 8px;border-radius: 2px;">  
-            <input type="submit" class="btn btn-primary" value="Guardar Cambios" />
-        </div>
-        <table class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>Ruta</th>
-                    <th>Descripción</th>
-                    <th>Permitir Acceso</th>
-                </tr>
-            </thead>
-            <tfoot>
-                <tr>
-                    <td><?php
-        \K2\View\View::partial('paginators/classic', false, array(
-            'page' => $recursos,
-            'url' => K2\View\View::app()->getCurrentUrl() . $rol->id,
-        ))
-        ?></td>
-                </tr>
-            </tfoot>
-            <tbody>
-                <?php foreach ($recursos->items as $e): ?>
-                    <tr>
-                        <td><?php eh($e->recurso) ?></td>
-                        <td><?php eh($e->descripcion) ?></td>
-                        <td class="span2">
-                            <?php echo \Form::check("recursos.$e->recursos_id"
-                                    , $e->recursos_id, NULL, $e->roles_id == $rol->id)
-                            ?>
-                        </td>
-                    </tr>
-<?php endforeach ?>
-            </tbody>
-        </table>
-<?php echo \Form::close(); ?>
-    </div>
-</div>             
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Ruta</th>
+            <th>Descripción</th>
+            <th>Permitir Acceso</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <td colspan="3"><!-- Paginador --></td>
+        </tr>
+    </tfoot>
+    <tbody>
+        {% for item in recursos.items %}
+        <tr>
+            <td colspan="3">{{ dump(item) }}</td>
+            <!--<td>{{ item.recurso }}</td>
+            <td>{{ item.descripcion }}</td>
+            <td class="span2">
+                {{ form_check('recursos.'~e.recursos_id, e.recursos_id, check=e.roles_id==rol.id) }}
+            </td>-->
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>            
+{% endblock %}

@@ -1,6 +1,6 @@
 {% extends "@K2Backend/base_crud.twig" %}
 
-{% block lateral render('@K2Backend/roles/menu_lateral') %}
+{% block lateral render('@K2Backend/roles/menu_lateral',[rol.id|default]) %}
 
 {% block page_header titulo|default('Crear Rol (Perfil)') %}
 

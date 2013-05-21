@@ -1,8 +1,8 @@
 {% extends "@K2Backend/base_crud.twig" %}
 
-{% block lateral render('@K2Backend/menu/menu_lateral') %}
+{% block lateral render('@K2Backend/menu/menu_lateral',[menu.id|default]) %}
 
-{% block page_header titulo|default('Crear Menu') %}
+{% block page_header titulo|default('Crear Menú') %}
 
 {% block row %}
 <div id="res-form-ajax"></div>
@@ -47,9 +47,9 @@
         </div>
     </div>
     <div class="control-group">
-        {{ form_label('rol.activo','Activo (Visible)* :',{class:'control-label'}) }}
+        {{ form_label('menu.activo','Activo (Visible)* :',{class:'control-label'}) }}
         <div class="controls">
-            {{ form_select('rol.activo', {1:'Si',0:'No'}, attrs={required:true}) }}
+            {{ form_select('menu.activo', {1:'Si',0:'No'}, attrs={required:true}) }}
         </div>
     </div>
     <div class="form-actions">
