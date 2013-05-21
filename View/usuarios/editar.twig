@@ -9,7 +9,6 @@
     <div class="control-group">
         {{ form_label('usuario.roles','Roles de Usuario* :',{class:'control-label'}) }}
         <div class="controls">
-            {{ dump(form_options(roles, 'rol')) }}
             {{ form_select('usuario.roles', form_options(roles, 'rol'), attrs={required:true, multiple:true}) }}
         </div>
     </div>
