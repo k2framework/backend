@@ -1,29 +1,21 @@
-<div class="page-header">
-    <h1>
-        Edición del Usuario
-        <small><?php eh(strtoupper($usuario->login)) ?></small>
-    </h1>
-</div>
-<div class="row">
-    <div class="span3">
-        <?php K2\View\View::partial('K2/Backend:menus/usuarios') ?>
+{% extends "@K2Backend/base_crud.twig" %}
+
+{% block lateral render('@K2Backend/usuarios/menu_lateral',[usuario.id]) %}
+
+{% block page_header %}Edición del Usuario <small>{{ usuario.login|title }}</small>{% endblock %}
+
+{% block row %}
+<form class="form-horizontal" method="post" action="{{ url() }}">
+    <div class="control-group">
+        {{ form_label('usuario.roles','Roles de Usuario* :',{class:'control-label'}) }}
+        <div class="controls">
+            {{ dump(form_options(roles, 'rol')) }}
+            {{ form_select('usuario.roles', form_options(roles, 'rol'), attrs={required:true, multiple:true}) }}
+        </div>
     </div>
-    <div class="span8 span-derecho">
-       <div id="res-form-ajax">
-            <?php K2\View\View::content(true) ?>
-        </div>
-        <?php echo $form->open(array('class' => 'form-horizontal')) ?>
-        <div class="control-group">
-            <label class="control-label" for="usuario_email"><?php echo $form['roles']['label'] ?>* :</label>
-            <div class="controls">
-                <?php echo $form['roles'] ?>
-            </div>
-        </div>
-        <div class="form-actions">
-            <?php echo Form::submit('Guardar Datos', 'class="btn btn-primary"') ?>
-            <?php echo Html::linkAction('', 'Cancelar', 'class="btn"') ?>
-        </div>
-        <?php //echo Form::close() ?>
-        <?php echo $form->close() ?>
+    <div class="form-actions">
+        <input type="submit" class="btn btn-primary" value="Guardar Datos">
+        <a class="btn" href="{{ url(action='') }}">Cancelar</a>
     </div>
-</div>
+</form>
+{% endblock %}

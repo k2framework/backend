@@ -87,17 +87,17 @@ class usuariosController extends Controller
             $this->renderNotFound("No existe ningun usuario con id '{$id}'");
         }
 
-        $this->form = Form::edit($this->usuario);
+        $this->roles = Roles::findAllBy('activo', true);
 
         if ($this->getRequest()->isMethod('POST')) {
-            if ($this->form->bindRequest($this->getRequest())->isValid()) {
-                if ($this->usuario->guardar()) {
-                    $this->get('flash')->success('El Usuario Ha Sido Actualizado Exitosamente...!!!');
-                } else {
-                    $this->get('flash')->error($this->usuario->getErrors());
-                }
+            
+            App::get('mapper')->bindPublic($this->usuario, 'usuario');
+
+            if ($this->usuario->guardar()) {
+                App::get('flash')->success('El Usuario Ha Sido Actualizado Exitosamente...!!!');
+                return $this->getRouter()->toAction('editar/' . $this->usuario->id);
             } else {
-                $this->get('flash')->error($this->form->getErrors());
+                App::get('flash')->error($this->usuario->getErrors());
             }
         }
     }
