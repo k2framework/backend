@@ -1,0 +1,36 @@
+{% extends "@K2Backend/default.twig" %}
+
+{% import '@K2Backend/macros.twig' as macros %}
+
+{% block page_header 'Usuarios del Sistema' %}
+
+{% block content %}
+{% include '@K2Backend/barra_crud.twig' with {'texto':'Crear Usuario','opciones': true} %}
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Login</th>
+            <th>Nombres</th>
+            <th>Correo Electrónico</th>
+            <th>Estado</th>
+            <th>Editar</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in usuarios.items %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.login }}</td>
+                <td>{{ item.nombres }}</td>
+                <td>{{ item.email }}</td>
+                <td>{{ macros.imgLink(['@K2Backend/img/figuras/circulo_verde.png',
+                                       '@K2Backend/img/figuras/circulo_rojo.png'],
+                       [url(action='desactivar/' ~ item.id),url(action='activar/' ~ item.id)],
+                       null, item.activo == 1) }}</td>
+                <td>{{ macros.imgLink('@K2Backend/img/figuras/editar.png', url(action='editar/' ~ item.id)) }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

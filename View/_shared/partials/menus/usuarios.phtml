@@ -2,9 +2,7 @@
 
 use K2\Backend\Model\Usuarios;
 
-Usuarios::createQuery()
-        ->limit(8)
-        ->order('id DESC');
+
 
 $res = Usuarios::findAll();
 $actual = Form::getFieldValue('usuario.id') //vriable con el id del registro que se edita 

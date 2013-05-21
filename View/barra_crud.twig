@@ -1,0 +1,11 @@
+<div class="well" style="padding: 8px;border-radius: 2px;">
+    <a href="{{ url(action=action|default('crear')) }}"class="btn btn-primary">{{ texto|default('Crear Registro') }}</a>
+    {% if opciones is defined and opciones == true %}
+        <div class="btn-group pull-right">
+            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"> Seleccionados <span class="caret"></span></a>
+            <ul class="dropdown-menu" style="min-width: 130px">
+                <li><a href="#" class="eliminar_seleccionados"><i class="icon-trash"></i> Eliminar</a></li>
+            </ul>
+        </div>
+    {% endif %}
+</div>

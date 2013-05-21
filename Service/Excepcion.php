@@ -3,7 +3,7 @@
 namespace K2\Backend\Service;
 
 use K2\Kernel\Event\ExceptionEvent;
-use K2\Di\Container\ContainerInterface;
+use K2\Di\Container\Container;
 use K2\Security\Exception\UserNotAuthorizedException;
 
 /**
@@ -17,11 +17,11 @@ class Excepcion
 
     /**
      *
-     * @var ContainerInterface 
+     * @var Container
      */
     protected $container;
 
-    public function __construct(ContainerInterface $container)
+    public function __construct(Container $container)
     {
         $this->container = $container;
     }
