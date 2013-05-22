@@ -6,53 +6,59 @@ K2_Backend
 Instalacion
 -----------
 
-Para instalar el Backend en una Aplicación solo se debe descargar el proyecto y colocarlo en la carpeta "app/modules/K2/Backend/" ( realmente puede ir donde sea, respetando las carpetas "K2/Backend" ), quedando la estructura de directorios como aparece a continuación::
+la instalación más sencilla es mediante composer, agregar el paquete al composer.json del proyecto:
 
-    app/modules/K2/Backend/
-                        |--Controller
-                        |--Model
-                        |--View
-                        |--Demas archivos...
+.. code-block:: json
+
+    {
+        "require" : {
+            "k2/backend": "dev-master"
+        }
+    }
                         
-Luego de tener los archivos descargados correctamente se debe agregar el módulo en el AppApp:
+                        
+Ejecutar el comando:
+
+::
+    
+    composer install
+    
+    
+Luego de tener los archivos descargados correctamente se debe agregar el módulo en el app/config/modules.php:
 
 .. code-block:: php
 
-    <?php //archivo AppKernel.php
+    <?php //archivo app/config/modules.php
 
-    protected function registerModules()
-    {
-        $modules = array(
-            'KumbiaPHP'   => __DIR__ . '/../../vendor/kumbiaphp/kumbiaphp/src/',
-            'Index'       => __DIR__ . '/modules/',
-            ...
-            'K2/Backend'   => __DIR__ . '/modules/',
-        );
-        ...
-    }
-    protected function registerRoutes()
-    {
-        return array(
-            '/'                 => 'Index',
-            ...
-            '/admin'                 => 'K2/Backend',
-        );
-    }
+    /* * *****************************************************************
+     * Iinstalación de módulos
+     */
+    App::modules(array(
+        '/' => include APP_PATH . '/modules/Index/config.php',
+        '/admin' => include composerPath('k2/backend', 'K2/Backend'),
+    ));
 
 Con esto ya debemos tener el Módulo instalado en el sistema, sin embargo aun faltan configurar algunas cosas para que todo funcione bien.
 
-1. Copiar el contenido de la carpeta public del Backend en la carpeta public del Proyecto (para tener los css, img y js).
+1. abrir una consola y colocarse en dirProyecto/default u ejecutar el comando:
+
+::
+
+    php app/console asset:install
+    
+Este comando instalará los assets en la carpeta public del proyecto.
+
 2. Configurar el archivo config/security.ini (para darle seguridad a la app), debemos tener la config como está en el archivo `security.ini <https://github.com/manuelj555/K2_Backend/tree/master/config/security.ini>`_.
 3. Crear la base de datos y configurar la conexion en el "app/config/databases.ini".
-4. Por ultimo verificar que este activado el firewall de la app en el "app/config/services.ini" , debe estar descomantada la linea: listen[onKernelRequest] = kumbia.request
+4. Por ultimo verificar que este activado el firewall de la app en el "app/modules/Index/config.php".
 
 Con esto ya debemos tener corriendo el backend de la aplicación.
 
 Podemos probar entrando a http://dirProyecto/admin/usuarios, y nos debe aparecer un formulario de logueo.
 
-Cualquier duda, error ó problema, dejarlo como un `issue <https://github.com/manuelj555/K2_Backend/issues>`_ en el repo.
+Cualquier duda, error ó problema, dejarlo como un `issue <https://github.com/k2framework/backend/issues>`_ en el repo.
 
-Cualquier persona que desea colaborar con el desarrollo es bienvenida :-)
+Cualquier persona que desee colaborar con el desarrollo es bienvenida :-)
 
 Gestion de Usuarios
 -----
