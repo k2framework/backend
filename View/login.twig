@@ -3,7 +3,7 @@
     <head>
         <meta charset='{{ _charset }}' />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{{ app.parameters.name|default('K2') }} - Backend</title>
+        <title>{{ app['parameters']['name']|default('K2') }} - Backend</title>
         {% block css %}
         <link rel="stylesheet" href="{{ asset('@K2Backend/css/bootstrap.min.css') }}" type="text/css" />
         <link rel="stylesheet" href="{{ asset('@K2Backend/css/backend/estilos.css') }}" type="text/css" />
