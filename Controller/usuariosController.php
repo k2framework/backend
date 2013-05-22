@@ -18,7 +18,7 @@ class usuariosController extends Controller
                 ->findAll();
         $this->active = $active;
         $this->column = 'login';
-        
+
         $this->setView('@K2Backend/_partials/menu_lateral');
     }
 
@@ -57,7 +57,7 @@ class usuariosController extends Controller
      */
     public function crear_action()
     {
-        $this->roles = Roles::findAllBy('activo', true);
+        $this->roles = Roles::findAllBy(array('activo' => true));
 
         if ($this->getRequest()->isMethod('POST')) {
 
@@ -84,7 +84,7 @@ class usuariosController extends Controller
             $this->renderNotFound("No existe ningun usuario con id '{$id}'");
         }
 
-        $this->roles = Roles::findAllBy('activo', true);
+        $this->roles = Roles::findAllBy(array('activo' => true));
 
         if ($this->getRequest()->isMethod('POST')) {
 
