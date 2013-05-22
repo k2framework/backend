@@ -39,24 +39,20 @@ class RolesRecursos extends ActiveRecord
         }
         //los elementos a agregar son los seleccionados que no existen aun en la BD
         $agregar = array_diff($seleccionados, $existentes);
-        try {
-            \ActiveRecord\Adapter\Adapter::factory()->pdo()->beginTransaction();
-            //eliminamos los elementos deseleccionados
-            self::deleteByIds($eliminar);
-            $model = new static();
-            foreach ($agregar as $id) {
-                $model->roles_id = $rol->id;
-                $model->recursos_id = (int) $id;
-                if (!$model->create()) {
-                    return false;
-                }
-            }
-        } catch (ActiveRecord\Exception\SqlException $e) {
-            \ActiveRecord\Adapter\Adapter::factory()->pdo()->rollBack();
-            return false;
-        }
-        \ActiveRecord\Adapter\Adapter::factory()->pdo()->commit();
-        return true;
+
+        $model = new static();
+
+        return $model->transaction(function($model)use($rol, $agregar, $eliminar) {
+                            //eliminamos los elementos deseleccionados
+                            $model::deleteByIds($eliminar);
+                            foreach ($agregar as $id) {
+                                $model->roles_id = $rol->id;
+                                $model->recursos_id = (int) $id;
+                                if (!$model->create()) {
+                                    return false;
+                                }
+                            }
+                        });
     }
 
     /**
@@ -74,12 +70,10 @@ class RolesRecursos extends ActiveRecord
     {
         if (count($ids)) {
             $query = self::createQuery();
-            foreach ($ids as $id) {
-                $id = (int) $id;
-                $query->whereOr("id = :id_{$id}")
-                        ->bindValue("id_{$id}", $id);
-            }
-            self::deleteAll();
+
+            static::createConditions($query, array('id' => $ids));
+
+            self::deleteAll($query);
         }
     }
 

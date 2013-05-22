@@ -54,11 +54,11 @@ class privilegiosController extends Controller
                 ->group('r.id')
                 ->bindValue('rol', $this->rol->id);
 
-        $this->recursos = RolesRecursos::paginate($pagina, 10, Roles::FETCH_ARRAY);
-        var_dump($this->recursos->items);
-        die;
+        $this->recursos = RolesRecursos::paginate($pagina);
+
         if ($this->getRequest()->isMethod('post')) {
-            $seleccionados = $this->getRequest()->get('recursos', array());
+            $seleccionados = $this->getRequest()->request('recursos', array());
+
             //acá debemos actualizar los privilegios del rol.
             if (RolesRecursos::editar($this->rol, $this->recursos->items, $seleccionados)) {
                 App::get('flash')->success("Los privilegios del Rol 

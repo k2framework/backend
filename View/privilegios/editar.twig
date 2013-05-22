@@ -28,12 +28,11 @@
     <tbody>
         {% for item in recursos.items %}
         <tr>
-            <td colspan="3">{{ dump(item) }}</td>
-            <!--<td>{{ item.recurso }}</td>
+            <td>{{ item.recurso }}</td>
             <td>{{ item.descripcion }}</td>
             <td class="span2">
-                {{ form_check('recursos.'~e.recursos_id, e.recursos_id, check=e.roles_id==rol.id) }}
-            </td>-->
+                {{ form_check('recursos.'~item.recursos_id, item.recursos_id, check=item.roles_id==rol.id) }}
+            </td>
         </tr>
         {% endfor %}
     </tbody>
