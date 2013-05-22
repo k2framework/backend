@@ -35,8 +35,7 @@ class Usuarios extends ActiveRecord implements UserInterface
 
     public function auth(UserInterface $user)
     {
-        return $this->createHash($user->getPassword()) === $this->getPassword()
-                && $this->activo == true;
+        return $this->createHash($user->getPassword()) === $this->getPassword() && $this->activo == true;
     }
 
     public function getPassword()
@@ -46,7 +45,12 @@ class Usuarios extends ActiveRecord implements UserInterface
 
     public function getRoles()
     {
-        return $this->get('K2\\Backend\\Model\\Roles');
+        static $roles;
+        if (!$roles) {
+            $roles = $this->get('K2\\Backend\\Model\\Roles');
+        }
+
+        return $roles;
     }
 
     public function getUsername()
