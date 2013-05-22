@@ -1,31 +1,25 @@
--- phpMyAdmin SQL Dump
--- version 3.3.9
--- http://www.phpmyadmin.net
---
--- Servidor: localhost
--- Tiempo de generación: 29-10-2012 a las 14:42:21
--- Versión del servidor: 5.5.8
--- Versión de PHP: 5.3.5
+/*
+Navicat MySQL Data Transfer
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+Source Server         : local
+Source Server Version : 50524
+Source Host           : localhost:3306
+Source Database       : k2
 
+Target Server Type    : MYSQL
+Target Server Version : 50524
+File Encoding         : 65001
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+Date: 2013-05-21 21:22:53
+*/
 
---
--- Base de datos: `backend_k2`
---
+SET FOREIGN_KEY_CHECKS=0;
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `auditorias`
---
-
-CREATE TABLE IF NOT EXISTS `auditorias` (
+-- ----------------------------
+-- Table structure for `auditorias`
+-- ----------------------------
+DROP TABLE IF EXISTS `auditorias`;
+CREATE TABLE `auditorias` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `usuarios_id` int(11) NOT NULL,
   `fecha_at` date NOT NULL,
@@ -33,21 +27,19 @@ CREATE TABLE IF NOT EXISTS `auditorias` (
   `tabla_afectada` varchar(150) DEFAULT NULL,
   `ip` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `usuarios_id` (`usuarios_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  KEY `usuarios_id` (`usuarios_id`),
+  CONSTRAINT `auditorias_ibfk_1` FOREIGN KEY (`usuarios_id`) REFERENCES `usuarios` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcar la base de datos para la tabla `auditorias`
---
+-- ----------------------------
+-- Records of auditorias
+-- ----------------------------
 
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `menus`
---
-
-CREATE TABLE IF NOT EXISTS `menus` (
+-- ----------------------------
+-- Table structure for `menus`
+-- ----------------------------
+DROP TABLE IF EXISTS `menus`;
+CREATE TABLE `menus` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `menus_id` int(11) DEFAULT NULL,
   `nombre` varchar(100) NOT NULL,
@@ -57,118 +49,105 @@ CREATE TABLE IF NOT EXISTS `menus` (
   `visible_en` int(11) NOT NULL DEFAULT '1',
   `activo` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
-  KEY `menus_id` (`menus_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT AUTO_INCREMENT=6 ;
+  KEY `menus_id` (`menus_id`),
+  CONSTRAINT `menus_ibfk_1` FOREIGN KEY (`menus_id`) REFERENCES `menus` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
---
--- Volcar la base de datos para la tabla `menus`
---
+-- ----------------------------
+-- Records of menus
+-- ----------------------------
+INSERT INTO `menus` VALUES ('1', null, 'Administración', 'admin/usuarios', '100', null, '1', '1');
+INSERT INTO `menus` VALUES ('2', '1', 'Usuarios', 'admin/usuarios', '100', null, '1', '1');
+INSERT INTO `menus` VALUES ('3', '1', 'Roles', 'admin/roles', '100', null, '1', '1');
+INSERT INTO `menus` VALUES ('4', null, 'Mi Perfil', 'admin/usuarios/perfil', '90', null, '1', '1');
+INSERT INTO `menus` VALUES ('5', '1', 'Menús', 'admin/menu', '100', null, '2', '1');
+INSERT INTO `menus` VALUES ('6', '1', 'Privilegios', 'admin/privilegios', '100', null, '1', '1');
+INSERT INTO `menus` VALUES ('7', '1', 'Recursos', 'admin/recursos', '100', null, '1', '1');
 
-INSERT INTO `menus` (`id`, `menus_id`, `nombre`, `url`, `posicion`, `clases`, `visible_en`, `activo`) VALUES
-(1, NULL, 'Administración', 'admin/usuarios', 100, NULL, 1, 1),
-(2, 1, 'Usuarios', 'admin/usuarios', 100, NULL, 1, 1),
-(3, 1, 'Roles', 'admin/roles', 100, NULL, 1, 1),
-(4, NULL, 'Mi Perfil', 'admin/usuarios/perfil', 90, NULL, 1, 1),
-(5, 1, 'Menús', 'admin/menu', 100, NULL, 2, 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `recursos`
---
-
-CREATE TABLE IF NOT EXISTS `recursos` (
+-- ----------------------------
+-- Table structure for `recursos`
+-- ----------------------------
+DROP TABLE IF EXISTS `recursos`;
+CREATE TABLE `recursos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `recurso` varchar(200) NOT NULL,
   `descripcion` text,
   `activo` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
---
--- Volcar la base de datos para la tabla `recursos`
---
+-- ----------------------------
+-- Records of recursos
+-- ----------------------------
+INSERT INTO `recursos` VALUES ('1', 'admin/*', 'modulo para la administracion del sistema', '1');
 
-INSERT INTO `recursos` (`id`, `recurso`, `descripcion`, `activo`) VALUES
-(1, 'admin/*', 'modulo para la administracion del sistema', 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `roles`
---
-
-CREATE TABLE IF NOT EXISTS `roles` (
+-- ----------------------------
+-- Table structure for `roles`
+-- ----------------------------
+DROP TABLE IF EXISTS `roles`;
+CREATE TABLE `roles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `rol` varchar(50) NOT NULL,
   `plantilla` varchar(50) DEFAULT NULL,
   `activo` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `rol` (`rol`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
---
--- Volcar la base de datos para la tabla `roles`
---
+-- ----------------------------
+-- Records of roles
+-- ----------------------------
+INSERT INTO `roles` VALUES ('1', 'usuario comun', null, '1');
+INSERT INTO `roles` VALUES ('2', 'usuario administrador', null, '1');
+INSERT INTO `roles` VALUES ('4', 'administrador del sistema', null, '1');
 
-INSERT INTO `roles` (`id`, `rol`, `plantilla`, `activo`) VALUES
-(1, 'usuario comun', NULL, 1),
-(2, 'usuario administrador', NULL, 1),
-(4, 'administrador del sistema', NULL, 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `roles_recursos`
---
-
-CREATE TABLE IF NOT EXISTS `roles_recursos` (
+-- ----------------------------
+-- Table structure for `roles_recursos`
+-- ----------------------------
+DROP TABLE IF EXISTS `roles_recursos`;
+CREATE TABLE `roles_recursos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `roles_id` int(11) NOT NULL,
   `recursos_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `roles_id` (`roles_id`),
-  KEY `recursos_id` (`recursos_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+  KEY `recursos_id` (`recursos_id`),
+  CONSTRAINT `roles_recursos_ibfk_1` FOREIGN KEY (`roles_id`) REFERENCES `roles` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `roles_recursos_ibfk_2` FOREIGN KEY (`recursos_id`) REFERENCES `recursos` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
---
--- Volcar la base de datos para la tabla `roles_recursos`
---
+-- ----------------------------
+-- Records of roles_recursos
+-- ----------------------------
+INSERT INTO `roles_recursos` VALUES ('1', '4', '1');
 
-INSERT INTO `roles_recursos` (`id`, `roles_id`, `recursos_id`) VALUES
-(1, 4, 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `roles_usuarios`
---
-
-CREATE TABLE IF NOT EXISTS `roles_usuarios` (
+-- ----------------------------
+-- Table structure for `roles_usuarios`
+-- ----------------------------
+DROP TABLE IF EXISTS `roles_usuarios`;
+CREATE TABLE `roles_usuarios` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `roles_id` int(11) NOT NULL,
   `usuarios_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `roles_id` (`roles_id`),
-  KEY `usuarios_id` (`usuarios_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=57 ;
+  KEY `usuarios_id` (`usuarios_id`),
+  CONSTRAINT `roles_usuarios_ibfk_1` FOREIGN KEY (`roles_id`) REFERENCES `roles` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `roles_usuarios_ibfk_2` FOREIGN KEY (`usuarios_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
 
---
--- Volcar la base de datos para la tabla `roles_usuarios`
---
+-- ----------------------------
+-- Records of roles_usuarios
+-- ----------------------------
+INSERT INTO `roles_usuarios` VALUES ('2', '2', '3');
+INSERT INTO `roles_usuarios` VALUES ('3', '4', '3');
+INSERT INTO `roles_usuarios` VALUES ('56', '1', '2');
 
-INSERT INTO `roles_usuarios` (`id`, `roles_id`, `usuarios_id`) VALUES
-(2, 2, 3),
-(3, 4, 3),
-(56, 1, 2);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `usuarios`
---
-
-CREATE TABLE IF NOT EXISTS `usuarios` (
+-- ----------------------------
+-- Table structure for `usuarios`
+-- ----------------------------
+DROP TABLE IF EXISTS `usuarios`;
+CREATE TABLE `usuarios` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `login` varchar(50) NOT NULL,
   `clave` varchar(40) NOT NULL,
@@ -177,42 +156,10 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `activo` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `login` (`login`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
---
--- Volcar la base de datos para la tabla `usuarios`
---
-
-INSERT INTO `usuarios` (`id`, `login`, `clave`, `nombres`, `email`, `activo`) VALUES
-(2, 'usuario', 'K2932zu3yPbLQ', 'usuario del sistema', 'programador.manuel@gmail.com', 1),
-(3, 'admin', 'K2932zu3yPbLQ', 'usuario administrador del sistema', 'manuel_j555@hotmail.com', 1);
-
---
--- Filtros para las tablas descargadas (dump)
---
-
---
--- Filtros para la tabla `auditorias`
---
-ALTER TABLE `auditorias`
-  ADD CONSTRAINT `auditorias_ibfk_1` FOREIGN KEY (`usuarios_id`) REFERENCES `usuarios` (`id`) ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `menus`
---
-ALTER TABLE `menus`
-  ADD CONSTRAINT `menus_ibfk_1` FOREIGN KEY (`menus_id`) REFERENCES `menus` (`id`) ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `roles_recursos`
---
-ALTER TABLE `roles_recursos`
-  ADD CONSTRAINT `roles_recursos_ibfk_1` FOREIGN KEY (`roles_id`) REFERENCES `roles` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `roles_recursos_ibfk_2` FOREIGN KEY (`recursos_id`) REFERENCES `recursos` (`id`) ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `roles_usuarios`
---
-ALTER TABLE `roles_usuarios`
-  ADD CONSTRAINT `roles_usuarios_ibfk_1` FOREIGN KEY (`roles_id`) REFERENCES `roles` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `roles_usuarios_ibfk_2` FOREIGN KEY (`usuarios_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+-- ----------------------------
+-- Records of usuarios
+-- ----------------------------
+INSERT INTO `usuarios` VALUES ('2', 'usuario', 'K2932zu3yPbLQ', 'usuario del sistema', 'programador.manuel@gmail.com', '1');
+INSERT INTO `usuarios` VALUES ('3', 'admin', 'K2932zu3yPbLQ', 'usuario administrador del sistema', 'manuel_j555@hotmail.com', '1');
