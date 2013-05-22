@@ -15,7 +15,7 @@ class usuariosController extends Controller
         $this->items = Usuarios::createQuery()
                 ->limit(8)
                 ->order('id DESC')
-                ->findAll();
+                ->findAll('array');
         $this->active = $active;
         $this->column = 'login';
 
@@ -24,7 +24,7 @@ class usuariosController extends Controller
 
     public function index_action($pagina = 1)
     {
-        $this->usuarios = Usuarios::paginate($pagina);
+        $this->usuarios = Usuarios::paginate($pagina, 10, 'array');
     }
 
     /**

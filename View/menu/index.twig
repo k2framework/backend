@@ -26,7 +26,7 @@
                 <td>{{ form_check('menu_id.' ~ item.id, item.id) }}</td>
                 <td>{{ item.id }}</td>
                 <td>{{ item.nombre }}</td>
-                <td>{{ item.padre.nombre|default }}</td>
+                <td>{{ item.padre }}</td>
                 <td>{{ item.url }}</td>
                 <td>{{ item.posicion }}</td>
                 <td>{{ macros.imgLink(['@K2Backend/img/figuras/circulo_verde.png',

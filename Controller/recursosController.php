@@ -8,22 +8,22 @@ use K2\Backend\Controller\Controller;
 
 class recursosController extends Controller
 {
-    
+
     public function menu_lateral_action($active = 0)
     {
         $this->items = Recursos::createQuery()
                 ->limit(8)
                 ->order('id DESC')
-                ->findAll();
+                ->findAll('array');
         $this->active = $active;
         $this->column = 'recurso';
-        
+
         $this->setView('@K2Backend/_partials/menu_lateral');
     }
 
     public function index_action($pagina = 1)
     {
-        $this->recursos = Recursos::paginate($pagina);
+        $this->recursos = Recursos::paginate($pagina, 10, 'array');
     }
 
     public function crear_action()
@@ -56,7 +56,7 @@ class recursosController extends Controller
         if ($this->getRequest()->isMethod('post')) {
 
             App::get('mapper')->bindPublic($this->recurso, 'recurso');
-            
+
             if ($this->recurso->save()) {
                 App::get('flash')->success('El Recurso Ha Sido Actualizado Exitosamente...!!!');
                 return $this->toAction('editar/' . $this->recurso->id);

@@ -20,7 +20,7 @@ class menuController extends Controller
         $this->items = Menus::createQuery()
                 ->limit(8)
                 ->order('id DESC')
-                ->findAll();
+                ->findAll('array');
         $this->active = $active;
         $this->column = 'nombre';
 
@@ -34,7 +34,7 @@ class menuController extends Controller
                 ->select('menus.*, menuPadre.nombre as padre')
                 ->leftJoin('menus as menuPadre', 'menuPadre.id = menus.menus_id');
 
-        $this->menus = Menus::paginate($pagina);
+        $this->menus = Menus::paginate($pagina, 10, 'array');
     }
 
     public function crear_action()

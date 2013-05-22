@@ -14,16 +14,16 @@ class rolesController extends Controller
         $this->items = Roles::createQuery()
                 ->limit(8)
                 ->order('id DESC')
-                ->findAll();
+                ->findAll('array');
         $this->active = $active;
         $this->column = 'rol';
-        
+
         $this->setView('@K2Backend/_partials/menu_lateral');
     }
 
     public function index_action($pagina = 1)
     {
-        $this->roles = Roles::paginate($pagina);
+        $this->roles = Roles::paginate($pagina, 10, 'array');
     }
 
     public function crear_action()
