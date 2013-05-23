@@ -34,10 +34,9 @@ class Excepcion
     {
         if ($event->getException() instanceof UserNotAuthorizedException) {
             $url = $event->getRequest()->getRequestUrl();
-            $response = $this->container->get('view')->render(array(
-                'template' => 'K2/Backend:exception',
+            $response = $this->container->get('view')->render('@K2Backend/exception', array(
                 'params' => compact('url'),
-                    ));
+            ));
             $event->setResponse($response);
         }
     }
