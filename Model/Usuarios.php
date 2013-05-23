@@ -16,6 +16,8 @@ class Usuarios extends ActiveRecord implements UserInterface
 {
 
     const HASH = 'K2_BACKEND';
+    
+    protected $roles;
 
     protected function createRelations()
     {
@@ -45,12 +47,10 @@ class Usuarios extends ActiveRecord implements UserInterface
 
     public function getRoles()
     {
-        static $roles;
-        if (!$roles) {
-            $roles = $this->get('K2\\Backend\\Model\\Roles');
+        if (!$this->roles) {
+            $this->roles = $this->get('K2\\Backend\\Model\\Roles');
         }
-
-        return $roles;
+        return $this->roles;
     }
 
     public function getUsername()
