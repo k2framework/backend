@@ -42,9 +42,7 @@ class privilegiosController extends Controller
     public function editar_action($rol_id, $pagina = 1)
     {
         //verificamos la existencia del rol
-        if (!$this->rol = Roles::findByID($rol_id)) {
-            $this->renderNotFound("No existe el rol con id $rol_id");
-        }
+        $this->rol = Roles::findByID($rol_id);
 
         RolesRecursos::createQuery()
                 ->rightJoin('recursos as r', 'r.id = roles_recursos.recursos_id 

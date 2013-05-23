@@ -64,9 +64,7 @@ class menuController extends Controller
 
         $this->setView('@K2Backend/menu/crear');
 
-        if (!$this->menu = Menus::findByID($id)) {
-            return $this->renderNotFound("No existe el Menú con id = <b>$id</b>");
-        }
+        $this->menu = Menus::findByID($id);
 
         if ($this->getRequest()->isMethod('post')) {
 
@@ -83,9 +81,7 @@ class menuController extends Controller
 
     public function activar_action($id)
     {
-        if (!$menu = Menus::findByPK((int) $id)) {
-            return $this->renderNotFound("No existe el menu con id = <b>$id</b>");
-        }
+        $menu = Menus::findByID($id);
 
         $menu->activo = true;
 
@@ -99,9 +95,7 @@ class menuController extends Controller
 
     public function desactivar_action($id)
     {
-        if (!$menu = Menus::findByPK((int) $id)) {
-            return $this->renderNotFound("No existe el menu con id = <b>$id</b>");
-        }
+        $menu = Menus::findByID($id);
 
         $menu->activo = false;
 
@@ -117,9 +111,7 @@ class menuController extends Controller
     {
         if (is_numeric($id)) {
             //si es numero, queremos eliminar 1 solo.
-            if (!$menu = Menus::findByPK($id)) { //si no existe
-                return $this->renderNotFound("No existe el Menú con id = <b>$id</b>");
-            }
+            $menu = Menus::findByID($id);
 
             if ($menu->delete()) {
                 App::get('flash')->success("El Menú <b>{$menu->nombre}</b> fué Eliminado...!!!");

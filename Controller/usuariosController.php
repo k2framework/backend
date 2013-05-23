@@ -33,7 +33,7 @@ class usuariosController extends Controller
      */
     public function perfil_action()
     {
-        $this->usuario = Usuarios::findByPK(App::get('security')->getToken('id'));
+        $this->usuario = Usuarios::findByID(App::get('security')->getToken('id'));
 
         if ($this->getRequest()->isMethod('post')) {
             if ($this->getRequest()->request('perfil')) {
@@ -80,9 +80,7 @@ class usuariosController extends Controller
      */
     public function editar_action($id)
     {
-        if (!$this->usuario = Usuarios::findByPK((int) $id)) {
-            $this->renderNotFound("No existe ningun usuario con id '{$id}'");
-        }
+        $this->usuario = Usuarios::findByID($id);
 
         $this->roles = Roles::findAllBy(array('activo' => true));
 
@@ -105,9 +103,7 @@ class usuariosController extends Controller
      */
     public function activar_action($id)
     {
-        if (!$usuario = Usuarios::findByPK((int) $id)) {
-            $this->renderNotFound("No existe ningun usuario con id '{$id}'");
-        }
+        $usuario = Usuarios::findByID($id);
 
         $usuario->activo = true;
 
@@ -125,9 +121,7 @@ class usuariosController extends Controller
      */
     public function desactivar_action($id)
     {
-        if (!$usuario = Usuarios::findByPK((int) $id)) {
-            $this->renderNotFound("No existe ningun usuario con id '{$id}'");
-        }
+        $usuario = Usuarios::findByID($id);
 
         $usuario->activo = false;
 

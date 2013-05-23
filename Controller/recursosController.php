@@ -49,9 +49,7 @@ class recursosController extends Controller
 
         $this->setView('@K2Backend/recursos/crear');
 
-        if (!$this->recurso = Recursos::findByID($id)) {
-            return $this->renderNotFound("No existe el Recurso con id = <b>$id</b>");
-        }
+        $this->recurso = Recursos::findByID($id);
 
         if ($this->getRequest()->isMethod('post')) {
 
@@ -70,9 +68,7 @@ class recursosController extends Controller
     {
         if (is_numeric($id)) {
             //si es numero, queremos eliminar 1 solo.
-            if (!$recurso = Recursos::findByID($id)) { //si no existe
-                return $this->renderNotFound("No existe el recurso con id = <b>$id</b>");
-            }
+            $recurso = Recursos::findByID($id);
 
             if ($recurso->delete()) {
                 App::get('flash')->success("El recurso <b>{$recurso->recurso}</b> fué Eliminado...!!!");
@@ -100,9 +96,7 @@ class recursosController extends Controller
 
     public function activar_action($id)
     {
-        if (!$recurso = Recursos::findByPK((int) $id)) {
-            return $this->renderNotFound("No existe el recurso con id = <b>$id</b>");
-        }
+        $recurso = Recursos::findByID($id);
 
         $recurso->activo = true;
 
@@ -117,9 +111,7 @@ class recursosController extends Controller
     public function desactivar_action($id)
     {
 
-        if (!$recurso = Recursos::findByPK((int) $id)) {
-            return $this->renderNotFound("No existe el recurso con id = <b>$id</b>");
-        }
+        $recurso = Recursos::findByID($id);
 
         $recurso->activo = false;
 
