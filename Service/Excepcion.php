@@ -33,7 +33,7 @@ class Excepcion
     public function onException(ExceptionEvent $event)
     {
         if ($event->getException() instanceof UserNotAuthorizedException) {
-            $url = $event->getRequest()->getRequestUrl();
+            $url = rtrim($event->getRequest()->getRequestUrl(), '/');
             $response = $this->container->get('view')->render('@K2Backend/exception', array(
                 'params' => compact('url'),
             ));
