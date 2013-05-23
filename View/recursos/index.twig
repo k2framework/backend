@@ -19,6 +19,9 @@
             <th>Eliminar</th>
         </tr>
     </thead>
+    <tfoot>
+        <tr><td colspan="6">{{ macros.paginator(recursos) }}</td></tr>
+    </tfoot>
     <tbody>
         {% for item in recursos.items %}
             <tr>
