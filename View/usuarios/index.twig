@@ -17,6 +17,9 @@
             <th>Editar</th>
         </tr>
     </thead>
+    <tfoot>
+        <tr><td colspan="6">{{ macros.paginator(usuarios) }}</td></tr>
+    </tfoot>
     <tbody>
         {% for item in usuarios.items %}
             <tr>

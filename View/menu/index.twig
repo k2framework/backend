@@ -21,6 +21,9 @@
             <th>Eliminar</th>
         </tr>
     </thead>
+    <tfoot>
+        <tr><td colspan="6">{{ macros.paginator(menus, null, 5) }}</td></tr>
+    </tfoot>
     <tbody>
         {% for item in menus.items %}
             <tr>

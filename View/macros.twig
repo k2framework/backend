@@ -15,3 +15,6 @@
 <img src="{{ asset(img) }}" alt="{{ text|default(asset(img)) }}" />{{ text }}
 </a>
 {% endmacro %}
+{% macro paginator(page, url, show = 10) %}
+{% include '@K2Backend/_partials/paginator/bootstrap.twig' with { page: page , url: url , show : show } %}
+{% endmacro %}
