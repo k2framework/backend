@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50524
 File Encoding         : 65001
 
-Date: 2013-05-21 21:22:53
+Date: 2013-05-23 17:42:34
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -61,7 +61,7 @@ INSERT INTO `menus` VALUES ('2', '1', 'Usuarios', 'admin/usuarios', '100', null,
 INSERT INTO `menus` VALUES ('3', '1', 'Roles', 'admin/roles', '100', null, '1', '1');
 INSERT INTO `menus` VALUES ('4', null, 'Mi Perfil', 'admin/usuarios/perfil', '90', null, '1', '1');
 INSERT INTO `menus` VALUES ('5', '1', 'Menús', 'admin/menu', '100', null, '2', '1');
-INSERT INTO `menus` VALUES ('6', '1', 'Privilegios', 'admin/privilegios', '100', null, '1', '1');
+INSERT INTO `menus` VALUES ('6', '1', 'Privilegios', 'admin/privilegios', '101', null, '1', '1');
 INSERT INTO `menus` VALUES ('7', '1', 'Recursos', 'admin/recursos', '100', null, '1', '1');
 
 -- ----------------------------
@@ -74,12 +74,18 @@ CREATE TABLE `recursos` (
   `descripcion` text,
   `activo` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of recursos
 -- ----------------------------
-INSERT INTO `recursos` VALUES ('1', 'admin/*', 'modulo para la administracion del sistema', '1');
+INSERT INTO `recursos` VALUES ('1', 'admin/*', 'modulo para la administracion de usuarios', '1');
+INSERT INTO `recursos` VALUES ('2', 'admin/usuarios/*', 'modulo para la administracion de usuarios', '1');
+INSERT INTO `recursos` VALUES ('3', 'admin/roles/*', 'modulo para la administracion de roles', '1');
+INSERT INTO `recursos` VALUES ('4', 'admin/recursos/*', 'modulo para la administracion de recursos', '1');
+INSERT INTO `recursos` VALUES ('5', 'admin/privilegios/*', 'modulo para la administracion de privilegios', '1');
+INSERT INTO `recursos` VALUES ('6', 'admin/menu/*', 'modulo para la administracion de menus', '1');
+INSERT INTO `recursos` VALUES ('7', 'admin/usuarios/perfil', 'edición del perfil del usuario', '1');
 
 -- ----------------------------
 -- Table structure for `roles`
@@ -114,12 +120,21 @@ CREATE TABLE `roles_recursos` (
   KEY `recursos_id` (`recursos_id`),
   CONSTRAINT `roles_recursos_ibfk_1` FOREIGN KEY (`roles_id`) REFERENCES `roles` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `roles_recursos_ibfk_2` FOREIGN KEY (`recursos_id`) REFERENCES `recursos` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of roles_recursos
 -- ----------------------------
 INSERT INTO `roles_recursos` VALUES ('1', '4', '1');
+INSERT INTO `roles_recursos` VALUES ('2', '4', '2');
+INSERT INTO `roles_recursos` VALUES ('3', '4', '3');
+INSERT INTO `roles_recursos` VALUES ('4', '4', '4');
+INSERT INTO `roles_recursos` VALUES ('5', '4', '5');
+INSERT INTO `roles_recursos` VALUES ('6', '4', '6');
+INSERT INTO `roles_recursos` VALUES ('7', '2', '2');
+INSERT INTO `roles_recursos` VALUES ('8', '2', '3');
+INSERT INTO `roles_recursos` VALUES ('9', '2', '6');
+INSERT INTO `roles_recursos` VALUES ('10', '1', '7');
 
 -- ----------------------------
 -- Table structure for `roles_usuarios`
