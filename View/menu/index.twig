@@ -25,7 +25,7 @@
         <tr><td colspan="6">{{ macros.paginator(menus) }}</td></tr>
     </tfoot>
     <tbody>
-        {% for item in menus.items %}
+        {% for item in menus %}
             <tr>
                 <td>{{ form_check('menu_id.' ~ item.id, item.id) }}</td>
                 <td>{{ item.id }}</td>

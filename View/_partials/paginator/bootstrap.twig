@@ -3,31 +3,31 @@
 {% set url = rtrim(url|default(url(parameters={})), '/') ~ '/' %}
 {% set show = show|default(10) %}
 {% set half = floor(show / 2) %}
-{% if page.current <= half %}
+{% if page.currentPage <= half %}
 {% set start = 1 %}
-{% elseif (page.total - page.current) < half %}
-{% set start = page.total - show + 1 %}que mal
+{% elseif (page.pages - page.currentPage) < half %}
+{% set start = page.pages - show + 1 %}
 {% else %}
-{% set start = page.current - half %}
+{% set start = page.currentPage - half %}
 {% endif %}
 <div class="pagination">
     <ul>        
         {# pintado del PREV #}
-        {% if page.prev %}
-            <li><a href="{{ url ~ page.prev }}" >&laquo;</a></li>
+        {% if page.previous %}
+            <li><a href="{{ url ~ page.previous }}" >&laquo;</a></li>
         {% else %}
             <li class="disabled"><a href="#" >&laquo;</a></li>
         {% endif %}
         {#  #}
         {% if start == 1 %}
             {% set start, show = 2 , show - 1 %}
-            {% if 1==page.current %}
-                <li class="active"><a href="#" title="Página 1 de {{ page.total }}">1</a></li>
+            {% if 1==page.currentPage %}
+                <li class="active"><a href="#" title="Página 1 de {{ page.pages }}">1</a></li>
             {% else %}
-                <li><a href="{{ url ~ 1 }}" title="Página 1 de {{ page.total }}">1</a></li>
+                <li><a href="{{ url ~ 1 }}" title="Página 1 de {{ page.pages }}">1</a></li>
             {% endif %}
         {% elseif start > 1 %}
-            <li><a href="{{ url ~ 1 }}" title="Página 1 de {{ page.total }}">1</a></li>
+            <li><a href="{{ url ~ 1 }}" title="Página 1 de {{ page.pages }}">1</a></li>
         {% endif %}
         {# si el for va a mostrar elementos por encima del segundo mostramos un ... #}                
         {% if start > 2 %}
@@ -35,18 +35,18 @@
         {% endif %}
         {# pintamos las páginas  #}
         {% set fin = start+show-1 %}
-        {% for index in (start)..(fin) if index < page.total %}
-            {% if index==page.current %}
-                <li class="active"><a href="#" title="Página {{ index }} de {{ page.total }}">{{ index }}</a></li>
+        {% for index in (start)..(fin) if index < page.pages %}
+            {% if index==page.currentPage %}
+                <li class="active"><a href="#" title="Página {{ index }} de {{ page.pages }}">{{ index }}</a></li>
             {% else %}
-                <li><a href="{{ url ~ index }}" title="Página {{ index }} de {{ page.total }}">{{ index }}</a></li>
+                <li><a href="{{ url ~ index }}" title="Página {{ index }} de {{ page.pages }}">{{ index }}</a></li>
             {% endif %}
         {% endfor %}
         {# si el for va a mostrar elementos por debajo del total de paginas mostramos un ... #}
-        {% if page.total > fin %}
+        {% if page.pages > fin %}
             <li><a href="#">...</a></li>
-            <li><a href="{{ url ~ page.total }}">{{ page.total }}</a></li>
-        {% elseif page.total==fin %}
+            <li><a href="{{ url ~ page.pages }}">{{ page.pages }}</a></li>
+        {% elseif page.pages==fin %}
             <li><a href="{{ url ~ fin }}">{{ fin }}</a></li>
         {% endif %}
         {# pintamos el next #}

@@ -23,7 +23,7 @@
         <tr><td colspan="6">{{ macros.paginator(recursos) }}</td></tr>
     </tfoot>
     <tbody>
-        {% for item in recursos.items %}
+        {% for item in recursos %}
             <tr>
                 <td>{{ form_check('recursos_id.' ~ item.id, item.id) }}</td>
                 <td>{{ item.id }}</td>

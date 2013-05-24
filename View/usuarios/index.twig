@@ -21,7 +21,7 @@
         <tr><td colspan="6">{{ macros.paginator(usuarios) }}</td></tr>
     </tfoot>
     <tbody>
-        {% for item in usuarios.items %}
+        {% for item in usuarios %}
             <tr>
                 <td>{{ item.id }}</td>
                 <td>{{ item.login }}</td>
