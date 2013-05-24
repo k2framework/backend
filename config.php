@@ -27,7 +27,13 @@ return array(
         E::RESPONSE => array(
             array('k2_backend_filter_resonse', 'onResponse')
         ),
-        AREvents::QUERY => array(
+        AREvents::CREATE => array(
+            array('k2_backend_log', 'addLog')
+        ),
+        AREvents::UPDATE => array(
+            array('k2_backend_log', 'addLog')
+        ),
+        AREvents::DELETE => array(
             array('k2_backend_log', 'addLog')
         ),
     ),
