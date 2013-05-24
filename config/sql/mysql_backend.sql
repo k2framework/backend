@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50524
 File Encoding         : 65001
 
-Date: 2013-05-23 17:42:34
+Date: 2013-05-23 21:34:32
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -34,6 +34,24 @@ CREATE TABLE `auditorias` (
 -- ----------------------------
 -- Records of auditorias
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for `logs`
+-- ----------------------------
+DROP TABLE IF EXISTS `logs`;
+CREATE TABLE `logs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `usuarios_id` int(11) DEFAULT NULL,
+  `query_type` varchar(20) NOT NULL,
+  `query` text NOT NULL,
+  `model` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of logs
+-- ----------------------------
+INSERT INTO `logs` VALUES ('1', '3', 'UPDATE', 'UPDATE usuarios SET id = \'3\', login = \'admin\', clave = \'K2932zu3yPbLQ\', nombres = \'usuario administrador del sistema\', email = \'manuel_j555@hotmail.com\', activo = \'1\' WHERE  (id = \'3\')', null);
 
 -- ----------------------------
 -- Table structure for `menus`
