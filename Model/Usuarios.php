@@ -2,10 +2,11 @@
 
 namespace K2\Backend\Model;
 
-use K2\Backend\Model\RolesUsuarios;
+use K2\Backend\Model\Roles;
 use K2\ActiveRecord\ActiveRecord;
-use K2\Security\Auth\User\UserInterface;
+use K2\Backend\Model\RolesUsuarios;
 use K2\Validation\ValidationBuilder;
+use K2\Security\Auth\User\UserInterface;
 
 /**
  * Description of Usuarios
@@ -16,8 +17,8 @@ class Usuarios extends ActiveRecord implements UserInterface
 {
 
     const HASH = 'K2_BACKEND';
-    
-    protected $roles;
+
+    protected $_roles;
 
     protected function createRelations()
     {
@@ -47,10 +48,17 @@ class Usuarios extends ActiveRecord implements UserInterface
 
     public function getRoles()
     {
-        if (!$this->roles) {
-            $this->roles = $this->get('K2\\Backend\\Model\\Roles');
+        if (!$this->_roles) {
+            $this->_roles = Roles::createQuery()
+                    ->select('roles.*')
+                    ->join('roles_usuarios ru', 'ru.roles_id = roles.id')
+                    ->join('usuarios u', "ru.usuarios_id = u.id")
+                    ->where('u.id = :u_id')
+                    ->where('roles.activo = 1')
+                    ->bindValue('u_id', $this->id)
+                    ->findAll();
         }
-        return $this->roles;
+        return $this->_roles;
     }
 
     public function getUsername()
