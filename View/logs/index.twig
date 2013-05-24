@@ -5,6 +5,13 @@
 {% block page_header "Auditorías del Sistema" %}
 
 {% block content %}
+<div class="well barra_crud">
+    <form class="form-inline" method="post">
+    <label> Usuario: {{ form_select('filtro.usuario', form_options(usuarios, 'login'), {style:'width:130px'}) }}</label>
+    <label> Tipo de Consulta: {{ form_select('filtro.tipo_consulta', tiposConsulta, {style:'width:130px'}) }}</label>
+    <input class="btn pull-right btn-info" value="Filtrar" type="submit" />
+    </form>
+</div>
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
