@@ -22,7 +22,7 @@ class Usuarios extends ActiveRecord implements UserInterface
 
     protected function createRelations()
     {
-        $this->hasAndBelongsToMany('K2\\Backend\\Model\\Roles'
+        $this->hasAndBelongsToMany('roles', 'K2\\Backend\\Model\\Roles'
                 , 'K2\\Backend\\Model\\RolesUsuarios');
     }
 
@@ -49,14 +49,9 @@ class Usuarios extends ActiveRecord implements UserInterface
     public function getRoles()
     {
         if (!$this->_roles) {
-            $this->_roles = Roles::createQuery()
-                    ->select('roles.*')
-                    ->join('roles_usuarios ru', 'ru.roles_id = roles.id')
-                    ->join('usuarios u', "ru.usuarios_id = u.id")
-                    ->where('u.id = :u_id')
-                    ->where('roles.activo = 1')
-                    ->bindValue('u_id', $this->id)
-                    ->findAll();
+            $this->_roles = $this->get('roles', array(
+                'roles.activo' => true,
+            ));
         }
         return $this->_roles;
     }

@@ -15,7 +15,8 @@ class Menus extends ActiveRecord implements MenuInterface
 
     protected function createRelations()
     {
-        //$this->belongsTo(__CLASS__, 'menus_id');
+        $this->belongsTo('padre', __CLASS__, 'menus_id');
+        $this->hasMany('hijos', __CLASS__, 'menus_id');
     }
 
     public function getClasses()
@@ -36,12 +37,7 @@ class Menus extends ActiveRecord implements MenuInterface
 
     public function getSubItems()
     {
-        self::createQuery()
-                ->order("posicion ASC")
-                ->where("menus_id = :id")
-                ->where("activo = TRUE")
-                ->bindValue('id', $this->id);
-        return self::findAll();
+        return $this->getHijos(array('menus.activo' => true));
     }
 
     public function getTitle()
@@ -58,6 +54,7 @@ class Menus extends ActiveRecord implements MenuInterface
     {
         self::createQuery()
                 ->where("menus_id = :id")
+                ->where("activo = 1")
                 ->bindValue('id', $this->id);
         return self::count();
     }
@@ -69,9 +66,7 @@ class Menus extends ActiveRecord implements MenuInterface
 
     public function getPadre()
     {
-        if (null !== $this->menus_id) {
-            return static::findByID($this->menus_id);
-        }
+        return $this->get('padre');
     }
 
 }

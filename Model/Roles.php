@@ -15,7 +15,7 @@ class Roles extends ActiveRecord implements RoleInterface
 
     protected function createRelations()
     {
-        $this->hasAndBelongsToMany('K2\\Backend\\Model\\Recursos'
+        $this->hasAndBelongsToMany('recursos', 'K2\\Backend\\Model\\Recursos'
                 , 'K2\\Backend\\Model\\RolesRecursos');
     }
 
@@ -26,7 +26,9 @@ class Roles extends ActiveRecord implements RoleInterface
 
     public function getResources()
     {
-        return $this->get('K2\\Backend\\Model\\Recursos');
+        return $this->get('recursos', array(
+                    'recursos.activo' => true,
+        ));
     }
 
 }
