@@ -3,6 +3,7 @@
 namespace K2\Backend;
 
 use K2\Kernel\Event\K2Events as E;
+use ActiveRecord\Event\Events as AREvents;
 
 return array(
     'name' => 'K2Backend',
@@ -15,6 +16,9 @@ return array(
         'k2_backend_filter_resonse' => function($c) {
             return new Service\FilterResponse();
         },
+        'k2_backend_log' => function($c) {
+            return new Model\Logs();
+        },
     ),
     'listeners' => array(
         E::EXCEPTION => array(
@@ -22,6 +26,9 @@ return array(
         ),
         E::RESPONSE => array(
             array('k2_backend_filter_resonse', 'onResponse')
+        ),
+        AREvents::QUERY => array(
+            array('k2_backend_log', 'addLog')
         ),
     ),
 );
