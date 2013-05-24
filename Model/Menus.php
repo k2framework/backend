@@ -37,7 +37,12 @@ class Menus extends ActiveRecord implements MenuInterface
 
     public function getSubItems()
     {
-        return $this->getHijos(array('menus.activo' => true));
+        self::createQuery()
+                ->order("posicion ASC")
+                ->where("menus_id = :id")
+                ->where("activo = TRUE")
+                ->bindValue('id', $this->id);
+        return self::findAll();
     }
 
     public function getTitle()
