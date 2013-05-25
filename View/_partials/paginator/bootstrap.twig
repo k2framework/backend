@@ -1,12 +1,12 @@
 {% if page is not null %}
 {% spaceless %}
 {% set url = rtrim(url|default(url(parameters={})), '/') ~ '/' %}
-{% set show = show|default(10) %}
+{% set show = show|default(6) %}
 {% set half = floor(show / 2) %}
 {% if page.currentPage <= half %}
 {% set start = 1 %}
 {% elseif (page.pages - page.currentPage) < half %}
-{% set start = page.pages - show + 1 %}
+{% set start = abs(page.pages - show + 1) %}
 {% else %}
 {% set start = page.currentPage - half %}
 {% endif %}
@@ -35,6 +35,7 @@
         {% endif %}
         {# pintamos las páginas  #}
         {% set fin = start+show-1 %}
+        {% set fin = fin > page.pages ? page.pages : fin %}
         {% for index in (start)..(fin) if index < page.pages %}
             {% if index==page.currentPage %}
                 <li class="active"><a href="#" title="Página {{ index }} de {{ page.pages }}">{{ index }}</a></li>
@@ -47,7 +48,11 @@
             <li><a href="#">...</a></li>
             <li><a href="{{ url ~ page.pages }}">{{ page.pages }}</a></li>
         {% elseif page.pages==fin %}
-            <li><a href="{{ url ~ fin }}">{{ fin }}</a></li>
+            {% if fin==page.currentPage %}
+                <li class="active"><a href="#">{{ fin }}</a></li>
+            {% else %}
+                <li><a href="{{ url ~ fin }}">{{ fin }}</a></li>
+            {% endif %}
         {% endif %}
         {# pintamos el next #}
         {% if page.next %}
