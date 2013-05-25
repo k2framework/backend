@@ -57,7 +57,10 @@ class usuariosController extends Controller
      */
     public function crear_action()
     {
-        $this->roles = Roles::findAllBy(array('activo' => true));
+        $this->roles = Roles::createQuery()
+                ->select('id, rol')
+                ->where(array('activo' => true))
+                ->findAll(\PDO::FETCH_KEY_PAIR);
 
         if ($this->getRequest()->isMethod('POST')) {
 
@@ -82,7 +85,10 @@ class usuariosController extends Controller
     {
         $this->usuario = Usuarios::findByID($id);
 
-        $this->roles = Roles::findAllBy(array('activo' => true));
+        $this->roles = Roles::createQuery()
+                ->select('id, rol')
+                ->where(array('activo' => true))
+                ->findAll(\PDO::FETCH_KEY_PAIR);
 
         if ($this->getRequest()->isMethod('POST')) {
 

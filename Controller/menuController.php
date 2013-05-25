@@ -39,7 +39,9 @@ class menuController extends Controller
 
     public function crear_action()
     {
-        $this->menus = Menus::findAll();
+        $this->menus = Menus::createQuery()
+                ->select('id, nombre')
+                ->findAll(\PDO::FETCH_KEY_PAIR);
 
         if ($this->getRequest()->isMethod('post')) {
 
@@ -58,7 +60,9 @@ class menuController extends Controller
 
     public function editar_action($id)
     {
-        $this->menus = Menus::findAll();
+        $this->menus = Menus::createQuery()
+                ->select('id, nombre')
+                ->findAll(\PDO::FETCH_KEY_PAIR);
 
         $this->titulo = 'Editar Menu';
 

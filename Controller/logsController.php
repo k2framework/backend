@@ -5,20 +5,29 @@ namespace K2\Backend\Controller;
 use K2\Backend\Model\Logs;
 use K2\Backend\Model\Usuarios;
 use K2\Backend\Controller\Controller;
-use ActiveRecord\Event\Event;
 
 class logsController extends Controller
 {
 
-    public $tiposConsulta = array(
-        Event::INSERT => Event::INSERT,
-        Event::UPDATE => Event::UPDATE,
-        Event::DELETE => Event::DELETE,
-    );
+    protected function getDataFilter()
+    {
+        $this->usuarios = Usuarios::createQuery()
+                ->select('id, login')
+                ->where('activo = 1')
+                ->findAll(\PDO::FETCH_KEY_PAIR);
+
+        $this->tabla = Logs::createQuery()
+                ->select('DISTINCT tabla, tabla')
+                ->findAll(\PDO::FETCH_KEY_PAIR);
+
+        $this->tiposConsulta = Logs::createQuery()
+                ->select('DISTINCT query_type, query_type')
+                ->findAll(\PDO::FETCH_KEY_PAIR);
+    }
 
     public function index_action($page = 1)
     {
-        $this->usuarios = Usuarios::findAll(array('activo' => true));
+        $this->getDataFilter();
 
         Logs::createQuery()
                 ->columns('logs.*,usuarios.login')

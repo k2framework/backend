@@ -10,7 +10,7 @@
     <div class="control-group">
         {{ form_label('menu.menus_id','Menú Padre :',{class:'control-label'}) }}
         <div class="controls">
-            {{ form_select('menu.menus_id', form_options(menus, 'nombre')) }}
+            {{ form_select('menu.menus_id', menus) }}
         </div>
     </div>
     <div class="control-group">
