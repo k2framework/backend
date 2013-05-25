@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50524
 File Encoding         : 65001
 
-Date: 2013-05-24 13:43:03
+Date: 2013-05-24 22:30:39
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -48,7 +48,7 @@ CREATE TABLE `menus` (
   PRIMARY KEY (`id`),
   KEY `menus_id` (`menus_id`),
   CONSTRAINT `menus_ibfk_1` FOREIGN KEY (`menus_id`) REFERENCES `menus` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of menus
@@ -60,6 +60,7 @@ INSERT INTO `menus` VALUES ('4', null, 'Mi Perfil', 'admin/usuarios/perfil', '90
 INSERT INTO `menus` VALUES ('5', '1', 'Menús', 'admin/menu', '100', null, '2', '1');
 INSERT INTO `menus` VALUES ('6', '1', 'Privilegios', 'admin/privilegios', '101', null, '1', '1');
 INSERT INTO `menus` VALUES ('7', '1', 'Recursos', 'admin/recursos', '100', null, '1', '1');
+INSERT INTO `menus` VALUES ('8', '1', 'Auditorias', 'admin/logs', '110', null, '1', '1');
 
 -- ----------------------------
 -- Table structure for `recursos`
