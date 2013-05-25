@@ -13,8 +13,8 @@
 <div class="pagination">
     <ul>        
         {# pintado del PREV #}
-        {% if page.previous %}
-            <li><a href="{{ url ~ page.previous }}" >&laquo;</a></li>
+        {% if page.previousPage %}
+            <li><a href="{{ url ~ page.previousPage }}" >&laquo;</a></li>
         {% else %}
             <li class="disabled"><a href="#" >&laquo;</a></li>
         {% endif %}
@@ -54,9 +54,9 @@
                 <li><a href="{{ url ~ fin }}">{{ fin }}</a></li>
             {% endif %}
         {% endif %}
-        {# pintamos el next #}
-        {% if page.next %}
-            <li class="prev"><a href="{{ url ~ page.next }}" >&raquo;</a></li>
+        {# pintamos el nextPage #}
+        {% if page.nextPage %}
+            <li class="prev"><a href="{{ url ~ page.nextPage }}" >&raquo;</a></li>
         {% else %}
             <li class="disabled"><a href="#" >&raquo;</a></li>
         {% endif %}

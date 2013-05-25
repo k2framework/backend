@@ -34,7 +34,7 @@ class logsController extends Controller
                 ->join('usuarios', 'usuarios.id = usuarios_id')
                 ->order('logs.id DESC');
 
-        $this->logs = Logs::paginate($page, 3, 'array');
+        $this->logs = Logs::paginate($page, 10, 'array');
     }
 
     public function filtrar_action($page = 1)
@@ -50,7 +50,7 @@ class logsController extends Controller
                     ->where($filtro)
                     ->order('logs.id DESC');
 
-            $this->logs = Logs::paginate($page, 3, 'array');
+            $this->logs = Logs::paginate($page, 10, 'array');
 
             $this->setView("@K2Backend/logs/index.tabla");
         } else {

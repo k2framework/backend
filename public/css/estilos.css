@@ -97,4 +97,4 @@ table td:first-child{
 /*.barra_crud label{display: inline-block}*/
 .barra_crud label,
 .barra_crud .form-inline,
-.barra_crud select{margin: 0px}
+.barra_crud select{margin: 0px 10px}
