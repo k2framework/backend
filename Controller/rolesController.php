@@ -9,7 +9,7 @@ use K2\Backend\Controller\Controller;
 class rolesController extends Controller
 {
 
-    public function menu_lateral_action($active = 0)
+    public function menu_lateral($active = 0)
     {
         $this->items = Roles::createQuery()
                 ->limit(8)

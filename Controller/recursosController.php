@@ -9,7 +9,7 @@ use K2\Backend\Controller\Controller;
 class recursosController extends Controller
 {
 
-    public function menu_lateral_action($active = 0)
+    public function menu_lateral($active = 0)
     {
         $this->items = Recursos::createQuery()
                 ->limit(8)

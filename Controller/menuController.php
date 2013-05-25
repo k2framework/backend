@@ -15,7 +15,7 @@ class menuController extends Controller
         Menus::ALL => 'En cualquier parte del sistema',
     );
 
-    public function menu_lateral_action($active = 0)
+    public function menu_lateral($active = 0)
     {
         $this->items = Menus::createQuery()
                 ->limit(8)
@@ -141,7 +141,7 @@ class menuController extends Controller
         return $this->getRouter()->toAction();
     }
 
-    public function items_action($entorno = Menus::APP)
+    public function items($entorno = Menus::APP)
     {
         $this->items = Menus::getItems($entorno);
 

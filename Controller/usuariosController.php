@@ -10,7 +10,7 @@ use K2\Backend\Controller\Controller;
 class usuariosController extends Controller
 {
 
-    public function menu_lateral_action($active = 0)
+    public function menu_lateral($active = 0)
     {
         $this->items = Usuarios::createQuery()
                 ->limit(8)
