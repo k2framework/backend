@@ -1,0 +1,24 @@
+{% import '@K2Backend/macros.twig' as macros %}
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Usuario</th>
+            <th>Tipo Consulta</th>
+            <th>Consulta</th>
+            <th>Modelo</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr><td colspan="6">{{ macros.paginator(logs, url(action="filtrar")) }}</td></tr>
+    </tfoot>
+    <tbody>
+        {% for item in logs %}
+            <tr>
+                <td>{{ item.login }}</td>
+                <td>{{ item.query_type }}</td>
+                <td><code>{{ item.sql_query }}</code></td>
+                <td>{{ item.tabla }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

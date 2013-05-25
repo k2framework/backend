@@ -1,38 +1,29 @@
 {% extends "@K2Backend/default.twig" %}
 
-{% import '@K2Backend/macros.twig' as macros %}
-
 {% block page_header "Auditorías del Sistema" %}
 
 {% block content %}
 <div class="well barra_crud">
-    <form class="form-inline" method="post">
-    <label> Usuario: {{ form_select('filtro.usuario', usuarios, {style:'width:130px'}) }}</label>
-    <label> Tipo de Consulta: {{ form_select('filtro.tipo_consulta', tiposConsulta, {style:'width:130px'}) }}</label>
-    <input class="btn pull-right btn-info" value="Filtrar" type="submit" />
-    </form>
+    {{ render('@K2Backend/logs/filtro', [filtro|default]) }}
 </div>
-<table class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>Usuario</th>
-            <th>Tipo Consulta</th>
-            <th>Consulta</th>
-            <th>Modelo</th>
-        </tr>
-    </thead>
-    <tfoot>
-        <tr><td colspan="6">{{ macros.paginator(logs) }}</td></tr>
-    </tfoot>
-    <tbody>
-        {% for item in logs %}
-            <tr>
-                <td>{{ item.login }}</td>
-                <td>{{ item.query_type }}</td>
-                <td><code>{{ item.sql_query }}</code></td>
-                <td>{{ item.tabla }}</td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div id="logs">{% include '@K2Backend/logs/index.tabla.twig' %}</div>
+{% endblock %}
+{% block javascript %}
+<script>
+$(function(){
+    $('#logs').on('click', '.pagination li:not(.active,.disabled) a', function(event){
+        event.preventDefault()
+        var form = $("#logs_filtro")
+        $.post(this.href,form.serialize()).done(function(html){
+            $('#logs').html(html)            
+        })
+    })
+     $("#logs_filtro").on('submit', function(event){
+        event.preventDefault()
+        $.post(this.action,$(this).serialize()).done(function(html){
+            $('#logs').html(html)            
+        })        
+    })
+})
+</script>
 {% endblock %}

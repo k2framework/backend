@@ -1,0 +1,6 @@
+<form id="logs_filtro" class="form-inline" method="post" action="{{ url(action="filtrar") }}">
+    <label> Usuario: {{ form_select('filtro.login', usuarios, {style:'width:130px'}) }}</label>
+    <label> Tipo de Consulta: {{ form_select('filtro.query_type', tiposConsulta, {style:'width:130px'}) }}</label>
+    <label> Tabla: {{ form_select('filtro.tabla', tabla, {style:'width:130px'}) }}</label>
+    <input class="btn pull-right btn-info" value="Filtrar" type="submit" />
+</form>
