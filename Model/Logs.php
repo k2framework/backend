@@ -15,7 +15,7 @@ class Logs extends ActiveRecord
         if ($modelClass !== get_class()) {
             $this->create(array(
                 'tabla' => $modelClass::table(),
-                'usuarios_id' => App::getUser()->id,
+                'usuarios_id' => App::getUser() ? App::getUser()->id : null,
                 'sql_query' => $event->getStatement()->getSqlQuery(),
                 'query_type' => $event->getQueryType(),
             ));
