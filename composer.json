@@ -1,6 +1,9 @@
 {
     "name": "k2/backend",
     "type": "library",
+    "require":{
+        "k2/breadcrumb": "dev-master"
+    },
     "autoload": {
         "psr-0":{ 
             "K2\\Backend\\": ""
