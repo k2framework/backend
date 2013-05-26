@@ -17,6 +17,7 @@
                     <h1>{% block page_header '' %}</h1>
                 </div>
                 {% block flashes %}{% include '@K2Backend/_partials/flashes.twig' %}{% endblock %}
+                {{ breadcrumb(theme="bootstrap") }}
                 {% block content %}
                 {% endblock content %}
             </div>

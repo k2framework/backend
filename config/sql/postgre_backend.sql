@@ -1,26 +1,25 @@
 /*
 Navicat PGSQL Data Transfer
 
-Source Server         : postgres
-Source Server Version : 80410
+Source Server         : local postgress
+Source Server Version : 90204
 Source Host           : localhost:5432
 Source Database       : backend
+Source Schema         : public
 
 Target Server Type    : PGSQL
-Target Server Version : 80410
+Target Server Version : 90204
 File Encoding         : 65001
 
-Date: 2012-05-27 14:11:34
+Date: 2013-05-26 00:45:00
 */
 
 
-SET search_path = public, pg_catalog;
-
 -- ----------------------------
--- Sequence structure for "auditorias_id_seq"
+-- Sequence structure for "public"."logs_id_seq"
 -- ----------------------------
-DROP SEQUENCE "auditorias_id_seq";
-CREATE SEQUENCE "auditorias_id_seq"
+DROP SEQUENCE "public"."logs_id_seq";
+CREATE SEQUENCE "public"."logs_id_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
@@ -28,10 +27,10 @@ CREATE SEQUENCE "auditorias_id_seq"
  CACHE 1;
 
 -- ----------------------------
--- Sequence structure for "menus_id_seq"
+-- Sequence structure for "public"."menus_id_seq"
 -- ----------------------------
-DROP SEQUENCE "menus_id_seq";
-CREATE SEQUENCE "menus_id_seq"
+DROP SEQUENCE "public"."menus_id_seq";
+CREATE SEQUENCE "public"."menus_id_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
@@ -39,10 +38,10 @@ CREATE SEQUENCE "menus_id_seq"
  CACHE 1;
 
 -- ----------------------------
--- Sequence structure for "recursos_id_seq"
+-- Sequence structure for "public"."recursos_id_seq"
 -- ----------------------------
-DROP SEQUENCE "recursos_id_seq";
-CREATE SEQUENCE "recursos_id_seq"
+DROP SEQUENCE "public"."recursos_id_seq";
+CREATE SEQUENCE "public"."recursos_id_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
@@ -50,10 +49,10 @@ CREATE SEQUENCE "recursos_id_seq"
  CACHE 1;
 
 -- ----------------------------
--- Sequence structure for "roles_id_seq"
+-- Sequence structure for "public"."roles_id_seq"
 -- ----------------------------
-DROP SEQUENCE "roles_id_seq";
-CREATE SEQUENCE "roles_id_seq"
+DROP SEQUENCE "public"."roles_id_seq";
+CREATE SEQUENCE "public"."roles_id_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
@@ -61,10 +60,10 @@ CREATE SEQUENCE "roles_id_seq"
  CACHE 1;
 
 -- ----------------------------
--- Sequence structure for "roles_recursos_id_seq"
+-- Sequence structure for "public"."roles_recursos_id_seq"
 -- ----------------------------
-DROP SEQUENCE "roles_recursos_id_seq";
-CREATE SEQUENCE "roles_recursos_id_seq"
+DROP SEQUENCE "public"."roles_recursos_id_seq";
+CREATE SEQUENCE "public"."roles_recursos_id_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
@@ -72,10 +71,10 @@ CREATE SEQUENCE "roles_recursos_id_seq"
  CACHE 1;
 
 -- ----------------------------
--- Sequence structure for "roles_usuarios_id_seq"
+-- Sequence structure for "public"."roles_usuarios_id_seq"
 -- ----------------------------
-DROP SEQUENCE "roles_usuarios_id_seq";
-CREATE SEQUENCE "roles_usuarios_id_seq"
+DROP SEQUENCE "public"."roles_usuarios_id_seq";
+CREATE SEQUENCE "public"."roles_usuarios_id_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
@@ -83,10 +82,10 @@ CREATE SEQUENCE "roles_usuarios_id_seq"
  CACHE 1;
 
 -- ----------------------------
--- Sequence structure for "usuarios_id_seq"
+-- Sequence structure for "public"."usuarios_id_seq"
 -- ----------------------------
-DROP SEQUENCE "usuarios_id_seq";
-CREATE SEQUENCE "usuarios_id_seq"
+DROP SEQUENCE "public"."usuarios_id_seq";
+CREATE SEQUENCE "public"."usuarios_id_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
@@ -94,39 +93,65 @@ CREATE SEQUENCE "usuarios_id_seq"
  CACHE 1;
 
 -- ----------------------------
--- Table structure for "auditorias"
+-- Table structure for "public"."logs"
 -- ----------------------------
-DROP TABLE "auditorias";
-CREATE TABLE "auditorias" (
-"id" int4 DEFAULT nextval('auditorias_id_seq'::regclass) NOT NULL,
-"usuarios_id" int4 NOT NULL,
-"fecha_at" date NOT NULL,
-"accion_realizada" text NOT NULL,
-"tabla_afectada" varchar(150),
-"ip" varchar(30)
+DROP TABLE "public"."logs";
+CREATE TABLE "public"."logs" (
+"id" int4 DEFAULT nextval('logs_id_seq'::regclass) NOT NULL,
+"usuarios_id" int4,
+"query_type" varchar(20) NOT NULL,
+"sql_query" text NOT NULL,
+"tabla" varchar(20)
 )
 WITH (OIDS=FALSE)
 
 ;
 
 -- ----------------------------
--- Records of auditorias
+-- Records of logs
 -- ----------------------------
+INSERT INTO "public"."logs" VALUES ('1', '3', 'UPDATE', 'UPDATE usuarios SET id = ''2'', login = ''usuario'', clave = ''K2932zu3yPbLQ'', nombres = ''usuario del sistema'', email = ''programador.manuel@gmail.com'', activo = '''' WHERE  (id = ''2'')', 'usuarios');
+INSERT INTO "public"."logs" VALUES ('2', '3', 'UPDATE', 'UPDATE usuarios SET id = ''2'', login = ''usuario'', clave = ''K2932zu3yPbLQ'', nombres = ''usuario del sistema'', email = ''programador.manuel@gmail.com'', activo = ''1'' WHERE  (id = ''2'')', 'usuarios');
+INSERT INTO "public"."logs" VALUES ('3', '3', 'UPDATE', 'UPDATE roles SET id = ''1'', rol = ''usuario comun'', plantilla = '''', activo = '''' WHERE  (id = ''1'')', 'roles');
+INSERT INTO "public"."logs" VALUES ('4', '3', 'UPDATE', 'UPDATE roles SET id = ''2'', rol = ''usuario administrador'', plantilla = '''', activo = '''' WHERE  (id = ''2'')', 'roles');
+INSERT INTO "public"."logs" VALUES ('5', '3', 'UPDATE', 'UPDATE roles SET id = ''2'', rol = ''usuario administrador'', plantilla = '''', activo = ''1'' WHERE  (id = ''2'')', 'roles');
+INSERT INTO "public"."logs" VALUES ('6', '3', 'UPDATE', 'UPDATE roles SET id = ''1'', rol = ''usuario comun'', plantilla = '''', activo = ''1'' WHERE  (id = ''1'')', 'roles');
+INSERT INTO "public"."logs" VALUES ('7', '3', 'UPDATE', 'UPDATE usuarios SET id = ''2'', login = ''usuario'', clave = ''K2932zu3yPbLQ'', nombres = ''usuario del sistema'', email = ''programador.manuel@gmail.com'', activo = '''' WHERE  (id = ''2'')', 'usuarios');
+INSERT INTO "public"."logs" VALUES ('8', '3', 'UPDATE', 'UPDATE usuarios SET id = ''2'', login = ''usuario'', clave = ''K2932zu3yPbLQ'', nombres = ''usuario del sistema'', email = ''programador.manuel@gmail.com'', activo = ''1'' WHERE  (id = ''2'')', 'usuarios');
+INSERT INTO "public"."logs" VALUES ('9', '3', 'UPDATE', 'UPDATE menus SET id = ''1'', menus_id = '''', nombre = ''Administración'', url = ''admin/usuarios'', posicion = ''100'', clases = '''', visible_en = ''1'', activo = '''' WHERE  (id = ''1'')', 'menus');
+INSERT INTO "public"."logs" VALUES ('10', '3', 'UPDATE', 'UPDATE menus SET id = ''1'', menus_id = '''', nombre = ''Administración'', url = ''admin/usuarios'', posicion = ''100'', clases = '''', visible_en = ''1'', activo = ''1'' WHERE  (id = ''1'')', 'menus');
+INSERT INTO "public"."logs" VALUES ('11', '3', 'UPDATE', 'UPDATE menus SET id = ''2'', menus_id = ''1'', nombre = ''Usuarios'', url = ''admin/usuarios'', posicion = ''100'', clases = '''', visible_en = ''1'', activo = '''' WHERE  (id = ''2'')', 'menus');
+INSERT INTO "public"."logs" VALUES ('12', '3', 'UPDATE', 'UPDATE menus SET id = ''2'', menus_id = ''1'', nombre = ''Usuarios'', url = ''admin/usuarios'', posicion = ''100'', clases = '''', visible_en = ''1'', activo = ''1'' WHERE  (id = ''2'')', 'menus');
+INSERT INTO "public"."logs" VALUES ('13', '3', 'UPDATE', 'UPDATE menus SET id = ''3'', menus_id = ''1'', nombre = ''Roles'', url = ''admin/roles'', posicion = ''100'', clases = '''', visible_en = ''1'', activo = '''' WHERE  (id = ''3'')', 'menus');
+INSERT INTO "public"."logs" VALUES ('14', '3', 'UPDATE', 'UPDATE menus SET id = ''3'', menus_id = ''1'', nombre = ''Roles'', url = ''admin/roles'', posicion = ''100'', clases = '''', visible_en = ''1'', activo = ''1'' WHERE  (id = ''3'')', 'menus');
+INSERT INTO "public"."logs" VALUES ('15', '3', 'UPDATE', 'UPDATE menus SET id = ''4'', menus_id = '''', nombre = ''Mi Perfil'', url = ''admin/usuarios/perfil'', posicion = ''90'', clases = '''', visible_en = ''1'', activo = '''' WHERE  (id = ''4'')', 'menus');
+INSERT INTO "public"."logs" VALUES ('16', '3', 'UPDATE', 'UPDATE menus SET id = ''4'', menus_id = '''', nombre = ''Mi Perfil'', url = ''admin/usuarios/perfil'', posicion = ''90'', clases = '''', visible_en = ''1'', activo = ''1'' WHERE  (id = ''4'')', 'menus');
+INSERT INTO "public"."logs" VALUES ('17', '3', 'UPDATE', 'UPDATE menus SET id = ''5'', menus_id = ''1'', nombre = ''Menús'', url = ''admin/menu'', posicion = ''100'', clases = '''', visible_en = ''2'', activo = '''' WHERE  (id = ''5'')', 'menus');
+INSERT INTO "public"."logs" VALUES ('18', '3', 'UPDATE', 'UPDATE menus SET id = ''5'', menus_id = ''1'', nombre = ''Menús'', url = ''admin/menu'', posicion = ''100'', clases = '''', visible_en = ''2'', activo = ''1'' WHERE  (id = ''5'')', 'menus');
+INSERT INTO "public"."logs" VALUES ('19', '3', 'UPDATE', 'UPDATE menus SET id = ''1'', menus_id = '''', nombre = ''Administración'', url = ''admin/usuarios'', posicion = ''100'', clases = '''', visible_en = ''1'', activo = '''' WHERE  (id = ''1'')', 'menus');
+INSERT INTO "public"."logs" VALUES ('20', '3', 'UPDATE', 'UPDATE menus SET id = ''1'', menus_id = '''', nombre = ''Administración'', url = ''admin/usuarios'', posicion = ''100'', clases = '''', visible_en = ''1'', activo = ''1'' WHERE  (id = ''1'')', 'menus');
+INSERT INTO "public"."logs" VALUES ('21', '3', 'UPDATE', 'UPDATE menus SET id = ''2'', menus_id = ''1'', nombre = ''Usuarios'', url = ''admin/usuarios'', posicion = ''100'', clases = '''', visible_en = ''1'', activo = '''' WHERE  (id = ''2'')', 'menus');
+INSERT INTO "public"."logs" VALUES ('22', '3', 'UPDATE', 'UPDATE menus SET id = ''2'', menus_id = ''1'', nombre = ''Usuarios'', url = ''admin/usuarios'', posicion = ''100'', clases = '''', visible_en = ''1'', activo = ''1'' WHERE  (id = ''2'')', 'menus');
+INSERT INTO "public"."logs" VALUES ('23', '3', 'UPDATE', 'UPDATE menus SET id = ''3'', menus_id = ''1'', nombre = ''Roles'', url = ''admin/roles'', posicion = ''100'', clases = '''', visible_en = ''1'', activo = '''' WHERE  (id = ''3'')', 'menus');
+INSERT INTO "public"."logs" VALUES ('24', '3', 'UPDATE', 'UPDATE menus SET id = ''3'', menus_id = ''1'', nombre = ''Roles'', url = ''admin/roles'', posicion = ''100'', clases = '''', visible_en = ''1'', activo = ''1'' WHERE  (id = ''3'')', 'menus');
+INSERT INTO "public"."logs" VALUES ('25', '3', 'UPDATE', 'UPDATE menus SET id = ''4'', menus_id = '''', nombre = ''Mi Perfil'', url = ''admin/usuarios/perfil'', posicion = ''90'', clases = '''', visible_en = ''1'', activo = '''' WHERE  (id = ''4'')', 'menus');
+INSERT INTO "public"."logs" VALUES ('26', '3', 'UPDATE', 'UPDATE menus SET id = ''4'', menus_id = '''', nombre = ''Mi Perfil'', url = ''admin/usuarios/perfil'', posicion = ''90'', clases = '''', visible_en = ''1'', activo = ''1'' WHERE  (id = ''4'')', 'menus');
+INSERT INTO "public"."logs" VALUES ('27', '3', 'UPDATE', 'UPDATE menus SET id = ''5'', menus_id = ''1'', nombre = ''Menús'', url = ''admin/menu'', posicion = ''100'', clases = '''', visible_en = ''2'', activo = '''' WHERE  (id = ''5'')', 'menus');
+INSERT INTO "public"."logs" VALUES ('28', '3', 'UPDATE', 'UPDATE menus SET id = ''5'', menus_id = ''1'', nombre = ''Menús'', url = ''admin/menu'', posicion = ''100'', clases = '''', visible_en = ''2'', activo = ''1'' WHERE  (id = ''5'')', 'menus');
 
 -- ----------------------------
--- Table structure for "menus"
+-- Table structure for "public"."menus"
 -- ----------------------------
-DROP TABLE "menus";
-CREATE TABLE "menus" (
+DROP TABLE "public"."menus";
+CREATE TABLE "public"."menus" (
 "id" int4 DEFAULT nextval('menus_id_seq'::regclass) NOT NULL,
 "menus_id" int4,
-"recursos_id" int4 NOT NULL,
 "nombre" varchar(100) NOT NULL,
 "url" varchar(100) NOT NULL,
-"posicion" int4 DEFAULT 100 NOT NULL,
+"posicion" int4 NOT NULL,
 "clases" varchar(50),
-"visible_en" int4 DEFAULT 1 NOT NULL,
-"activo" int4 DEFAULT 1 NOT NULL
+"visible_en" int4 NOT NULL,
+"activo" int4 NOT NULL
 )
 WITH (OIDS=FALSE)
 
@@ -135,28 +160,24 @@ WITH (OIDS=FALSE)
 -- ----------------------------
 -- Records of menus
 -- ----------------------------
-INSERT INTO "menus" VALUES ('1', '18', '1', 'Usuarios', 'admin/usuarios', '10', null, '2', '1');
-INSERT INTO "menus" VALUES ('3', '18', '2', 'Roles', 'admin/roles', '20', null, '2', '1');
-INSERT INTO "menus" VALUES ('4', '18', '3', 'Recursos', 'admin/recursos', '30', null, '2', '1');
-INSERT INTO "menus" VALUES ('5', '18', '4', 'Menu', 'admin/menu', '100', null, '2', '1');
-INSERT INTO "menus" VALUES ('7', '18', '5', 'Privilegios', 'admin/privilegios', '90', null, '2', '1');
-INSERT INTO "menus" VALUES ('18', null, '17', 'Administración', 'admin/usuarios/index', '100', null, '2', '1');
-INSERT INTO "menus" VALUES ('19', null, '14', 'Mi Perfil', 'admin/usuarios/perfil', '90', null, '2', '1');
-INSERT INTO "menus" VALUES ('21', '18', '15', 'Config. Aplicacion', 'admin', '1000', null, '2', '1');
-INSERT INTO "menus" VALUES ('22', '18', '18', 'Auditorias', 'admin/auditorias', '900', null, '2', '1');
+INSERT INTO "public"."menus" VALUES ('1', null, 'Administración', 'admin/usuarios', '100', null, '1', '1');
+INSERT INTO "public"."menus" VALUES ('2', '1', 'Usuarios', 'admin/usuarios', '100', null, '1', '1');
+INSERT INTO "public"."menus" VALUES ('3', '1', 'Roles', 'admin/roles', '100', null, '1', '1');
+INSERT INTO "public"."menus" VALUES ('4', null, 'Mi Perfil', 'admin/usuarios/perfil', '90', null, '1', '1');
+INSERT INTO "public"."menus" VALUES ('5', '1', 'Menús', 'admin/menu', '100', null, '2', '1');
+INSERT INTO "public"."menus" VALUES ('6', '1', 'Privilegios', 'admin/privilegios', '101', null, '1', '1');
+INSERT INTO "public"."menus" VALUES ('7', '1', 'Recursos', 'admin/recursos', '100', null, '1', '1');
+INSERT INTO "public"."menus" VALUES ('8', '1', 'Auditorias', 'admin/logs', '110', null, '1', '1');
 
 -- ----------------------------
--- Table structure for "recursos"
+-- Table structure for "public"."recursos"
 -- ----------------------------
-DROP TABLE "recursos";
-CREATE TABLE "recursos" (
-"id" int4 DEFAULT nextval('recursos_id_seq'::regclass) NOT NULL,
-"modulo" varchar(50),
-"controlador" varchar(50) NOT NULL,
-"accion" varchar(50),
+DROP TABLE "public"."recursos";
+CREATE TABLE "public"."recursos" (
+"id" int4 NOT NULL,
 "recurso" varchar(200) NOT NULL,
 "descripcion" text,
-"activo" int4 DEFAULT 1 NOT NULL
+"activo" int4 NOT NULL
 )
 WITH (OIDS=FALSE)
 
@@ -165,28 +186,23 @@ WITH (OIDS=FALSE)
 -- ----------------------------
 -- Records of recursos
 -- ----------------------------
-INSERT INTO "recursos" VALUES ('1', 'admin', 'usuarios', null, 'admin/usuarios/*', 'modulo para la administracion de los usuarios del sistema', '1');
-INSERT INTO "recursos" VALUES ('2', 'admin', 'roles', null, 'admin/roles/*', 'modulo para la gestion de los roles de la aplicacion
-', '1');
-INSERT INTO "recursos" VALUES ('3', 'admin', 'recursos', null, 'admin/recursos/*', 'modulo para la gestion de los recursos de la aplicacion', '1');
-INSERT INTO "recursos" VALUES ('4', 'admin', 'menu', null, 'admin/menu/*', 'modulo para la administracion del menu en la app', '1');
-INSERT INTO "recursos" VALUES ('5', 'admin', 'privilegios', null, 'admin/privilegios/*', 'modulo para la administracion de los privilegios que tendra cada rol', '1');
-INSERT INTO "recursos" VALUES ('11', null, 'index', null, 'index/*', 'modulo inicial del sistema, donde se loguean los usuarios y donde se desloguean', '1');
-INSERT INTO "recursos" VALUES ('14', 'admin', 'usuarios', 'perfil', 'admin/usuarios/perfil', 'modulo para la configuracion del perfil del usuario', '1');
-INSERT INTO "recursos" VALUES ('15', 'admin', 'index', null, 'admin/index/*', 'modulo para la configuraciÃƒÆ’Ã‚Â³n del sistema', '1');
-INSERT INTO "recursos" VALUES ('17', 'admin', 'usuarios', 'index', 'admin/usuarios/index', 'modulo para listar los usuarios del sistema, lo usarÃƒÆ’Ã‚Â¡Ãƒâ€šÃ‚Â¡ el menu administracion', '1');
-INSERT INTO "recursos" VALUES ('18', 'admin', 'auditorias', null, 'admin/auditorias/*', 'Modulo para revisar las acciones que los usuarios han realizado en el sistema', '1');
-INSERT INTO "recursos" VALUES ('19', null, 'index', 'index', 'index/index', 'recurso que no necesita permisos, es solo de prueba :-)', '1');
+INSERT INTO "public"."recursos" VALUES ('1', 'admin/*', 'modulo para la administracion de usuarios', '1');
+INSERT INTO "public"."recursos" VALUES ('2', 'admin/usuarios/*', 'modulo para la administracion de usuarios', '1');
+INSERT INTO "public"."recursos" VALUES ('3', 'admin/roles/*', 'modulo para la administracion de roles', '1');
+INSERT INTO "public"."recursos" VALUES ('4', 'admin/recursos/*', 'modulo para la administracion de recursos', '1');
+INSERT INTO "public"."recursos" VALUES ('5', 'admin/privilegios/*', 'modulo para la administracion de privilegios', '1');
+INSERT INTO "public"."recursos" VALUES ('6', 'admin/menu/*', 'modulo para la administracion de menus', '1');
+INSERT INTO "public"."recursos" VALUES ('7', 'admin/usuarios/perfil', 'edición del perfil del usuario', '1');
 
 -- ----------------------------
--- Table structure for "roles"
+-- Table structure for "public"."roles"
 -- ----------------------------
-DROP TABLE "roles";
-CREATE TABLE "roles" (
+DROP TABLE "public"."roles";
+CREATE TABLE "public"."roles" (
 "id" int4 DEFAULT nextval('roles_id_seq'::regclass) NOT NULL,
 "rol" varchar(50) NOT NULL,
 "plantilla" varchar(50),
-"activo" int4 DEFAULT 1 NOT NULL
+"activo" int4 NOT NULL
 )
 WITH (OIDS=FALSE)
 
@@ -195,15 +211,15 @@ WITH (OIDS=FALSE)
 -- ----------------------------
 -- Records of roles
 -- ----------------------------
-INSERT INTO "roles" VALUES ('1', 'usuario comun', null, '1');
-INSERT INTO "roles" VALUES ('2', 'usuario administrador', null, '1');
-INSERT INTO "roles" VALUES ('4', 'administrador del sistema', null, '1');
+INSERT INTO "public"."roles" VALUES ('1', 'usuario comun', null, '1');
+INSERT INTO "public"."roles" VALUES ('2', 'usuario administrador', null, '1');
+INSERT INTO "public"."roles" VALUES ('4', 'administrador del sistema', null, '1');
 
 -- ----------------------------
--- Table structure for "roles_recursos"
+-- Table structure for "public"."roles_recursos"
 -- ----------------------------
-DROP TABLE "roles_recursos";
-CREATE TABLE "roles_recursos" (
+DROP TABLE "public"."roles_recursos";
+CREATE TABLE "public"."roles_recursos" (
 "id" int4 DEFAULT nextval('roles_recursos_id_seq'::regclass) NOT NULL,
 "roles_id" int4 NOT NULL,
 "recursos_id" int4 NOT NULL
@@ -215,42 +231,22 @@ WITH (OIDS=FALSE)
 -- ----------------------------
 -- Records of roles_recursos
 -- ----------------------------
-INSERT INTO "roles_recursos" VALUES ('1', '1', '1');
-INSERT INTO "roles_recursos" VALUES ('2', '1', '2');
-INSERT INTO "roles_recursos" VALUES ('3', '1', '3');
-INSERT INTO "roles_recursos" VALUES ('4', '1', '4');
-INSERT INTO "roles_recursos" VALUES ('5', '1', '5');
-INSERT INTO "roles_recursos" VALUES ('6', '1', '11');
-INSERT INTO "roles_recursos" VALUES ('7', '1', '14');
-INSERT INTO "roles_recursos" VALUES ('8', '1', '15');
-INSERT INTO "roles_recursos" VALUES ('9', '1', '17');
-INSERT INTO "roles_recursos" VALUES ('10', '1', '18');
-INSERT INTO "roles_recursos" VALUES ('11', '2', '1');
-INSERT INTO "roles_recursos" VALUES ('12', '2', '2');
-INSERT INTO "roles_recursos" VALUES ('13', '2', '3');
-INSERT INTO "roles_recursos" VALUES ('14', '2', '4');
-INSERT INTO "roles_recursos" VALUES ('15', '2', '5');
-INSERT INTO "roles_recursos" VALUES ('16', '2', '11');
-INSERT INTO "roles_recursos" VALUES ('17', '2', '14');
-INSERT INTO "roles_recursos" VALUES ('18', '2', '15');
-INSERT INTO "roles_recursos" VALUES ('19', '2', '17');
-INSERT INTO "roles_recursos" VALUES ('20', '2', '18');
-INSERT INTO "roles_recursos" VALUES ('21', '4', '1');
-INSERT INTO "roles_recursos" VALUES ('22', '4', '2');
-INSERT INTO "roles_recursos" VALUES ('23', '4', '3');
-INSERT INTO "roles_recursos" VALUES ('24', '4', '4');
-INSERT INTO "roles_recursos" VALUES ('25', '4', '5');
-INSERT INTO "roles_recursos" VALUES ('26', '4', '11');
-INSERT INTO "roles_recursos" VALUES ('27', '4', '14');
-INSERT INTO "roles_recursos" VALUES ('28', '4', '15');
-INSERT INTO "roles_recursos" VALUES ('29', '4', '17');
-INSERT INTO "roles_recursos" VALUES ('30', '4', '18');
+INSERT INTO "public"."roles_recursos" VALUES ('1', '4', '1');
+INSERT INTO "public"."roles_recursos" VALUES ('2', '4', '2');
+INSERT INTO "public"."roles_recursos" VALUES ('3', '4', '3');
+INSERT INTO "public"."roles_recursos" VALUES ('4', '4', '4');
+INSERT INTO "public"."roles_recursos" VALUES ('5', '4', '5');
+INSERT INTO "public"."roles_recursos" VALUES ('6', '4', '6');
+INSERT INTO "public"."roles_recursos" VALUES ('7', '2', '2');
+INSERT INTO "public"."roles_recursos" VALUES ('8', '2', '3');
+INSERT INTO "public"."roles_recursos" VALUES ('9', '2', '6');
+INSERT INTO "public"."roles_recursos" VALUES ('10', '1', '7');
 
 -- ----------------------------
--- Table structure for "roles_usuarios"
+-- Table structure for "public"."roles_usuarios"
 -- ----------------------------
-DROP TABLE "roles_usuarios";
-CREATE TABLE "roles_usuarios" (
+DROP TABLE "public"."roles_usuarios";
+CREATE TABLE "public"."roles_usuarios" (
 "id" int4 DEFAULT nextval('roles_usuarios_id_seq'::regclass) NOT NULL,
 "roles_id" int4 NOT NULL,
 "usuarios_id" int4 NOT NULL
@@ -262,21 +258,21 @@ WITH (OIDS=FALSE)
 -- ----------------------------
 -- Records of roles_usuarios
 -- ----------------------------
-INSERT INTO "roles_usuarios" VALUES ('1', '1', '2');
-INSERT INTO "roles_usuarios" VALUES ('2', '2', '3');
-INSERT INTO "roles_usuarios" VALUES ('3', '4', '3');
+INSERT INTO "public"."roles_usuarios" VALUES ('2', '2', '3');
+INSERT INTO "public"."roles_usuarios" VALUES ('3', '4', '3');
+INSERT INTO "public"."roles_usuarios" VALUES ('56', '1', '2');
 
 -- ----------------------------
--- Table structure for "usuarios"
+-- Table structure for "public"."usuarios"
 -- ----------------------------
-DROP TABLE "usuarios";
-CREATE TABLE "usuarios" (
+DROP TABLE "public"."usuarios";
+CREATE TABLE "public"."usuarios" (
 "id" int4 DEFAULT nextval('usuarios_id_seq'::regclass) NOT NULL,
 "login" varchar(50) NOT NULL,
 "clave" varchar(40) NOT NULL,
 "nombres" varchar(100) NOT NULL,
 "email" varchar(100) NOT NULL,
-"activo" int4 DEFAULT 1 NOT NULL
+"activo" int4 NOT NULL
 )
 WITH (OIDS=FALSE)
 
@@ -285,74 +281,55 @@ WITH (OIDS=FALSE)
 -- ----------------------------
 -- Records of usuarios
 -- ----------------------------
-INSERT INTO "usuarios" VALUES ('2', 'usuario', 'baxuN8I44GotM', 'usuario del sistema', 'asd@mail.com', '1');
-INSERT INTO "usuarios" VALUES ('3', 'admin', 'baxuN8I44GotM', 'usuario administrador del sistema', 'manuel_j555@hotmail.com', '1');
+INSERT INTO "public"."usuarios" VALUES ('2', 'usuario', 'K2932zu3yPbLQ', 'usuario del sistema', 'programador.manuel@gmail.com', '1');
+INSERT INTO "public"."usuarios" VALUES ('3', 'admin', 'K2932zu3yPbLQ', 'usuario administrador del sistema', 'manuel_j555@hotmail.com', '1');
 
 -- ----------------------------
--- Alter Sequences
+-- Alter Sequences Owned By 
 -- ----------------------------
-ALTER SEQUENCE "auditorias_id_seq" OWNED BY "auditorias"."id";
-ALTER SEQUENCE "menus_id_seq" OWNED BY "menus"."id" RESTART WITH 23;
-ALTER SEQUENCE "recursos_id_seq" OWNED BY "recursos"."id" RESTART WITH 20;
-ALTER SEQUENCE "roles_id_seq" OWNED BY "roles"."id" RESTART WITH 5;
-ALTER SEQUENCE "roles_recursos_id_seq" OWNED BY "roles_recursos"."id" RESTART WITH 31;
-ALTER SEQUENCE "roles_usuarios_id_seq" OWNED BY "roles_usuarios"."id" RESTART WITH 4;
-ALTER SEQUENCE "usuarios_id_seq" OWNED BY "usuarios"."id" RESTART WITH 4;
 
 -- ----------------------------
--- Primary Key structure for table "auditorias"
+-- Primary Key structure for table "public"."menus"
 -- ----------------------------
-ALTER TABLE "auditorias" ADD PRIMARY KEY ("id");
+ALTER TABLE "public"."menus" ADD PRIMARY KEY ("id");
 
 -- ----------------------------
--- Primary Key structure for table "menus"
+-- Primary Key structure for table "public"."recursos"
 -- ----------------------------
-ALTER TABLE "menus" ADD PRIMARY KEY ("id");
+ALTER TABLE "public"."recursos" ADD PRIMARY KEY ("id");
 
 -- ----------------------------
--- Primary Key structure for table "recursos"
+-- Primary Key structure for table "public"."roles"
 -- ----------------------------
-ALTER TABLE "recursos" ADD PRIMARY KEY ("id");
+ALTER TABLE "public"."roles" ADD PRIMARY KEY ("id");
 
 -- ----------------------------
--- Primary Key structure for table "roles"
+-- Primary Key structure for table "public"."roles_recursos"
 -- ----------------------------
-ALTER TABLE "roles" ADD PRIMARY KEY ("id");
+ALTER TABLE "public"."roles_recursos" ADD PRIMARY KEY ("id");
 
 -- ----------------------------
--- Primary Key structure for table "roles_recursos"
+-- Primary Key structure for table "public"."roles_usuarios"
 -- ----------------------------
-ALTER TABLE "roles_recursos" ADD PRIMARY KEY ("id");
+ALTER TABLE "public"."roles_usuarios" ADD PRIMARY KEY ("id");
 
 -- ----------------------------
--- Primary Key structure for table "roles_usuarios"
+-- Primary Key structure for table "public"."usuarios"
 -- ----------------------------
-ALTER TABLE "roles_usuarios" ADD PRIMARY KEY ("id");
+ALTER TABLE "public"."usuarios" ADD PRIMARY KEY ("id");
 
 -- ----------------------------
--- Primary Key structure for table "usuarios"
+-- Foreign Key structure for table "public"."menus"
 -- ----------------------------
-ALTER TABLE "usuarios" ADD PRIMARY KEY ("id");
+ALTER TABLE "public"."menus" ADD FOREIGN KEY ("menus_id") REFERENCES "public"."menus" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- ----------------------------
--- Foreign Key structure for table "auditorias"
+-- Foreign Key structure for table "public"."roles_recursos"
 -- ----------------------------
-ALTER TABLE "auditorias" ADD FOREIGN KEY ("usuarios_id") REFERENCES "usuarios" ("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "public"."roles_recursos" ADD FOREIGN KEY ("roles_id") REFERENCES "public"."roles" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "public"."roles_recursos" ADD FOREIGN KEY ("recursos_id") REFERENCES "public"."recursos" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- ----------------------------
--- Foreign Key structure for table "menus"
+-- Foreign Key structure for table "public"."roles_usuarios"
 -- ----------------------------
-ALTER TABLE "menus" ADD FOREIGN KEY ("menus_id") REFERENCES "menus" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE "menus" ADD FOREIGN KEY ("recursos_id") REFERENCES "recursos" ("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- ----------------------------
--- Foreign Key structure for table "roles_recursos"
--- ----------------------------
-ALTER TABLE "roles_recursos" ADD FOREIGN KEY ("recursos_id") REFERENCES "recursos" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE "roles_recursos" ADD FOREIGN KEY ("roles_id") REFERENCES "roles" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- ----------------------------
--- Foreign Key structure for table "roles_usuarios"
--- ----------------------------
-ALTER TABLE "roles_usuarios" ADD FOREIGN KEY ("roles_id") REFERENCES "roles" ("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-ALTER TABLE "roles_usuarios" ADD FOREIGN KEY ("usuarios_id") REFERENCES "usuarios" ("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "public"."roles_usuarios" ADD FOREIGN KEY ("roles_id") REFERENCES "public"."roles" ("id") ON DELETE RESTRICT ON UPDATE CASCADE;

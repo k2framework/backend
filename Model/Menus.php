@@ -30,7 +30,7 @@ class Menus extends ActiveRecord implements MenuInterface
                 ->order("posicion ASC")
                 ->where("visible_en = :entorno")
                 ->where("menus_id is NULL")
-                ->where("activo = TRUE")
+                ->where("activo = 1")
                 ->bindValue('entorno', $entorno);
         return self::findAll();
     }
@@ -40,7 +40,7 @@ class Menus extends ActiveRecord implements MenuInterface
         self::createQuery()
                 ->order("posicion ASC")
                 ->where("menus_id = :id")
-                ->where("activo = TRUE")
+                ->where("activo = 1")
                 ->bindValue('id', $this->id);
         return self::findAll();
     }

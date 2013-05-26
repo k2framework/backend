@@ -113,7 +113,7 @@ class rolesController extends Controller
 
         $rol = Roles::findByID($id);
 
-        $rol->activo = false;
+        $rol->activo = 0;
 
         if ($rol->save()) {
             App::get('flash')->success("El rol <b>{$rol->rol}</b> Esta ahora <b>Inactivo</b>...!!!");

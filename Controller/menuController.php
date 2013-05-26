@@ -101,7 +101,7 @@ class menuController extends Controller
     {
         $menu = Menus::findByID($id);
 
-        $menu->activo = false;
+        $menu->activo = 0;
 
         if ($menu->save()) {
             App::get('flash')->success("El menu <b>{$menu->nombre}</b> Esta ahora <b>Inactivo</b>...!!!");

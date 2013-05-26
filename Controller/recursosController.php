@@ -113,7 +113,7 @@ class recursosController extends Controller
 
         $recurso = Recursos::findByID($id);
 
-        $recurso->activo = false;
+        $recurso->activo = 0;
 
         if ($recurso->save()) {
             App::get('flash')->success("El recurso <b>{$recurso->recurso}</b> Esta ahora <b>Inactivo</b>...!!!");

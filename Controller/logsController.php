@@ -9,6 +9,11 @@ use K2\Backend\Controller\Controller;
 class logsController extends Controller
 {
 
+    protected function afterFilter()
+    {
+        
+    }
+
     public function filtro($filtro = null)
     {
         $this->usuarios = Usuarios::createQuery()
@@ -43,7 +48,7 @@ class logsController extends Controller
         if ($request->isAjax() && $request->isMethod('POST')) {
 
             $filtro = array_filter($request->post('filtro'));
-            
+
             Logs::createQuery()
                     ->columns('logs.*,usuarios.login')
                     ->join('usuarios', 'usuarios.id = usuarios_id')

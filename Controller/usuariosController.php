@@ -129,7 +129,7 @@ class usuariosController extends Controller
     {
         $usuario = Usuarios::findByID($id);
 
-        $usuario->activo = false;
+        $usuario->activo = 0;
 
         if ($usuario->save()) {
             App::get('flash')->success("La Cuenta del Usuario {$usuario->login} ({$usuario->nombres}) fué desactivada...!!!");
