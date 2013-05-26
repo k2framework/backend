@@ -49,7 +49,6 @@ class privilegiosController extends Controller
                     AND roles_id = :rol')
                 ->columns("roles_recursos.id,roles_recursos.roles_id,
                     r.descripcion,r.recurso,r.id as recursos_id")
-                ->group('r.id')
                 ->bindValue('rol', $this->rol->id);
 
         $this->recursos = RolesRecursos::paginate($pagina);
@@ -58,7 +57,7 @@ class privilegiosController extends Controller
             $seleccionados = $this->getRequest()->request('recursos', array());
 
             //acá debemos actualizar los privilegios del rol.
-            if (RolesRecursos::editar($this->rol, $this->recursos->items, $seleccionados)) {
+            if (RolesRecursos::editar($this->rol, $this->recursos->getItems(), $seleccionados)) {
                 App::get('flash')->success("Los privilegios del Rol 
                         <b>{$this->rol->getName()}</b> fueron actualizados...!!!");
                 //redireccionamos par que se vuelva a ejecutar la consulta.

@@ -69,9 +69,8 @@ class RolesRecursos extends ActiveRecord
     public static function deleteByIds(array $ids)
     {
         if (count($ids)) {
-            $query = self::createQuery();
-
-            static::createConditions($query, array('id' => $ids));
+            $query = self::createQuery()
+                    ->where(array('id' => $ids));
 
             self::deleteAll($query);
         }

@@ -11,7 +11,7 @@ Target Server Type    : PGSQL
 Target Server Version : 90204
 File Encoding         : 65001
 
-Date: 2013-05-26 00:45:00
+Date: 2013-05-26 01:29:22
 */
 
 
@@ -67,7 +67,7 @@ CREATE SEQUENCE "public"."roles_recursos_id_seq"
  INCREMENT 1
  MINVALUE 1
  MAXVALUE 9223372036854775807
- START 30
+ START 31
  CACHE 1;
 
 -- ----------------------------
@@ -110,34 +110,6 @@ WITH (OIDS=FALSE)
 -- ----------------------------
 -- Records of logs
 -- ----------------------------
-INSERT INTO "public"."logs" VALUES ('1', '3', 'UPDATE', 'UPDATE usuarios SET id = ''2'', login = ''usuario'', clave = ''K2932zu3yPbLQ'', nombres = ''usuario del sistema'', email = ''programador.manuel@gmail.com'', activo = '''' WHERE  (id = ''2'')', 'usuarios');
-INSERT INTO "public"."logs" VALUES ('2', '3', 'UPDATE', 'UPDATE usuarios SET id = ''2'', login = ''usuario'', clave = ''K2932zu3yPbLQ'', nombres = ''usuario del sistema'', email = ''programador.manuel@gmail.com'', activo = ''1'' WHERE  (id = ''2'')', 'usuarios');
-INSERT INTO "public"."logs" VALUES ('3', '3', 'UPDATE', 'UPDATE roles SET id = ''1'', rol = ''usuario comun'', plantilla = '''', activo = '''' WHERE  (id = ''1'')', 'roles');
-INSERT INTO "public"."logs" VALUES ('4', '3', 'UPDATE', 'UPDATE roles SET id = ''2'', rol = ''usuario administrador'', plantilla = '''', activo = '''' WHERE  (id = ''2'')', 'roles');
-INSERT INTO "public"."logs" VALUES ('5', '3', 'UPDATE', 'UPDATE roles SET id = ''2'', rol = ''usuario administrador'', plantilla = '''', activo = ''1'' WHERE  (id = ''2'')', 'roles');
-INSERT INTO "public"."logs" VALUES ('6', '3', 'UPDATE', 'UPDATE roles SET id = ''1'', rol = ''usuario comun'', plantilla = '''', activo = ''1'' WHERE  (id = ''1'')', 'roles');
-INSERT INTO "public"."logs" VALUES ('7', '3', 'UPDATE', 'UPDATE usuarios SET id = ''2'', login = ''usuario'', clave = ''K2932zu3yPbLQ'', nombres = ''usuario del sistema'', email = ''programador.manuel@gmail.com'', activo = '''' WHERE  (id = ''2'')', 'usuarios');
-INSERT INTO "public"."logs" VALUES ('8', '3', 'UPDATE', 'UPDATE usuarios SET id = ''2'', login = ''usuario'', clave = ''K2932zu3yPbLQ'', nombres = ''usuario del sistema'', email = ''programador.manuel@gmail.com'', activo = ''1'' WHERE  (id = ''2'')', 'usuarios');
-INSERT INTO "public"."logs" VALUES ('9', '3', 'UPDATE', 'UPDATE menus SET id = ''1'', menus_id = '''', nombre = ''Administración'', url = ''admin/usuarios'', posicion = ''100'', clases = '''', visible_en = ''1'', activo = '''' WHERE  (id = ''1'')', 'menus');
-INSERT INTO "public"."logs" VALUES ('10', '3', 'UPDATE', 'UPDATE menus SET id = ''1'', menus_id = '''', nombre = ''Administración'', url = ''admin/usuarios'', posicion = ''100'', clases = '''', visible_en = ''1'', activo = ''1'' WHERE  (id = ''1'')', 'menus');
-INSERT INTO "public"."logs" VALUES ('11', '3', 'UPDATE', 'UPDATE menus SET id = ''2'', menus_id = ''1'', nombre = ''Usuarios'', url = ''admin/usuarios'', posicion = ''100'', clases = '''', visible_en = ''1'', activo = '''' WHERE  (id = ''2'')', 'menus');
-INSERT INTO "public"."logs" VALUES ('12', '3', 'UPDATE', 'UPDATE menus SET id = ''2'', menus_id = ''1'', nombre = ''Usuarios'', url = ''admin/usuarios'', posicion = ''100'', clases = '''', visible_en = ''1'', activo = ''1'' WHERE  (id = ''2'')', 'menus');
-INSERT INTO "public"."logs" VALUES ('13', '3', 'UPDATE', 'UPDATE menus SET id = ''3'', menus_id = ''1'', nombre = ''Roles'', url = ''admin/roles'', posicion = ''100'', clases = '''', visible_en = ''1'', activo = '''' WHERE  (id = ''3'')', 'menus');
-INSERT INTO "public"."logs" VALUES ('14', '3', 'UPDATE', 'UPDATE menus SET id = ''3'', menus_id = ''1'', nombre = ''Roles'', url = ''admin/roles'', posicion = ''100'', clases = '''', visible_en = ''1'', activo = ''1'' WHERE  (id = ''3'')', 'menus');
-INSERT INTO "public"."logs" VALUES ('15', '3', 'UPDATE', 'UPDATE menus SET id = ''4'', menus_id = '''', nombre = ''Mi Perfil'', url = ''admin/usuarios/perfil'', posicion = ''90'', clases = '''', visible_en = ''1'', activo = '''' WHERE  (id = ''4'')', 'menus');
-INSERT INTO "public"."logs" VALUES ('16', '3', 'UPDATE', 'UPDATE menus SET id = ''4'', menus_id = '''', nombre = ''Mi Perfil'', url = ''admin/usuarios/perfil'', posicion = ''90'', clases = '''', visible_en = ''1'', activo = ''1'' WHERE  (id = ''4'')', 'menus');
-INSERT INTO "public"."logs" VALUES ('17', '3', 'UPDATE', 'UPDATE menus SET id = ''5'', menus_id = ''1'', nombre = ''Menús'', url = ''admin/menu'', posicion = ''100'', clases = '''', visible_en = ''2'', activo = '''' WHERE  (id = ''5'')', 'menus');
-INSERT INTO "public"."logs" VALUES ('18', '3', 'UPDATE', 'UPDATE menus SET id = ''5'', menus_id = ''1'', nombre = ''Menús'', url = ''admin/menu'', posicion = ''100'', clases = '''', visible_en = ''2'', activo = ''1'' WHERE  (id = ''5'')', 'menus');
-INSERT INTO "public"."logs" VALUES ('19', '3', 'UPDATE', 'UPDATE menus SET id = ''1'', menus_id = '''', nombre = ''Administración'', url = ''admin/usuarios'', posicion = ''100'', clases = '''', visible_en = ''1'', activo = '''' WHERE  (id = ''1'')', 'menus');
-INSERT INTO "public"."logs" VALUES ('20', '3', 'UPDATE', 'UPDATE menus SET id = ''1'', menus_id = '''', nombre = ''Administración'', url = ''admin/usuarios'', posicion = ''100'', clases = '''', visible_en = ''1'', activo = ''1'' WHERE  (id = ''1'')', 'menus');
-INSERT INTO "public"."logs" VALUES ('21', '3', 'UPDATE', 'UPDATE menus SET id = ''2'', menus_id = ''1'', nombre = ''Usuarios'', url = ''admin/usuarios'', posicion = ''100'', clases = '''', visible_en = ''1'', activo = '''' WHERE  (id = ''2'')', 'menus');
-INSERT INTO "public"."logs" VALUES ('22', '3', 'UPDATE', 'UPDATE menus SET id = ''2'', menus_id = ''1'', nombre = ''Usuarios'', url = ''admin/usuarios'', posicion = ''100'', clases = '''', visible_en = ''1'', activo = ''1'' WHERE  (id = ''2'')', 'menus');
-INSERT INTO "public"."logs" VALUES ('23', '3', 'UPDATE', 'UPDATE menus SET id = ''3'', menus_id = ''1'', nombre = ''Roles'', url = ''admin/roles'', posicion = ''100'', clases = '''', visible_en = ''1'', activo = '''' WHERE  (id = ''3'')', 'menus');
-INSERT INTO "public"."logs" VALUES ('24', '3', 'UPDATE', 'UPDATE menus SET id = ''3'', menus_id = ''1'', nombre = ''Roles'', url = ''admin/roles'', posicion = ''100'', clases = '''', visible_en = ''1'', activo = ''1'' WHERE  (id = ''3'')', 'menus');
-INSERT INTO "public"."logs" VALUES ('25', '3', 'UPDATE', 'UPDATE menus SET id = ''4'', menus_id = '''', nombre = ''Mi Perfil'', url = ''admin/usuarios/perfil'', posicion = ''90'', clases = '''', visible_en = ''1'', activo = '''' WHERE  (id = ''4'')', 'menus');
-INSERT INTO "public"."logs" VALUES ('26', '3', 'UPDATE', 'UPDATE menus SET id = ''4'', menus_id = '''', nombre = ''Mi Perfil'', url = ''admin/usuarios/perfil'', posicion = ''90'', clases = '''', visible_en = ''1'', activo = ''1'' WHERE  (id = ''4'')', 'menus');
-INSERT INTO "public"."logs" VALUES ('27', '3', 'UPDATE', 'UPDATE menus SET id = ''5'', menus_id = ''1'', nombre = ''Menús'', url = ''admin/menu'', posicion = ''100'', clases = '''', visible_en = ''2'', activo = '''' WHERE  (id = ''5'')', 'menus');
-INSERT INTO "public"."logs" VALUES ('28', '3', 'UPDATE', 'UPDATE menus SET id = ''5'', menus_id = ''1'', nombre = ''Menús'', url = ''admin/menu'', posicion = ''100'', clases = '''', visible_en = ''2'', activo = ''1'' WHERE  (id = ''5'')', 'menus');
 
 -- ----------------------------
 -- Table structure for "public"."menus"
@@ -289,6 +261,11 @@ INSERT INTO "public"."usuarios" VALUES ('3', 'admin', 'K2932zu3yPbLQ', 'usuario 
 -- ----------------------------
 
 -- ----------------------------
+-- Primary Key structure for table "public"."logs"
+-- ----------------------------
+ALTER TABLE "public"."logs" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
 -- Primary Key structure for table "public"."menus"
 -- ----------------------------
 ALTER TABLE "public"."menus" ADD PRIMARY KEY ("id");
@@ -319,6 +296,11 @@ ALTER TABLE "public"."roles_usuarios" ADD PRIMARY KEY ("id");
 ALTER TABLE "public"."usuarios" ADD PRIMARY KEY ("id");
 
 -- ----------------------------
+-- Foreign Key structure for table "public"."logs"
+-- ----------------------------
+ALTER TABLE "public"."logs" ADD FOREIGN KEY ("usuarios_id") REFERENCES "public"."usuarios" ("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- ----------------------------
 -- Foreign Key structure for table "public"."menus"
 -- ----------------------------
 ALTER TABLE "public"."menus" ADD FOREIGN KEY ("menus_id") REFERENCES "public"."menus" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -332,4 +314,5 @@ ALTER TABLE "public"."roles_recursos" ADD FOREIGN KEY ("recursos_id") REFERENCES
 -- ----------------------------
 -- Foreign Key structure for table "public"."roles_usuarios"
 -- ----------------------------
+ALTER TABLE "public"."roles_usuarios" ADD FOREIGN KEY ("usuarios_id") REFERENCES "public"."usuarios" ("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 ALTER TABLE "public"."roles_usuarios" ADD FOREIGN KEY ("roles_id") REFERENCES "public"."roles" ("id") ON DELETE RESTRICT ON UPDATE CASCADE;
