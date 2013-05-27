@@ -34,10 +34,10 @@ Luego de tener los archivos descargados correctamente se debe agregar el módulo
      * Iinstalación de módulos
      */
     App::modules(array(
-        '/' => include APP_PATH . '/modules/Index/config.php',
+        '/' => APP_PATH . '/modules/Index/config.php',
         ...
         composerPath('k2/breadcrumb', 'K2/Breadcrumb'),
-        '/admin' => include composerPath('k2/backend', 'K2/Backend'),
+        '/admin' => composerPath('k2/backend', 'K2/Backend'),
         ...
     ));
 
