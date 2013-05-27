@@ -6,10 +6,6 @@ use K2\Kernel\App;
 use K2\Kernel\Event\K2Events as E;
 use ActiveRecord\Event\Events as AREvents;
 
-App::modules(array(
-    include composerPath('k2/breadcrumb', 'K2/Breadcrumb'),
-));
-
 return array(
     'name' => 'K2Backend',
     'namespace' => __NAMESPACE__,
