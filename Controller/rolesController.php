@@ -49,7 +49,7 @@ class rolesController extends Controller
 
         $this->setView('@K2Backend/roles/crear');
 
-        $this->rol = Roles::findByID($id);
+        $this->rol = Roles::findById($id);
 
         if ($this->getRequest()->isMethod('post')) {
 
@@ -68,7 +68,7 @@ class rolesController extends Controller
     {
         if (is_numeric($id)) {
             //si es numero, queremos eliminar 1 solo.
-           $rol = Roles::findByID($id);
+           $rol = Roles::findById($id);
 
             if ($rol->delete()) {
                 App::get('flash')->success("El rol <b>{$rol->rol}</b> fué Eliminado...!!!");
@@ -96,7 +96,7 @@ class rolesController extends Controller
 
     public function activar_action($id)
     {
-        $rol = Roles::findByID($id);
+        $rol = Roles::findById($id);
 
         $rol->activo = true;
 
@@ -111,7 +111,7 @@ class rolesController extends Controller
     public function desactivar_action($id)
     {
 
-        $rol = Roles::findByID($id);
+        $rol = Roles::findById($id);
 
         $rol->activo = 0;
 
