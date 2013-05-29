@@ -19,13 +19,13 @@
             <div class="control-group">
                 {{ form_label('perfil.nombres','Nombre Completo* :',{class:'control-label'}) }}
                 <div class="controls">
-                    {{ form_input('perfil.nombres', attrs={required:true}) }}
+                    {{ form_text('perfil.nombres', {required:true}) }}
                 </div>
             </div>
             <div class="control-group">
                 {{ form_label('perfil.email','Correo Electronico* :',{class:'control-label'}) }}
                 <div class="controls">
-                    {{ form_input('perfil.email', 'email', attrs={required:true}) }}
+                    {{ form_email('perfil.email', {required:true}) }}
                 </div>
             </div>
             <div class="form-actions">
@@ -44,19 +44,19 @@
             <div class="control-group">
                 {{ form_label('clave.clave_actual','Contraseña Actual* :',{class:'control-label'}) }}
                 <div class="controls">
-                    {{ form_input('clave.clave_actual', 'password', attrs={required:true}) }}
+                    {{ form_password('clave.clave_actual', {required:true}) }}
                 </div>
             </div>
             <div class="control-group">
                 {{ form_label('clave.nueva_clave','Contraseña* :',{class:'control-label'}) }}
                 <div class="controls">
-                    {{ form_input('clave.nueva_clave', 'password', attrs={required:true}) }}
+                    {{ form_password('clave.nueva_clave', {required:true}) }}
                 </div>
             </div>
             <div class="control-group">
                 {{ form_label('clave.clave2','Volver a escribir Contraseña* :',{class:'control-label'}) }}
                 <div class="controls">
-                    {{ form_input('clave.clave2', 'password', attrs={required:true}) }}
+                    {{ form_password('clave.clave2', {required:true}) }}
                 </div>
             </div>
             <div class="form-actions">

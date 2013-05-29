@@ -16,7 +16,7 @@
     <div class="control-group">
         {{ form_label('menu.nombre','Texto a Mostrar* :',{class:'control-label'}) }}
         <div class="controls">
-            {{ form_input('menu.nombre', attrs={required:true}) }}
+            {{ form_text('menu.nombre', {required:true}) }}
         </div>
     </div>
     <div class="control-group">
@@ -24,20 +24,20 @@
         <div class="controls">
             <div class="input-prepend">
                 <span class="add-on">{{ constant('PUBLIC_PATH') }}</span>
-                {{ form_input('menu.url', attrs={required:true}) }}
+                {{ form_text('menu.url', {required:true}) }}
             </div>
         </div>
     </div>
     <div class="control-group">
         {{ form_label('menu.posicion','Relevancia del Elemento* :',{class:'control-label'}) }}
         <div class="controls">
-            {{ form_input('menu.posicion', 'number', {required:true}, 100) }}
+            {{ form_number('menu.posicion', {required:true}, 100) }}
         </div>
     </div>
     <div class="control-group">
         {{ form_label('menu.clases','Clases CSS para el Item :',{class:'control-label'}) }}
         <div class="controls">
-            {{ form_input('menu.clases') }}
+            {{ form_text('menu.clases') }}
         </div>
     </div>
     <div class="control-group">

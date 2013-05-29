@@ -31,13 +31,13 @@
                         <div class="control-group">
                             <label class="control-label" for="login_login">Usuario </label>
                             <div class="controls">
-                                {{ form_input('login.login') }}
+                                {{ form_text('login.login') }}
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label" for="login_clave">Contrase&ntilde;a </label>
                             <div class="controls">
-                                {{ form_input('login.clave', 'password', {'autocomplete':'off'}) }}
+                                {{ form_password('login.clave', {'autocomplete':'off'}) }}
                             </div>
                         </div>
                             <div class="controls">

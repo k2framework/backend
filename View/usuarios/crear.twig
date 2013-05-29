@@ -9,31 +9,31 @@
     <div class="control-group">
         {{ form_label('usuario.login','Nombre de Usuario (Login)* :',{class:'control-label'}) }}
         <div class="controls">
-            {{ form_input('usuario.login', attrs={required:true}) }}
+            {{ form_text('usuario.login', {required:true}) }}
         </div>
     </div>
     <div class="control-group">
         {{ form_label('usuario.clave','Contraseña* :',{class:'control-label'}) }}
         <div class="controls">
-            {{ form_input('usuario.clave', 'password', attrs={required:true}) }}
+            {{ form_password('usuario.clave', {required:true}) }}
         </div>
     </div>
     <div class="control-group">
         {{ form_label('usuario.clave2','Volver a escribir Contraseña* :',{class:'control-label'}) }}
         <div class="controls">
-            {{ form_input('usuario.clave2', 'password', attrs={required:true}) }}
+            {{ form_password('usuario.clave2', {required:true}) }}
         </div>
     </div>
     <div class="control-group">
         {{ form_label('usuario.nombres','Nombre Completo* :',{class:'control-label'}) }}
         <div class="controls">
-            {{ form_input('usuario.nombres', attrs={required:true}) }}
+            {{ form_text('usuario.nombres', {required:true}) }}
         </div>
     </div>
     <div class="control-group">
         {{ form_label('usuario.email','Correo Electronico* :',{class:'control-label'}) }}
         <div class="controls">
-            {{ form_input('usuario.email', 'email', attrs={required:true}) }}
+            {{ form_email('usuario.email', {required:true}) }}
         </div>
     </div>
     <div class="control-group">

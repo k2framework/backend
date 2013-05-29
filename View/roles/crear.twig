@@ -10,13 +10,13 @@
     <div class="control-group">
         {{ form_label('rol.rol','Nombre del Rol* :',{class:'control-label'}) }}
         <div class="controls">
-            {{ form_input('rol.rol', attrs={required:true}) }}
+            {{ form_text('rol.rol', {required:true}) }}
         </div>
     </div>
     <div class="control-group">
         {{ form_label('rol.plantilla','Plantilla a usar :',{class:'control-label'}) }}
         <div class="controls">
-            {{ form_input('rol.plantilla') }}
+            {{ form_text('rol.plantilla') }}
         </div>
     </div>
     <div class="control-group">
