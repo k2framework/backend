@@ -1,5 +1,5 @@
 <div class="well barra_crud">
-    <a href="{{ url(action=action|default('crear')) }}" class="btn btn-primary">{{ texto|default('Crear Registro') }}</a>
+    <a href="{{ url(action|default('crear')) }}" class="btn btn-primary">{{ texto|default('Crear Registro') }}</a>
     {% if opciones is not defined or opciones == true %}
         <div class="btn-group pull-right">
             <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"> Seleccionados <span class="caret"></span></a>
