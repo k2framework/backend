@@ -1,12 +1,12 @@
 {% if page is not null %}
 {% spaceless %}
-{% set url = rtrim(url|default(url(parameters={})), '/') ~ '/' %}
+{% set url = url|default(url(parameters={})) ~ '/' %}
 {% set show = show|default(6) %}
-{% set half = floor(show / 2) %}
+{% set half = show // 2 %}
 {% if page.currentPage <= half %}
 {% set start = 1 %}
 {% elseif (page.pages - page.currentPage) < half %}
-{% set start = abs(page.pages - show + 1) %}
+{% set start = (page.pages - show + 1)|abs %}
 {% else %}
 {% set start = page.currentPage - half %}
 {% endif %}
