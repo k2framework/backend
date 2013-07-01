@@ -2,7 +2,6 @@
 
 namespace K2\Backend;
 
-use K2\Kernel\App;
 use K2\Kernel\Event\K2Events as E;
 use ActiveRecord\Event\Events as AREvents;
 
@@ -11,33 +10,33 @@ return array(
     'namespace' => __NAMESPACE__,
     'path' => __DIR__,
     'services' => array(
-        'k2_backend_exception' => function($c) {
-            return new Service\Excepcion($c);
-        },
-        'k2_backend_filter_resonse' => function($c) {
-            return new Service\FilterResponse();
-        },
-        'k2_backend_log' => function($c) {
-            return new Model\Logs();
-        },
-    ),
-    'listeners' => array(
-        E::EXCEPTION => array(
-            array('k2_backend_exception', 'onException'),
+        'k2_backend_exception' => array(
+            'callback' => function($c) {
+                return new Service\Excepcion($c);
+            },
+            'tags' => array(
+                array('name' => 'event.listener', 'event' => E::EXCEPTION, 'method' => 'onException'),
+            ),
         ),
-        E::RESPONSE => array(
-            array('k2_backend_filter_resonse', 'onResponse')
+        'k2_backend_filter_resonse' => array(
+            'callback' => function($c) {
+                return new Service\FilterResponse();
+            },
+            'tags' => array(
+                array('name' => 'event.listener', 'event' => E::RESPONSE, 'method' => 'onResponse'),
+            ),
         ),
-        AREvents::CREATE => array(
-            array('k2_backend_log', 'addLog')
+        'k2_backend_log' => array(
+            'callback' => function($c) {
+                return new Model\Logs();
+            },
+            'tags' => array(
+                array('name' => 'event.listener', 'event' => AREvents::CREATE, 'method' => 'addLog'),
+                array('name' => 'event.listener', 'event' => AREvents::UPDATE, 'method' => 'addLog'),
+                array('name' => 'event.listener', 'event' => AREvents::DELETE, 'method' => 'addLog'),
+            ),
         ),
-        AREvents::UPDATE => array(
-            array('k2_backend_log', 'addLog')
-        ),
-        AREvents::DELETE => array(
-            array('k2_backend_log', 'addLog')
-        ),
-    ),
+    )
 );
 
 
